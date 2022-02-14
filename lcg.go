@@ -62,16 +62,16 @@ func NewLcg(mode LcgMode) *Lcg {
 	return &gen
 }
 
-func (l *Lcg) Seed(v uint64) {
-	l.seed = v
+func (l *Lcg) Seed(v int64) {
+	l.seed = uint64(v)
 }
 
-func (l *Lcg) NextUint64() uint64 {
+func (l *Lcg) Uint64() uint64 {
 	l.seed = l.multiplier*l.seed + l.increment
 	return l.seed % l.modulus
 }
 
-func (l *Lcg) NextFloat64() float64 {
-	rnd := l.NextUint64()
+func (l *Lcg) Float64() float64 {
+	rnd := l.Uint64()
 	return float64(rnd) / l.modulusFloat
 }

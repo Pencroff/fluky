@@ -4,10 +4,11 @@ import (
 	"fmt"
 	"github.com/Pencroff/go-toolkit/bitfield"
 	"github.com/fogleman/gg"
+	"math/rand"
 	"testing"
 )
 
-func Test_randomness_32bit(t *testing.T) {
+func Test_randomness_32bit_64bit(t *testing.T) {
 	tbl := []struct {
 		size    int
 		mode    LcgMode
@@ -50,7 +51,7 @@ func Test_randomness_32bit(t *testing.T) {
 		dc := gg.NewContext(size, size)
 		var i uint64
 		for i = 0; i <= n; i += 1 {
-			v := lcg.NextUint64()
+			v := lcg.Uint64()
 			switch el.extract {
 			case "32bit":
 				x1, y1, r, g, b := extract32(v)
@@ -74,7 +75,6 @@ func Test_randomness_32bit(t *testing.T) {
 	}
 
 }
-
 func Test_randomness_zx81(t *testing.T) {
 	size := 2 << 6
 	n := uint64(size * size * size)
@@ -82,19 +82,35 @@ func Test_randomness_zx81(t *testing.T) {
 	dc := gg.NewContext(size, size)
 	var i uint64
 	for i = 0; i <= n; i += 1 {
-		v := lcg.NextUint64()
+		v := lcg.Uint64()
 		x1, y1, c := extractZx81(v)
 		dc.SetRGB255(int(c), int(c), int(c))
 		dc.SetPixel(int(x1), int(y1))
 	}
 	outPath := string("out/" + Zx81 + "_out.png")
-	fmt.Println(outPath)
 	err := dc.SavePNG(outPath)
 	if err != nil {
 		fmt.Println(err)
 	}
 }
-
+func Test_randomness_built_in(t *testing.T) {
+	size := 1024
+	n := uint64(size*size) * 8
+	rand.Seed(11111)
+	dc := gg.NewContext(size, size)
+	var i uint64
+	for i = 0; i <= n; i += 1 {
+		v := rand.Uint64()
+		x1, y1, r, g, b := extract48(v)
+		dc.SetRGB255(int(r), int(g), int(b))
+		dc.SetPixel(int(x1), int(y1))
+	}
+	outPath := "out/built-in_out.png"
+	err := dc.SavePNG(outPath)
+	if err != nil {
+		fmt.Println(err)
+	}
+}
 func extract32(v uint64) (x1, y1, r, g, b uint64) {
 	x1 = bitfield.Extract(v, 0, 10)
 	y1 = bitfield.Extract(v, 10, 10)
@@ -111,7 +127,6 @@ func extract48(v uint64) (x1, y1, r, g, b uint64) {
 	b = bitfield.Extract(v, 36, 8)
 	return
 }
-
 func extractZx81(v uint64) (x1, y1, c uint64) {
 	x1 = bitfield.Extract(v, 0, 7)
 	y1 = bitfield.Extract(v, 7, 7)

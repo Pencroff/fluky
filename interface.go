@@ -1,7 +1,7 @@
 package fluky
 
 type RandomGenerator interface {
-	Seed(v uint64)
-	NextUint64() uint64
-	NextFloat64() float64
+	Seed(v int64)
+	Uint64() uint64
+	Float64() float64
 }
