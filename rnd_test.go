@@ -54,7 +54,7 @@ func TestMinMax(t *testing.T) {
 }
 
 func TestBuckets(t *testing.T) {
-	size := 1e8
+	size := 1e9
 	buckets := 500.0
 	perBucket := size / buckets
 	m := make(map[string]MinMax)
