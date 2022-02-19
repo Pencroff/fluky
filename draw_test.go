@@ -5,54 +5,85 @@ import (
 	"github.com/Pencroff/go-toolkit/bitfield"
 	"github.com/fogleman/gg"
 	"math/rand"
+	"os"
 	"testing"
 )
 
-func Test_randomness_32bit_64bit(t *testing.T) {
+func Test_randomness_draw_16bit_32bit_64bit(t *testing.T) {
 	tbl := []struct {
+		name    string
 		size    int
-		mode    LcgMode
+		rnd     RandomGenerator
 		extract string
 	}{
 		{
+			name:    ANSI_C,
 			size:    1024,
-			mode:    ANSI_C,
+			rnd:     NewLcg(ANSI_C),
 			extract: "32bit",
 		}, {
+			name:    Turbo_Pascal,
 			size:    1024,
-			mode:    Turbo_Pascal,
+			rnd:     NewLcg(Turbo_Pascal),
 			extract: "32bit",
 		}, {
+			name:    Apple_CarbonLib,
 			size:    1024,
-			mode:    Apple_CarbonLib,
+			rnd:     NewLcg(Apple_CarbonLib),
 			extract: "32bit",
 		}, {
+			name:    Cplus_11,
 			size:    1024,
-			mode:    Cplus_11,
+			rnd:     NewLcg(Cplus_11),
 			extract: "32bit",
 		}, {
+			name:    Posix_rand48,
 			size:    1024,
-			mode:    Posix_rand48,
+			rnd:     NewLcg(Posix_rand48),
 			extract: "48bit",
 		}, {
+			name:    MMIX,
 			size:    1024,
-			mode:    MMIX,
+			rnd:     NewLcg(MMIX),
 			extract: "64bit",
 		}, {
+			name:    musl,
 			size:    1024,
-			mode:    musl,
+			rnd:     NewLcg(musl),
+			extract: "64bit",
+		}, {
+			name:    string(Zx81),
+			size:    128,
+			rnd:     NewLcg(Zx81),
+			extract: "16bit",
+		}, {
+			name:    "small_prng",
+			size:    1024,
+			rnd:     NewSmallPrng(),
+			extract: "64bit",
+		}, {
+			name:    "built-in",
+			size:    1024,
+			rnd:     rand.New(rand.NewSource(11111)),
 			extract: "64bit",
 		},
 	}
 	for _, el := range tbl {
+		outPath := "out/" + el.name + "_out.png"
+		if _, err := os.Stat(outPath); err == nil {
+			continue
+		}
 		size := el.size
 		n := uint64(size*size) * 8
-		lcg := NewLcg(el.mode)
 		dc := gg.NewContext(size, size)
 		var i uint64
 		for i = 0; i <= n; i += 1 {
-			v := lcg.Uint64()
+			v := el.rnd.Uint64()
 			switch el.extract {
+			case "16bit":
+				x1, y1, c := extractZx81G(v)
+				dc.SetRGB255(int(c), int(c), int(c))
+				dc.SetPixel(int(x1), int(y1))
 			case "32bit":
 				x1, y1, c := extract32G(v)
 				dc.SetRGB255(int(c), int(c), int(c))
@@ -67,7 +98,7 @@ func Test_randomness_32bit_64bit(t *testing.T) {
 				dc.SetPixel(int(x1), int(y1))
 			}
 		}
-		outPath := string("out/" + el.mode + "_out.png")
+
 		err := dc.SavePNG(outPath)
 		if err != nil {
 			fmt.Println(err)
@@ -120,6 +151,12 @@ func Test_randomness_built_in(t *testing.T) {
 //	b = bitfield.Extract(v, 28, 4) * 64
 //	return
 //}
+//func extract16G(v uint64) (v1, v2 uint64) {
+//	v1 = bitfield.Extract(v, 5, 8)
+//	v2 = bitfield.Extract(v, 1, 4)
+//	return
+//}
+
 func extract32G(v uint64) (x1, y1, c uint64) {
 	x1 = bitfield.Extract(v, 21, 10)
 	y1 = bitfield.Extract(v, 11, 10)

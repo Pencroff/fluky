@@ -3,7 +3,7 @@ module github.com/Pencroff/fluky
 go 1.17
 
 require (
-	github.com/Pencroff/go-toolkit v0.0.1
+	github.com/Pencroff/go-toolkit v0.0.2
 	github.com/fogleman/gg v1.3.0
 	github.com/stretchr/testify v1.7.0
 )

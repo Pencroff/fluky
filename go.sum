@@ -1,5 +1,7 @@
 github.com/Pencroff/go-toolkit v0.0.1 h1:WSHvG7ap0u/x3HxAWC2JdTHidCtgOwp92diePoIWkXc=
 github.com/Pencroff/go-toolkit v0.0.1/go.mod h1:3qRzWltbxCEmdK7Z551R9XeXg4G5anFjcnVQkIK0Uds=
+github.com/Pencroff/go-toolkit v0.0.2 h1:En6Uuin28j8IpbkQfRuU/j9bJienCnJYA9lG508bzfc=
+github.com/Pencroff/go-toolkit v0.0.2/go.mod h1:3qRzWltbxCEmdK7Z551R9XeXg4G5anFjcnVQkIK0Uds=
 github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/fogleman/gg v1.3.0 h1:/7zJX8F6AaYQc57WQCyN9cAIz+4bCJGO9B+dyW29am8=
