@@ -33,3 +33,45 @@ func TestMonobitCount(t *testing.T) {
 		assert.Equal(t, el.cnt1, m.Ones)
 	}
 }
+
+func TestSizeToRange(t *testing.T) {
+	var tbl = []struct {
+		size   uint64
+		groups uint64
+		out    [][]uint64
+	}{
+		{
+			size:   100,
+			groups: 2,
+			out:    [][]uint64{{0, 49}, {50, 99}},
+		},
+		{
+			size:   100,
+			groups: 3,
+			out:    [][]uint64{{0, 32}, {33, 65}, {66, 99}},
+		},
+		{
+			size:   100,
+			groups: 4,
+			out:    [][]uint64{{0, 24}, {25, 49}, {50, 74}, {75, 99}},
+		},
+		{
+			size:   1e6,
+			groups: 2,
+			out:    [][]uint64{{0, 499_999}, {500_000, 999_999}},
+		},
+		{
+			size:   100,
+			groups: 12,
+			out: [][]uint64{
+				{0, 7}, {8, 15}, {16, 23}, {24, 31}, {32, 39},
+				{40, 47}, {48, 55}, {56, 63}, {64, 71}, {72, 79},
+				{80, 87}, {88, 99},
+			},
+		},
+	}
+	for _, el := range tbl {
+		v := SizeToRange(el.size, el.groups)
+		assert.Equal(t, el.out, v)
+	}
+}
