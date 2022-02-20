@@ -18,7 +18,7 @@ const (
 	Cplus_11                = "minstd_rand"
 	Posix_rand48            = "posix_rand48"
 	MMIX                    = "mmix"
-	musl                    = "musl"
+	Musl                    = "Musl"
 )
 
 func NewLcg(mode LcgMode) *Lcg {
@@ -53,7 +53,7 @@ func NewLcg(mode LcgMode) *Lcg {
 		gen.modulus = 1<<64 - 1
 		gen.multiplier = 6364136223846793005
 		gen.increment = 1442695040888963407
-	case musl:
+	case Musl:
 		gen.modulus = 1<<64 - 1
 		gen.multiplier = 6364136223846793005
 		gen.increment = 1

@@ -1,11 +1,10 @@
-package fluky
+package testing
 
 import (
 	"encoding/json"
 	"fmt"
 	"github.com/stretchr/testify/assert"
 	"math"
-	"math/rand"
 	"testing"
 )
 
@@ -14,29 +13,10 @@ type MinMax struct {
 	Max float64
 }
 
-var tbl = []struct {
-	name string
-	rnd  RandomGenerator
-}{
-	{
-		name: Posix_rand48,
-		rnd:  NewLcg(Posix_rand48),
-	}, {
-		name: MMIX,
-		rnd:  NewLcg(MMIX),
-	}, {
-		name: musl,
-		rnd:  NewLcg(musl),
-	}, {
-		name: "built-in",
-		rnd:  rand.New(rand.NewSource(11111)),
-	},
-}
-
 func TestMinMax(t *testing.T) {
-	size := int(1e7)
+	size := int(1e9)
 	m := make(map[string]MinMax)
-	for _, el := range tbl {
+	for _, el := range RngTbl {
 		measure := MinMax{1, 0}
 		for i := 0; i < size; i++ {
 			f := el.rnd.Float64()
@@ -54,12 +34,12 @@ func TestMinMax(t *testing.T) {
 }
 
 func TestBuckets(t *testing.T) {
-	size := 1e9
-	buckets := 500.0
+	size := 1e7
+	buckets := 100.0
 	perBucket := size / buckets
 	m := make(map[string]MinMax)
 
-	for _, el := range tbl {
+	for _, el := range RngTbl {
 		bucketMap := make(map[int]float64)
 		for i := 0; i < int(size); i++ {
 			f := el.rnd.Float64()
