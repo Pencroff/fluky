@@ -1,0 +1,7 @@
+version: '2.4'
+services:
+  dieharder:
+    build: .
+    volumes:
+      - ./rnd_data:/app
+    command: bash -c "dieharder -a -g 201 -s 1 -f /app/small_prng_data.bin"
