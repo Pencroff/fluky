@@ -3,5 +3,10 @@ services:
   dieharder:
     build: .
     volumes:
-      - ./rnd_data:/app
-    command: bash -c "dieharder -a -g 201 -s 1 -f /app/small_prng_data.bin"
+      - ../:/app
+#      - ./rnd_data:/app
+#    command: bash -c "dieharder -a -g 201 -s 1 -f /app/small_prng_data.bin"
+#    command: bash -c "dieharder -S 1 -B -o -t 100000000 | pv | dieharder -a -s 1 | | dieharder -a -s 1 -g 200"
+#    command: bash -c "go run /app/container/rnd_stream.go"
+    command: bash -c "go run ./container/rnd_stream.go | pv --bytes --numeric --timer --interval=5 | dieharder -a -g 200 -s 1 >> ./dieharder/small_prng_result_pipe.txt"
+

@@ -1,4 +1,4 @@
-package testing
+package fluky_testing
 
 type Monobit struct {
 	Ones  uint64

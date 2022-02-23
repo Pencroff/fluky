@@ -1,6 +1,8 @@
 package fluky
 
-import "github.com/Pencroff/go-toolkit/bits"
+import (
+	"github.com/Pencroff/go-toolkit/bits"
+)
 
 //typedef unsigned long long u8;
 //typedef struct ranctx { u8 a; u8 b; u8 c; u8 d; } ranctx;
