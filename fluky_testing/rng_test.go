@@ -14,7 +14,7 @@ type MinMax struct {
 }
 
 func TestMinMax(t *testing.T) {
-	size := int(1e9)
+	size := int(1 * Size1Gb / 8)
 	m := make(map[string]MinMax)
 	for _, el := range RngTbl {
 		measure := MinMax{1, 0}
@@ -23,8 +23,8 @@ func TestMinMax(t *testing.T) {
 			measure.Min = math.Min(measure.Min, f)
 			measure.Max = math.Max(measure.Max, f)
 		}
-		assert.InDelta(t, measure.Min, 0, 1e-06)
-		assert.InDelta(t, measure.Max, 1, 1e-06)
+		assert.InDelta(t, measure.Min, 0, 1e-06, el.name)
+		assert.InDelta(t, measure.Max, 1, 1e-06, el.name)
 		m[el.name] = measure
 	}
 	err := PrettyPrint(m)

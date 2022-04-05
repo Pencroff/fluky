@@ -2,9 +2,10 @@ package fluky_testing
 
 import (
 	"encoding/binary"
-	"github.com/Pencroff/fluky"
+	"github.com/Pencroff/fluky/rng"
 	"io"
 	"log"
+	"math"
 	"os"
 	"path"
 	"path/filepath"
@@ -12,7 +13,7 @@ import (
 )
 
 func TestDataExport(t *testing.T) {
-	size := int64(20 * Size1Gb)
+	size := int64(1 * Size1Kb)
 	folderPath, err := filepath.Abs("../container/rnd_data")
 	checkErr(err)
 	err = os.Chdir(folderPath)
@@ -34,7 +35,7 @@ func TestDataExport(t *testing.T) {
 	}
 }
 
-func WriteToFile(filePath string, size int64, rnd fluky.RandomGenerator) {
+func WriteToFile(filePath string, size int64, rnd rng.RandomGenerator) {
 	out, err := os.Create(filePath)
 	checkErr(err)
 	defer out.Close()
@@ -46,18 +47,19 @@ func WriteToFile(filePath string, size int64, rnd fluky.RandomGenerator) {
 }
 
 type RngReader struct {
-	rng       fluky.RandomGenerator
+	rng       rng.RandomGenerator
 	order     binary.ByteOrder
 	batchSize int64
 }
 
-func NewRngReader(rng fluky.RandomGenerator, order binary.ByteOrder, butchSize int64) *RngReader {
+func NewRngReader(rng rng.RandomGenerator, order binary.ByteOrder, butchSize int64) *RngReader {
 	return &RngReader{rng: rng, order: order, batchSize: butchSize}
 }
 
 func (r *RngReader) Read(p []byte) (n int, err error) {
 	b := make([]byte, 8)
-	itterNum := int(r.batchSize / 8)
+	s := math.Min(float64(cap(p)), float64(r.batchSize))
+	itterNum := int(s / 8)
 	for i := 0; i < itterNum; i++ {
 		v := r.rng.Uint64()
 		binary.LittleEndian.PutUint64(b, v)
@@ -67,7 +69,7 @@ func (r *RngReader) Read(p []byte) (n int, err error) {
 		}
 	}
 
-	return int(r.batchSize), nil
+	return int(s), nil
 }
 
 func checkErr(e error) {

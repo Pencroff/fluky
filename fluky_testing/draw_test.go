@@ -2,7 +2,7 @@ package fluky_testing
 
 import (
 	"fmt"
-	"github.com/Pencroff/fluky"
+	"github.com/Pencroff/fluky/rng"
 	"github.com/Pencroff/go-toolkit/bitfield"
 	"github.com/fogleman/gg"
 	"math/rand"
@@ -14,53 +14,58 @@ func Test_randomness_draw_16bit_32bit_64bit(t *testing.T) {
 	tbl := []struct {
 		name    string
 		size    int
-		rnd     fluky.RandomGenerator
+		rnd     rng.RandomGenerator
 		extract string
 	}{
 		{
-			name:    fluky.ANSI_C,
+			name:    rng.ANSI_C,
 			size:    1024,
-			rnd:     fluky.NewLcg(fluky.ANSI_C),
+			rnd:     rng.NewLcg(rng.ANSI_C),
 			extract: "32bit",
 		}, {
-			name:    fluky.Turbo_Pascal,
+			name:    rng.Turbo_Pascal,
 			size:    1024,
-			rnd:     fluky.NewLcg(fluky.Turbo_Pascal),
+			rnd:     rng.NewLcg(rng.Turbo_Pascal),
 			extract: "32bit",
 		}, {
-			name:    fluky.Apple_CarbonLib,
+			name:    rng.Apple_CarbonLib,
 			size:    1024,
-			rnd:     fluky.NewLcg(fluky.Apple_CarbonLib),
+			rnd:     rng.NewLcg(rng.Apple_CarbonLib),
 			extract: "32bit",
 		}, {
-			name:    fluky.Cplus_11,
+			name:    rng.Cplus_11,
 			size:    1024,
-			rnd:     fluky.NewLcg(fluky.Cplus_11),
+			rnd:     rng.NewLcg(rng.Cplus_11),
 			extract: "32bit",
 		}, {
-			name:    fluky.Posix_rand48,
+			name:    rng.Posix_rand48,
 			size:    1024,
-			rnd:     fluky.NewLcg(fluky.Posix_rand48),
+			rnd:     rng.NewLcg(rng.Posix_rand48),
 			extract: "48bit",
 		}, {
-			name:    fluky.MMIX,
+			name:    rng.MMIX,
 			size:    1024,
-			rnd:     fluky.NewLcg(fluky.MMIX),
+			rnd:     rng.NewLcg(rng.MMIX),
 			extract: "64bit",
 		}, {
-			name:    fluky.Musl,
+			name:    rng.Musl,
 			size:    1024,
-			rnd:     fluky.NewLcg(fluky.Musl),
+			rnd:     rng.NewLcg(rng.Musl),
 			extract: "64bit",
 		}, {
-			name:    string(fluky.Zx81),
+			name:    string(rng.Zx81),
 			size:    128,
-			rnd:     fluky.NewLcg(fluky.Zx81),
+			rnd:     rng.NewLcg(rng.Zx81),
 			extract: "16bit",
 		}, {
 			name:    "small_prng",
 			size:    1024,
-			rnd:     fluky.NewSmallPrng(),
+			rnd:     rng.NewSmallPrng(),
+			extract: "64bit",
+		}, {
+			name:    "squares",
+			size:    1024,
+			rnd:     rng.NewSquares(),
 			extract: "64bit",
 		}, {
 			name:    "built-in",

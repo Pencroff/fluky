@@ -1,4 +1,4 @@
-package fluky
+package rng
 
 import (
 	"github.com/Pencroff/go-toolkit/bits"
@@ -28,21 +28,21 @@ import (
 // https://burtleburtle.net/bob/rand/smallprng.html
 
 type SmallPrng struct {
-	a            uint64
-	b            uint64
-	c            uint64
-	d            uint64
-	modulusFloat float64
+	a        uint64
+	b        uint64
+	c        uint64
+	d        uint64
+	floatMul float64
 }
 
 func NewSmallPrng() *SmallPrng {
 	seed := uint64(11111)
 	return &SmallPrng{
-		a:            0xf1ea5eed,
-		b:            seed,
-		c:            seed,
-		d:            seed,
-		modulusFloat: float64(1<<64 - 1),
+		a:        0xf1ea5eed,
+		b:        seed,
+		c:        seed,
+		d:        seed,
+		floatMul: 1 / float64(1<<64-1),
 	}
 }
 
@@ -64,5 +64,5 @@ func (s *SmallPrng) Uint64() uint64 {
 
 func (s *SmallPrng) Float64() float64 {
 	rnd := s.Uint64()
-	return float64(rnd) / s.modulusFloat
+	return float64(rnd) * s.floatMul
 }

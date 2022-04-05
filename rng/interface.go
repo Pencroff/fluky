@@ -1,4 +1,4 @@
-package fluky
+package rng
 
 type RandomGenerator interface {
 	Seed(v int64)

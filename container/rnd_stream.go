@@ -2,15 +2,15 @@ package main
 
 import (
 	"encoding/binary"
-	"github.com/Pencroff/fluky"
 	"github.com/Pencroff/fluky/fluky_testing"
+	"github.com/Pencroff/fluky/rng"
 	"log"
 	"os"
 )
 
 func main() {
 	butchSize := int(8 * fluky_testing.Size1Kb)
-	r := fluky.NewLcg(fluky.Musl)
+	r := rng.NewSquares()
 	smB := make([]byte, 8)
 	b := make([]byte, butchSize)
 	itterNum := butchSize / 8

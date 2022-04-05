@@ -1,34 +1,39 @@
 package fluky_testing
 
 import (
-	"github.com/Pencroff/fluky"
+	"github.com/Pencroff/fluky/rng"
 )
 
 var RngTbl = []struct {
 	name       string
-	rnd        fluky.RandomGenerator
+	rnd        rng.RandomGenerator
 	size       int
 	exportData bool
 }{
 	{
-		name:       fluky.MMIX,
-		rnd:        fluky.NewLcg(fluky.MMIX),
+		name:       rng.MMIX,
+		rnd:        rng.NewLcg(rng.MMIX),
 		size:       64,
 		exportData: false,
 	}, {
-		name:       fluky.Musl,
-		rnd:        fluky.NewLcg(fluky.Musl),
+		name:       rng.Musl,
+		rnd:        rng.NewLcg(rng.Musl),
 		size:       64,
 		exportData: false,
 	}, {
 		name:       "built_in",
-		rnd:        fluky.NewBuiltIn(),
+		rnd:        rng.NewBuiltIn(),
 		size:       64,
 		exportData: false,
 	}, {
 		name:       "small_prng",
-		rnd:        fluky.NewSmallPrng(),
+		rnd:        rng.NewSmallPrng(),
 		size:       64,
-		exportData: true,
+		exportData: false,
+	}, {
+		name:       "squares",
+		rnd:        rng.NewSquares(),
+		size:       64,
+		exportData: false,
 	},
 }

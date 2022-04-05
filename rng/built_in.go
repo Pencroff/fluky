@@ -1,4 +1,4 @@
-package fluky
+package rng
 
 import "math/rand"
 

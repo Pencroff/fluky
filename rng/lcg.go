@@ -1,11 +1,11 @@
-package fluky
+package rng
 
 type Lcg struct {
-	modulus      uint64
-	modulusFloat float64
-	multiplier   uint64
-	increment    uint64
-	seed         uint64
+	modulus    uint64
+	floatMul   float64
+	multiplier uint64
+	increment  uint64
+	seed       uint64
 }
 
 type LcgMode string
@@ -58,7 +58,7 @@ func NewLcg(mode LcgMode) *Lcg {
 		gen.multiplier = 6364136223846793005
 		gen.increment = 1
 	}
-	gen.modulusFloat = float64(gen.modulus)
+	gen.floatMul = 1 / float64(gen.modulus)
 	return &gen
 }
 
@@ -73,5 +73,5 @@ func (l *Lcg) Uint64() uint64 {
 
 func (l *Lcg) Float64() float64 {
 	rnd := l.Uint64()
-	return float64(rnd) / l.modulusFloat
+	return float64(rnd) * l.floatMul
 }
