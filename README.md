@@ -10,15 +10,15 @@ All tests rng provides uint64 values (1.845e19)
 
 ## Dieharder summary
 
-| Name       | Test Data | Time  | PASS | WEAK | FAIL | Total |
-|------------|:---------:|:-----:|:----:|:----:|:----:|:------|
-| Built In   |  229GiB   | 35:44 | 112  |  2   |  0   | 114   |
-| Pcg64      |  229GiB   | 34:34 | 113  |  1   |  0   | 114   |
-| Small Prng |  229GiB   | 37:49 | 113  |  1   |  0   | 114   |
-| ---------- | --------- | ----- | ---- | ---- | ---- | ----- |
-| Squares    |  229GiB   | 36:02 | 103  |  5   |  6   | 114   |
-| MMIX       |  229GiB   | 36:19 |  71  |  6   |  37  | 114   |
-| Musl       |  229GiB   | 35:52 |  70  |  7   |  37  | 114   |
+| Name       | Test Data | Time  | PASS | WEAK | FAIL | Total | Draw test                       |
+|------------|:---------:|:-----:|:----:|:----:|:----:|:------|---------------------------------|
+| Built In   |  229GiB   | 35:44 | 112  |  2   |  0   | 114   | [img](./out/built-in_out.png)   |
+| Pcg64      |  229GiB   | 34:34 | 113  |  1   |  0   | 114   | [img](./out/pcg64_out.png)      |
+| Small Prng |  229GiB   | 37:49 | 113  |  1   |  0   | 114   | [img](./out/small_prng_out.png) | 
+| ---------- | --------- | ----- | ---- | ---- | ---- | ----- | ---------                       |
+| Squares    |  229GiB   | 36:02 | 103  |  5   |  6   | 114   | [img](./out/squares_out.png)    |
+| MMIX       |  229GiB   | 36:19 |  71  |  6   |  37  | 114   | [img](./out/mmix_out.png)       |
+| Musl       |  229GiB   | 35:52 |  70  |  7   |  37  | 114   | [img](./out/musl_out.png)       |
 
 Detailed results please check in the [`dieharder-result`](./dieharder-result) directory.
 
