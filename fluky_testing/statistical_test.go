@@ -15,6 +15,10 @@ func TestFrequencyMonobits(t *testing.T) {
 	maxName := ""
 	maxVal := 0.0
 	for _, el := range RngTbl {
+		if el.measure == false {
+			continue
+		}
+
 		total := CountMonobit(0, uint64(size), el.rnd)
 		statMonobit[el.name] = total
 		s := math.Abs(float64(total.Ones) - float64(total.Zeros))

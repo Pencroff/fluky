@@ -68,6 +68,11 @@ func Test_randomness_draw_16bit_32bit_64bit(t *testing.T) {
 			rnd:     rng.NewSquares(),
 			extract: "64bit",
 		}, {
+			name:    "pcg64",
+			size:    1024,
+			rnd:     rng.NewPcgRng(),
+			extract: "64bit",
+		}, {
 			name:    "built-in",
 			size:    1024,
 			rnd:     rand.New(rand.NewSource(11111)),

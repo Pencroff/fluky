@@ -10,7 +10,7 @@ import (
 
 func main() {
 	butchSize := int(8 * fluky_testing.Size1Kb)
-	r := rng.NewSquares()
+	r := rng.NewPcgRng()
 	smB := make([]byte, 8)
 	b := make([]byte, butchSize)
 	itterNum := butchSize / 8

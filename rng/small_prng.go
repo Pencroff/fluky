@@ -4,6 +4,8 @@ import (
 	"github.com/Pencroff/go-toolkit/bits"
 )
 
+// https://burtleburtle.net/bob/rand/smallprng.html
+//
 //typedef unsigned long long u8;
 //typedef struct ranctx { u8 a; u8 b; u8 c; u8 d; } ranctx;
 //
@@ -24,8 +26,6 @@ import (
 //        (void)ranval(x);
 //    }
 //}
-
-// https://burtleburtle.net/bob/rand/smallprng.html
 
 type SmallPrng struct {
 	a        uint64
