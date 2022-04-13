@@ -2,23 +2,19 @@
 
 Happening by or depending on chance in Golang
 
-All tests rng provides uint64 values (1.845e19)
-
-## Docker compose
-
-`docker-compose --file=./container/docker-compose.yml up -d dieharder`
+All rng provides uint64 values (1.845e19) and float64 values
 
 ## Dieharder summary
 
-| Name       | Test Data | Time  | PASS | WEAK | FAIL | Total | Draw test                       |
-|------------|:---------:|:-----:|:----:|:----:|:----:|:------|---------------------------------|
-| Built In   |  229GiB   | 35:44 | 112  |  2   |  0   | 114   | [img](./out/built-in_out.png)   |
-| Pcg64      |  229GiB   | 34:34 | 113  |  1   |  0   | 114   | [img](./out/pcg64_out.png)      |
-| Small Prng |  229GiB   | 37:49 | 113  |  1   |  0   | 114   | [img](./out/small_prng_out.png) | 
-| ---------- | --------- | ----- | ---- | ---- | ---- | ----- | ---------                       |
-| Squares    |  229GiB   | 36:02 | 103  |  5   |  6   | 114   | [img](./out/squares_out.png)    |
-| MMIX       |  229GiB   | 36:19 |  71  |  6   |  37  | 114   | [img](./out/mmix_out.png)       |
-| Musl       |  229GiB   | 35:52 |  70  |  7   |  37  | 114   | [img](./out/musl_out.png)       |
+| Name       | Test Data | Time  | PASS | WEAK | FAIL | Total | Draw test                       | References                                                                                                                                      |
+|------------|:---------:|:-----:|:----:|:----:|:----:|:------|---------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| Built In   |  229GiB   | 35:44 | 112  |  2   |  0   | 114   | [img](./out/built-in_out.png)   | [Ref](https://pkg.go.dev/math/rand)                                                                                                             |
+| Pcg64      |  229GiB   | 34:34 | 113  |  1   |  0   | 114   | [img](./out/pcg64_out.png)      | [Ref](https://www.pcg-random.org/)                                                                                                              |
+| Small Prng |  229GiB   | 37:49 | 113  |  1   |  0   | 114   | [img](./out/small_prng_out.png) | [Ref1](https://burtleburtle.net/bob/rand/smallprng.html), [Ref2](https://www.pcg-random.org/posts/bob-jenkins-small-prng-passes-practrand.html) | 
+| ---------- | --------- | ----- | ---- | ---- | ---- | ----- | ---------                       |                                                                                                                                                 |
+| Squares    |  229GiB   | 36:02 | 103  |  5   |  6   | 114   | [img](./out/squares_out.png)    | [Ref](https://arxiv.org/abs/2004.06278)                                                                                                         |
+| MMIX       |  229GiB   | 36:19 |  71  |  6   |  37  | 114   | [img](./out/mmix_out.png)       | [Ref](https://en.wikipedia.org/wiki/Linear_congruential_generator)                                                                              |
+| Musl       |  229GiB   | 35:52 |  70  |  7   |  37  | 114   | [img](./out/musl_out.png)       | [Ref](https://en.wikipedia.org/wiki/Linear_congruential_generator)                                                                              |
 
 Detailed results please check in the [`dieharder-result`](./dieharder-result) directory.
 
@@ -54,6 +50,10 @@ TestFrequencyMonobits stats (1342177280 numbers) ~ 10 Gb of random bytes each
 Max value: Musl (9.624453e-01)
 
 --- PASS: TestFrequencyMonobits (50.06s)
+
+## Execute dieharder tests
+
+Check the [**README.md**](./container/README.md).
 
 ## References
 

@@ -1,5 +1,5 @@
 
-Run in Ubuntu
+## Run in Ubuntu
 
 #### Install dieharder
 ```bash
@@ -12,3 +12,7 @@ sudo apt-get install -y dieharder
 ```bash
 go run ./container/rnd_stream.go | pv --bytes --timer | dieharder -a -g 200 -s 1
 ```
+
+## Docker compose
+
+`docker-compose --file=./container/docker-compose.yml up -d dieharder`
