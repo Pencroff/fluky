@@ -1,5 +1,8 @@
 # fluky
 
+![fluky](./assets/fluky-logo.min.png)
+
+
 Happening by or depending on chance in Golang
 
 All rng provides uint64 values (1.845e19) and float64 values
@@ -17,6 +20,8 @@ All rng provides uint64 values (1.845e19) and float64 values
 | Musl       |  229GiB   | 35:52 |  70  |  7   |  37  | 114   | [img](./out/musl_out.png)       | [Ref](https://en.wikipedia.org/wiki/Linear_congruential_generator)                                                                              |
 
 Detailed results please check in the [`dieharder-result`](./dieharder-result) directory.
+
+Few more RNG and test results can be found in [rngset repo](https://github.com/TyeolRik/rngset).
 
 ## Benchmark
 
