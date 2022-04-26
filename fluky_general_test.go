@@ -54,11 +54,10 @@ func TestFlukyGeneral_Weighted(t *testing.T) {
 
 func TestFluky_PickOne(t *testing.T) {
 	lst := []struct {
-		Rnd     uint64
-		Values  []interface{}
-		Weights []uint
-		Idx     int
-		Result  string
+		Rnd    uint64
+		Values []interface{}
+		Idx    int
+		Result string
 	}{
 		{Rnd: 0, Values: InterfaceSlice([]string{"a", "b", "c"}), Idx: 0, Result: "a"},
 		{Rnd: 1, Values: InterfaceSlice([]string{"a", "b", "c"}), Idx: 1, Result: "b"},
@@ -78,11 +77,24 @@ func TestFluky_PickOne(t *testing.T) {
 }
 
 func TestFluky_PickOne_Empty(t *testing.T) {
-	mRng := new(RngMock)
-	mRng.On("Uint64").Maybe()
-	f := NewFluky(mRng)
-	idx, result := f.PickOne([]interface{}(nil))
-	assert.Equal(t, -1, idx)
-	assert.Equal(t, nil, result, "PickOne empty test: %s!=%s", nil, result)
-	mRng.AssertExpectations(t)
+	lst := []struct {
+		Values []interface{}
+		Result interface{}
+	}{
+		{Values: InterfaceSlice([]string{}), Result: interface{}(nil)},
+		{Values: []interface{}(nil), Result: interface{}(nil)},
+		{Values: InterfaceSlice([]string{}), Result: nil},
+		{Values: []interface{}(nil), Result: nil},
+	}
+
+	for idx, el := range lst {
+		mRng := new(RngMock)
+		mRng.On("Uint64").Maybe()
+		f := NewFluky(mRng)
+		rndIdx, result := f.PickOne(el.Values)
+		assert.Equal(t, -1, rndIdx)
+		assert.Equal(t, el.Result, result, "[%d] PickOne empty test: %s!=%s", idx, el.Result, result)
+		mRng.AssertExpectations(t)
+	}
+
 }
