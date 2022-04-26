@@ -1,8 +1,9 @@
-# github.com/Pencroff/go-toolkit v0.0.5
+# github.com/Pencroff/go-toolkit v0.0.6
 ## explicit; go 1.15
 github.com/Pencroff/go-toolkit/bitfield
 github.com/Pencroff/go-toolkit/bits
 github.com/Pencroff/go-toolkit/extended_type
+github.com/Pencroff/go-toolkit/general
 github.com/Pencroff/go-toolkit/math
 # github.com/davecgh/go-spew v1.1.1
 ## explicit
