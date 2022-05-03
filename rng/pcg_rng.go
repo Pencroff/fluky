@@ -37,9 +37,19 @@ func (r *PcgRng) Uint64() uint64 {
 	return r.stateToValue()
 }
 
+func (r *PcgRng) Int63() int64 {
+	return int64(r.Uint64() >> 1)
+}
+
 func (r *PcgRng) Float64() float64 {
-	rnd := r.Uint64()
-	return float64(rnd) * r.floatMul
+	rnd := r.Int63()
+	var res float64
+	if rnd < 0x7ffffffffffffbff {
+		res = float64(rnd) / (1 << 63)
+	} else {
+		res = float64(rnd-1024) / (1 << 63)
+	}
+	return res
 }
 
 func (r *PcgRng) step() {

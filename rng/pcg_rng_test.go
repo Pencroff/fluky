@@ -13,6 +13,33 @@ type PcgRngData struct {
 	inc   []byte
 }
 
+type PcgRngMock struct {
+	v uint64
+}
+
+func (r *PcgRngMock) Seed(v int64) {
+	r.v = uint64(v)
+}
+
+func (r *PcgRngMock) Uint64() uint64 {
+	return r.v
+}
+
+func (r *PcgRngMock) Int63() int64 {
+	return int64(r.Uint64() >> 1)
+}
+
+func (r *PcgRngMock) Float64() float64 {
+	rnd := r.Int63()
+	var res float64
+	if rnd < 0x7ffffffffffffbff {
+		res = float64(rnd) / (1 << 63)
+	} else {
+		res = float64(rnd-1024) / (1 << 63)
+	}
+	return res
+}
+
 func TestPcgRng(t *testing.T) {
 	rng := NewPcgRng()
 	rng.Seed(0x2a)
@@ -55,6 +82,23 @@ func TestPcgCRng(t *testing.T) {
 		rnd := rng.Uint64()
 		assert.Equal(t, v, rnd, "%x != %x", rnd, v)
 	}
+}
+
+func TestInt63Logic(t *testing.T) {
+	rng := PcgRngMock{32}
+	assert.Equal(t, int64(16), rng.Int63())
+	rng = PcgRngMock{1<<64 - 1}
+	assert.Equal(t, int64(1<<63-1), rng.Int63())
+}
+
+func TestFloat64NotReachOneLogic(t *testing.T) {
+	rng := PcgRngMock{1<<64 - 1}
+	assert.Equal(t, rng.Uint64(), uint64(0xFFFFFFFFFFFFFFFF))
+	assert.Equal(t, rng.Int63(), int64(0x7FFFFFFFFFFFFFFF))
+	v := rng.Float64()
+	assert.NotEqual(t, 1, v)
+	assert.Less(t, v, float64(1))
+	assert.InDelta(t, v, float64(1), 1e-15)
 }
 
 func ExtractPcgCRng(r *PcgCRng, debug bool) *PcgRngData {

@@ -52,7 +52,17 @@ func (s *Squares) Uint64() uint64 {
 	return s.seed
 }
 
+func (s *Squares) Int63() int64 {
+	return int64(s.Uint64() >> 1)
+}
+
 func (s *Squares) Float64() float64 {
-	rnd := s.Uint64()
-	return float64(rnd) * s.floatMul
+	rnd := s.Int63()
+	var res float64
+	if rnd < 0x7ffffffffffffbff {
+		res = float64(rnd) / (1 << 63)
+	} else {
+		res = float64(rnd-1024) / (1 << 63)
+	}
+	return res
 }
