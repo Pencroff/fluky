@@ -3,19 +3,8 @@ package fluky
 import (
 	. "github.com/Pencroff/go-toolkit/general"
 	"github.com/stretchr/testify/assert"
-	"math"
 	"testing"
 )
-
-func TestFlukyGeneral_Seed(t *testing.T) {
-	mRng := new(RngMock)
-	mRng.On("Seed", int64(10))
-	mRng.On("Seed", int64(math.MaxInt64-1))
-	f := NewFluky(mRng)
-	f.Seed(10)
-	f.Seed(math.MaxInt64 - 1)
-	mRng.AssertExpectations(t)
-}
 
 func TestFlukyGeneral_Weighted(t *testing.T) {
 	lst := []struct {

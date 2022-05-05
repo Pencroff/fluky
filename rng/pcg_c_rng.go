@@ -101,12 +101,11 @@ func (r *PcgCRng) Int63() int64 {
 }
 
 func (r *PcgCRng) Float64() float64 {
-	rnd := r.Int63()
+	rnd := r.Uint64() >> (uint64Bits - precisionBits)
 	var res float64
-	if rnd < 0x7ffffffffffffbff {
-		res = float64(rnd) / (1 << 63)
-	} else {
-		res = float64(rnd-1024) / (1 << 63)
+	if rnd == maxDoublePrecision {
+		rnd -= 1
 	}
+	res = float64(rnd) / maxDoublePrecision
 	return res
 }

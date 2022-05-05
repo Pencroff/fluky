@@ -30,13 +30,20 @@ func (r *PcgRngMock) Int63() int64 {
 }
 
 func (r *PcgRngMock) Float64() float64 {
-	rnd := r.Int63()
+	//rnd := r.Int63()
+	//var res float64
+	//if rnd < 0x7ffffffffffffbff {
+	//	res = float64(rnd) / (1 << 63)
+	//} else {
+	//	res = float64(rnd-1024) / (1 << 63)
+	//}
+	//return res
+	rnd := r.Uint64() >> (uint64Bits - precisionBits)
 	var res float64
-	if rnd < 0x7ffffffffffffbff {
-		res = float64(rnd) / (1 << 63)
-	} else {
-		res = float64(rnd-1024) / (1 << 63)
+	if rnd == maxDoublePrecision {
+		rnd -= 1
 	}
+	res = float64(rnd) / maxDoublePrecision
 	return res
 }
 
@@ -99,6 +106,13 @@ func TestFloat64NotReachOneLogic(t *testing.T) {
 	assert.NotEqual(t, 1, v)
 	assert.Less(t, v, float64(1))
 	assert.InDelta(t, v, float64(1), 1e-15)
+}
+
+func TestFloat64IncludeZeroLogic(t *testing.T) {
+	rng := PcgRngMock{0}
+	assert.Equal(t, rng.Uint64(), uint64(0))
+	assert.Equal(t, rng.Int63(), int64(0))
+	assert.Equal(t, rng.Float64(), float64(0))
 }
 
 func ExtractPcgCRng(r *PcgCRng, debug bool) *PcgRngData {
