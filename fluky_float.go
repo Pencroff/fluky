@@ -1,13 +1,15 @@
 package fluky
 
-const maxPrecision = 53
+import "math"
+
+const maxPrecision = 20 + 1
 
 type FloatOptionsFn func(f *FloatOptions)
 
 type FloatOptions struct {
 	min       float64
 	max       float64
-	precision uint8
+	precision int8
 }
 
 // WithFloatRange configure min and max values for float random
@@ -21,17 +23,26 @@ func WithFloatRange(min, max float64) FloatOptionsFn {
 // WithPrecision configure max precision for float random
 func WithPrecision(precision uint8) FloatOptionsFn {
 	return func(f *FloatOptions) {
-		f.precision = precision % maxPrecision
+		f.precision = int8(precision<<1>>1) % maxPrecision
 	}
 }
 
-// Float random float value from range [min, max]
+// Float random float value from range [min, max)
 // by default min = 0, max = 1
-func (f Fluky) Float(opts ...FloatOptionsFn) float64 {
-	//var i FloatOptions
-	//for _, o := range opts {
-	//	o(&i)
-	//}
-	//return f.rng.Float64(i.max-i.min) + i.min
-	return f.rng.Float64()
+// max precision = 20
+func (f *Fluky) Float(opts ...FloatOptionsFn) float64 {
+	o := &FloatOptions{min: 0, max: 1, precision: -1}
+	for _, optFn := range opts {
+		optFn(o)
+	}
+
+	r := f.rng.Float64()
+	r = r*(o.max-o.min) + o.min
+
+	if o.precision > -1 {
+		p := math.Pow10(int(o.precision))
+		r = math.Round(r*p) / p
+	}
+
+	return r
 }

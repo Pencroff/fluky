@@ -1,5 +1,9 @@
 package fluky
 
+import (
+	"strings"
+)
+
 const (
 	lower       = "abcdefghijklmnopqrstuvwxyz"
 	upper       = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -136,6 +140,16 @@ func (f *Fluky) String(opts ...StringOptionsFn) string {
 	for _, opt := range opts {
 		opt(b)
 	}
-
-	return ""
+	l := f.Integer(WithIntRange(int(b.minLen), int(b.maxLen)))
+	alphabetRunes := []rune(b.alphabet)
+	maxIdx := int64(len(alphabetRunes) - 1)
+	builder := strings.Builder{}
+	for i := 0; i < l; i++ {
+		idx := maxIdx
+		if maxIdx != 0 {
+			idx = f.Int63() % maxIdx
+		}
+		builder.WriteRune(alphabetRunes[idx])
+	}
+	return builder.String()
 }

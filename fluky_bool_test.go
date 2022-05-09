@@ -36,3 +36,17 @@ func TestFluky_Bool_WithOptions(t *testing.T) {
 
 	mRng.AssertExpectations(t)
 }
+
+func TestFluky_Bool_IncorrectInput(t *testing.T) {
+	mRng := new(RngMock)
+	mRng.On("Float64").Return(0.5)
+
+	f := NewFluky(mRng)
+	assert.Equal(t, false, f.Bool(WithLikelihood(-10)))
+	assert.Equal(t, false, f.Bool(WithLikelihood(-1)))
+	assert.Equal(t, false, f.Bool(WithLikelihood(0)))
+	assert.Equal(t, true, f.Bool(WithLikelihood(1)))
+	assert.Equal(t, true, f.Bool(WithLikelihood(10)))
+
+	mRng.AssertExpectations(t)
+}

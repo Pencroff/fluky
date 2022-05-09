@@ -17,8 +17,8 @@ func WithLikelihood(v float64) BoolOptionsFn {
 // Options changing likelihood of returned value
 func (f *Fluky) Bool(opts ...BoolOptionsFn) bool {
 	b := &BoolOptions{likelihood: 0.5}
-	for _, opt := range opts {
-		opt(b)
+	for _, optFn := range opts {
+		optFn(b)
 	}
 	return f.rng.Float64() < b.likelihood
 }
