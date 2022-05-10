@@ -24,9 +24,8 @@ type Squares struct {
 
 func NewSquares() *Squares {
 	return &Squares{
-		key:      0x548c9decbce65297,
-		seed:     11111,
-		floatMul: 1 / float64(1<<64-1),
+		key:  0x548c9decbce65297,
+		seed: 11111,
 	}
 }
 

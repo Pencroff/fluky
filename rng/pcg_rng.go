@@ -8,7 +8,6 @@ import (
 type PcgRng struct {
 	state             et.Uint128
 	inc               et.Uint128
-	floatMul          float64
 	defaultMultiplier et.Uint128
 }
 
@@ -17,7 +16,6 @@ func NewPcgRng() *PcgRng {
 		state:             et.Uint128{0, 0},
 		inc:               et.Uint128{0, 0},
 		defaultMultiplier: et.New(0x4385df649fccf645, 0x2360ed051fc65da4),
-		floatMul:          1 / float64(1<<64-1),
 	}
 	v.Seed(11111)
 	return v
