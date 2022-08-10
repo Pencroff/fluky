@@ -67,3 +67,4 @@ Check the [**README.md**](./container/README.md).
 * [NIST Statistical Test Suite](https://csrc.nist.gov/Projects/Random-Bit-Generation/Documentation-and-Software)
 * [NIST Statistical Test Suite implementation (Python)](https://github.com/GINARTeam/NIST-statistical-test)
 * Similar projects - [ref1](https://github.com/skeeto/rng-go), [ref2](https://github.com/TyeolRik/rngset)
+* [Optional Parameters in Go](https://petomalina.medium.com/dealing-with-optional-parameters-in-go-9780f9bfbd1d)
