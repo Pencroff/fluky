@@ -1,21 +1,17 @@
 package fluky
 
-import (
-	"github.com/Pencroff/fluky/rng"
-)
-
 const (
 	maxInt64 = 1<<63 - 1
 	minInt64 = -1 << 63
 )
 
 // NewFluky create new Fluky instance and return pointer to it
-func NewFluky(r rng.RandomGenerator) *Fluky {
+func NewFluky(r RandomGenerator) *Fluky {
 	return &Fluky{r}
 }
 
 type Fluky struct {
-	rng rng.RandomGenerator
+	rng RandomGenerator
 }
 
 // Seed internal RNG, reset seed value
