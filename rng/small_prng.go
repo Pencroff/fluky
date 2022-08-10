@@ -49,6 +49,9 @@ func (s *SmallPrng) Seed(v int64) {
 	s.b = uint64(v)
 	s.c = uint64(v)
 	s.d = uint64(v)
+	for i := 0; i < 20; i++ {
+		s.Uint64()
+	}
 }
 
 func (s *SmallPrng) Uint64() uint64 {
