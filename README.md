@@ -60,6 +60,14 @@ Max value: Musl (9.624453e-01)
 
 Check the [**README.md**](./container/README.md).
 
+### How to increase version
+
+* commit all required changes
+* git tag \<version - v0.0.2>
+* git push origin --tags
+* done - check docs on [pkg.go.dev](https://pkg.go.dev/github.com/Pencroff/fluky)
+* install by `go get -u github.com/Pencroff/fluky`
+
 ## References
 
 * [List of random number generators](https://en.wikipedia.org/wiki/List_of_random_number_generators)
