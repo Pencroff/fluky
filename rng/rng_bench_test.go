@@ -25,6 +25,8 @@ func BenchmarkRndGen(b *testing.B) {
 	builtIn := NewBuiltIn()
 	smallPrng := NewSmallPrng()
 	smallPrngC := NewSmallPrngC()
+	xoshiro256pp := NewXoshiro256pp(11111)
+	xoshiro256ppC := NewXoshiro256ppC(11111)
 	//squares := NewSquares()
 
 	b.Run("BuiltIn", func(b *testing.B) {
@@ -34,21 +36,21 @@ func BenchmarkRndGen(b *testing.B) {
 		}
 		res = v
 	})
-	b.Run("PcgCRng - with CGO", func(b *testing.B) {
+	b.Run("PcgCRng CGO", func(b *testing.B) {
 		v := uint64(0)
 		for i := 0; i < b.N; i++ {
 			v = pcgc.Uint64()
 		}
 		res = v
 	})
-	b.Run("PcgRng - pure GO", func(b *testing.B) {
+	b.Run("PcgRng", func(b *testing.B) {
 		v := uint64(0)
 		for i := 0; i < b.N; i++ {
 			v = pcg.Uint64()
 		}
 		res = v
 	})
-	b.Run("Small Prng - with CGO", func(b *testing.B) {
+	b.Run("Small Prng CGO", func(b *testing.B) {
 		v := uint64(0)
 		for i := 0; i < b.N; i++ {
 			v = smallPrngC.Uint64()
@@ -67,4 +69,14 @@ func BenchmarkRndGen(b *testing.B) {
 	//		squares.Uint64()
 	//	}
 	//})
+	b.Run("xoshiro256++", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			xoshiro256pp.Uint64()
+		}
+	})
+	b.Run("xoshiro256++ CGO", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			xoshiro256ppC.Uint64()
+		}
+	})
 }

@@ -28,13 +28,13 @@ typedef struct xoshiro256_state {
 	u8 s3;
 } xoshiro256_state;
 
-void print_xoshiro256(char *pref, xoshiro256_state *x ) {
-	printf("%s:\n", pref);
-	printf("a: %016llx\tb: %016llx\t c: %016llx\t d: %016llx\n", x->s0, x->s1, x->s2, x->s3);
-}
-void print_xoshiro256_u8(char *pref, u8 v) {
-	printf("%s: %016llx\n", pref, v);
-}
+//void print_xoshiro256(char *pref, xoshiro256_state *x ) {
+//	printf("%s:\n", pref);
+//	printf("a: %016llx\tb: %016llx\t c: %016llx\t d: %016llx\n", x->s0, x->s1, x->s2, x->s3);
+//}
+//void print_xoshiro256_u8(char *pref, u8 v) {
+//	printf("%s: %016llx\n", pref, v);
+//}
 
 u8 xoshiro256_next(xoshiro256_state* rng) {
 	const u8 result = rotl(rng->s0 + rng->s3, 23) + rng->s0;
@@ -115,13 +115,15 @@ void xoshiro256_long_jump(xoshiro256_state* rng) {
 
 void xoshiro256_init(xoshiro256_state* rng, u8 seed ) {
 	u8 i;
-	print_xoshiro256_u8("seed", seed);
-	rng->s0 = 0xf1ea5eed, rng->s1 = rng->s2 = rng->s3 = seed;
-	for (i=0; i<31; ++i) {
+	//print_xoshiro256_u8("seed", seed);
+	rng->s0 = 0x25038409e9bcae15;
+	rng->s1 = seed;
+	rng->s2 = seed;
+	rng->s3 = seed;
+	for (i=0; i<29; ++i) {
 		(void)xoshiro256_next(rng);
 	}
-	print_xoshiro256("state", rng);
-	printf("====================\n\n\n");
+	//printf("====================\n\n\n");
 }
 */
 import "C"
@@ -142,10 +144,9 @@ func (x *Xoshiro256ppC) Uint64() uint64 {
 	return uint64(C.xoshiro256_next(x.st))
 }
 
-func NewXoshiro256ppC() *Xoshiro256ppC {
-	seed := uint64(11111)
+func NewXoshiro256ppC(seed int64) *Xoshiro256ppC {
 	st := &(C.xoshiro256_state{})
-	C.xoshiro256_init(st, C.u8(seed))
+	C.xoshiro256_init(st, C.u8(uint64(seed)))
 	r := &Xoshiro256ppC{
 		st,
 	}

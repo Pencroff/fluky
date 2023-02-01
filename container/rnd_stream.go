@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/Pencroff/fluky/rng"
 	"log"
 	"math/rand"
 	"os"
@@ -9,7 +10,7 @@ import (
 func main() {
 	butchSize := 8 * 1024
 	bff := make([]byte, butchSize)
-	src := rand.NewSource(11111)
+	src := rng.NewXoshiro256pp(11111)
 	rnd := rand.New(src)
 	for true {
 		rnd.Read(bff)

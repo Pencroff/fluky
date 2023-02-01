@@ -37,7 +37,7 @@ type SmallPrng struct {
 func NewSmallPrng() *SmallPrng {
 	seed := uint64(11111)
 	return &SmallPrng{
-		a: 0xf1ea5eed,
+		a: 0xf1ea5eed, // bin 11110001111010100101111011101101
 		b: seed,
 		c: seed,
 		d: seed,
