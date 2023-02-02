@@ -10,7 +10,7 @@ import (
 func main() {
 	butchSize := 8 * 1024
 	bff := make([]byte, butchSize)
-	src := rng.NewXoshiro256pp(11111)
+	src := rng.NewSplitMix64(11111)
 	rnd := rand.New(src)
 	for true {
 		rnd.Read(bff)
