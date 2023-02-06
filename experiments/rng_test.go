@@ -1,10 +1,11 @@
-package fluky_testing
+package experiments
 
 import (
 	"encoding/json"
 	"fmt"
 	"github.com/stretchr/testify/assert"
 	"math"
+	"math/rand"
 	"testing"
 )
 
@@ -18,8 +19,9 @@ func TestMinMax(t *testing.T) {
 	m := make(map[string]MinMax)
 	for _, el := range RngTbl {
 		measure := MinMax{1, 0}
+		r := rand.New(el.rnd)
 		for i := 0; i < size; i++ {
-			f := el.rnd.Float64()
+			f := r.Float64()
 			measure.Min = math.Min(measure.Min, f)
 			measure.Max = math.Max(measure.Max, f)
 		}
@@ -41,8 +43,9 @@ func TestBuckets(t *testing.T) {
 
 	for _, el := range RngTbl {
 		bucketMap := make(map[int]float64)
+		r := rand.New(el.rnd)
 		for i := 0; i < int(size); i++ {
-			f := el.rnd.Float64()
+			f := r.Float64()
 			key := int(math.Floor(f * buckets))
 			bucketMap[key] += 1
 		}

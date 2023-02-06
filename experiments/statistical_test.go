@@ -1,10 +1,11 @@
-package fluky_testing
+package experiments
 
 import (
 	"fmt"
-	"github.com/Pencroff/fluky/rng"
 	"github.com/stretchr/testify/assert"
 	"math"
+	"math/bits"
+	"math/rand"
 	"testing"
 )
 
@@ -37,7 +38,14 @@ func TestFrequencyMonobits(t *testing.T) {
 	PrintMonobitStats("TestFrequencyMonobits", size, stat, statMonobit, maxName, maxVal)
 }
 
-func CountMonobit(from, to uint64, rng rng.RandomGenerator) Monobit {
+func MonobitCount(v uint64) (r Monobit) {
+	cnt := uint64(bits.OnesCount64(v))
+	r.Ones = cnt
+	r.Zeros = 64 - cnt
+	return
+}
+
+func CountMonobit(from, to uint64, rng rand.Source64) Monobit {
 	total := Monobit{}
 	for i := from; i < to; i++ {
 		v := rng.Uint64()

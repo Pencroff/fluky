@@ -144,6 +144,14 @@ func (x *Xoshiro256ppC) Uint64() uint64 {
 	return uint64(C.xoshiro256_next(x.st))
 }
 
+func (x *Xoshiro256ppC) Jump() {
+	C.xoshiro256_jump(x.st)
+}
+
+func (x *Xoshiro256ppC) LongJump() {
+	C.xoshiro256_long_jump(x.st)
+}
+
 func NewXoshiro256ppC(seed int64) *Xoshiro256ppC {
 	st := &(C.xoshiro256_state{})
 	C.xoshiro256_init(st, C.u8(uint64(seed)))

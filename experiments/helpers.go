@@ -1,6 +1,4 @@
-package fluky_testing
-
-import "math/bits"
+package experiments
 
 func SizeToRange(size uint64, groups uint64) (r [][]uint64) {
 	oneGroupCnt := size / groups
@@ -15,12 +13,5 @@ func SizeToRange(size uint64, groups uint64) (r [][]uint64) {
 			firstIdx += oneGroupCnt
 		}
 	}
-	return
-}
-
-func MonobitCount(v uint64) (r Monobit) {
-	cnt := uint64(bits.OnesCount64(v))
-	r.Ones = cnt
-	r.Zeros = 64 - cnt
 	return
 }

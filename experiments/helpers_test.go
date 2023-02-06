@@ -1,4 +1,4 @@
-package fluky_testing
+package experiments
 
 import (
 	"github.com/stretchr/testify/assert"

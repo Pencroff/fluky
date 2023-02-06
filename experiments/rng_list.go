@@ -1,12 +1,13 @@
-package fluky_testing
+package experiments
 
 import (
-	"github.com/Pencroff/fluky/rng"
+	"github.com/Pencroff/fluky/experiments/rng"
+	"math/rand"
 )
 
 var RngTbl = []struct {
 	name       string
-	rnd        rng.RandomGenerator
+	rnd        rand.Source64
 	size       int
 	exportData bool
 	measure    bool
@@ -45,6 +46,16 @@ var RngTbl = []struct {
 		name:       "pcg64",
 		rnd:        rng.NewPcgRng(),
 		size:       64,
+		exportData: false,
+		measure:    false,
+	}, {
+		name:       "xoshiro256pp",
+		rnd:        rng.NewXoshiro256pp(11111),
+		exportData: false,
+		measure:    true,
+	}, {
+		name:       "SplitMix64",
+		rnd:        rng.NewSplitMix64(11111),
 		exportData: false,
 		measure:    true,
 	},
