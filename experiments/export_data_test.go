@@ -1,11 +1,11 @@
-package fluky_testing
+package experiments
 
 import (
 	"encoding/binary"
-	"github.com/Pencroff/fluky/rng"
 	"io"
 	"log"
 	"math"
+	"math/rand"
 	"os"
 	"path"
 	"path/filepath"
@@ -35,7 +35,7 @@ func TestDataExport(t *testing.T) {
 	}
 }
 
-func WriteToFile(filePath string, size int64, rnd rng.RandomGenerator) {
+func WriteToFile(filePath string, size int64, rnd rand.Source64) {
 	out, err := os.Create(filePath)
 	checkErr(err)
 	defer out.Close()
@@ -47,12 +47,12 @@ func WriteToFile(filePath string, size int64, rnd rng.RandomGenerator) {
 }
 
 type RngReader struct {
-	rng       rng.RandomGenerator
+	rng       rand.Source64
 	order     binary.ByteOrder
 	batchSize int64
 }
 
-func NewRngReader(rng rng.RandomGenerator, order binary.ByteOrder, butchSize int64) *RngReader {
+func NewRngReader(rng rand.Source64, order binary.ByteOrder, butchSize int64) *RngReader {
 	return &RngReader{rng: rng, order: order, batchSize: butchSize}
 }
 
