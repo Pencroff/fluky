@@ -2,7 +2,7 @@ package fluky_testing
 
 import (
 	"fmt"
-	"github.com/Pencroff/fluky/rng"
+	"github.com/Pencroff/fluky/source"
 	"github.com/Pencroff/go-toolkit/bitfield"
 	"github.com/fogleman/gg"
 	"math/rand"
@@ -11,71 +11,42 @@ import (
 )
 
 func Test_randomness_draw_16bit_32bit_64bit(t *testing.T) {
+	seed := int64(1234567)
 	tbl := []struct {
 		name    string
 		size    int
-		rnd     rng.RandomGenerator
+		src     rand.Source
 		extract string
 	}{
 		{
-			name:    rng.ANSI_C,
-			size:    1024,
-			rnd:     rng.NewLcg(rng.ANSI_C),
-			extract: "32bit",
-		}, {
-			name:    rng.Turbo_Pascal,
-			size:    1024,
-			rnd:     rng.NewLcg(rng.Turbo_Pascal),
-			extract: "32bit",
-		}, {
-			name:    rng.Apple_CarbonLib,
-			size:    1024,
-			rnd:     rng.NewLcg(rng.Apple_CarbonLib),
-			extract: "32bit",
-		}, {
-			name:    rng.Cplus_11,
-			size:    1024,
-			rnd:     rng.NewLcg(rng.Cplus_11),
-			extract: "32bit",
-		}, {
-			name:    rng.Posix_rand48,
-			size:    1024,
-			rnd:     rng.NewLcg(rng.Posix_rand48),
-			extract: "48bit",
-		}, {
-			name:    rng.MMIX,
-			size:    1024,
-			rnd:     rng.NewLcg(rng.MMIX),
+			name:    "built-in_source",
+			size:    768,
+			src:     rand.NewSource(seed),
 			extract: "64bit",
 		}, {
-			name:    rng.Musl,
-			size:    1024,
-			rnd:     rng.NewLcg(rng.Musl),
+			name:    "small-prng_source",
+			size:    768,
+			src:     source.NewSmallPrngSource(seed),
 			extract: "64bit",
 		}, {
-			name:    string(rng.Zx81),
-			size:    128,
-			rnd:     rng.NewLcg(rng.Zx81),
-			extract: "16bit",
-		}, {
-			name:    "small_prng",
-			size:    1024,
-			rnd:     rng.NewSmallPrng(),
+			name:    "pcg_source",
+			size:    768,
+			src:     source.NewPcgSource(seed),
 			extract: "64bit",
 		}, {
-			name:    "squares",
-			size:    1024,
-			rnd:     rng.NewSquares(),
+			name:    "xoshiro256pp_source",
+			size:    768,
+			src:     source.NewXoshiro256ppSource(seed),
 			extract: "64bit",
 		}, {
-			name:    "pcg64",
-			size:    1024,
-			rnd:     rng.NewPcgRng(),
+			name:    "xoshiro256ss_source",
+			size:    768,
+			src:     source.NewXoshiro256ssSource(seed),
 			extract: "64bit",
 		}, {
-			name:    "built-in",
-			size:    1024,
-			rnd:     rand.New(rand.NewSource(11111)),
+			name:    "splitmix64_source",
+			size:    768,
+			src:     source.NewSplitMix64Source(seed),
 			extract: "64bit",
 		},
 	}
@@ -88,8 +59,9 @@ func Test_randomness_draw_16bit_32bit_64bit(t *testing.T) {
 		n := uint64(size*size) * 8
 		dc := gg.NewContext(size, size)
 		var i uint64
+		r := el.src.(rand.Source64)
 		for i = 0; i <= n; i += 1 {
-			v := el.rnd.Uint64()
+			v := r.Uint64()
 			switch el.extract {
 			case "16bit":
 				x1, y1, c := extractZx81(v)
