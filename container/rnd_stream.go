@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/Pencroff/fluky/source"
 	"log"
 	"math/rand"
 	"os"
@@ -16,7 +15,7 @@ func main() {
 	butchSize := 8 * 1024
 	bff := make([]byte, butchSize)
 
-	src := source.NewXoshiro256ssSource(*numbPtr)
+	src := rand.NewSource(*numbPtr)
 
 	os.Stderr.WriteString(fmt.Sprintf("Seed: %d\n", *numbPtr))
 	os.Stderr.WriteString(fmt.Sprintf("Source: %s\n", reflect.TypeOf(src).String()))

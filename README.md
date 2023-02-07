@@ -13,35 +13,22 @@ All passed dieharder tests located in source folder
     SEED: 1234567
     Test data: 229GiB
 
-| Name         | Time  | PASS | WEAK | FAIL | Total | Draw test                              | References                                                                                                                                          |
-|--------------|:-----:|:----:|:----:|:----:|:------|----------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| Built In     | 35:44 | 112  |  2   |  0   | 114   | [img](out/built-in_source_out.png)     | [Ref](https://pkg.go.dev/math/rand)                                                                                                                 |
-| Pcg64        | 34:34 | 113  |  1   |  0   | 114   | [img](out/pcg_source_out.png)          | [Ref](https://www.pcg-random.org/)                                                                                                                  |
-| Small Prng   | 37:49 | 113  |  1   |  0   | 114   | [img](out/small-prng_source_out.png)   | [Ref1](https://burtleburtle.net/bob/rand/smallprng.html),<br/>[Ref2](https://www.pcg-random.org/posts/bob-jenkins-small-prng-passes-practrand.html) | 
-| Xoshiro256++ | 39:35 | 112  |  2   |  0   | 114   | [img](out/xoshiro256pp_source_out.png) | [Ref](https://prng.di.unimi.it/)                                                                                                                    |                                  
-| Xoshiro256** | 37:01 | 108  |  6   |  0   | 114   | [img](out/xoshiro256ss_source_out.png) | [Ref](https://prng.di.unimi.it/)                                                                                                                    |
-| SplitMix64   | 38:06 | 113  |  1   |  0   | 114   | [img](out/splitmix64_source_out.png)   | [Ref](https://prng.di.unimi.it/)                                                                                                                    |
+| Name         | Performance<br/>MIN / AVG / MAX<br/>ns/op<br/>_smaller is better_ | Time  | PASS | WEAK | FAIL | Total | Draw test                              | References                                                                                                                                          |
+|--------------|:-----------------------------------------------------------------:|:-----:|:----:|:----:|:----:|:------|----------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| Built In     |                       3.183 / 3.245 / 3.307                       | 35:33 | 112  |  2   |  0   | 114   | [img](out/built-in_source_out.png)     | [Ref](https://pkg.go.dev/math/rand)                                                                                                                 |
+| Pcg          |                       5.337 / 5.861 / 6.279                       | 36:12 | 112  |  2   |  0   | 114   | [img](out/pcg_source_out.png)          | [Ref](https://www.pcg-random.org/)                                                                                                                  |
+| Small Prng   |                     2.494 / **2.607** / 2.934                     | 37:49 | 114  |  0   |  0   | 114   | [img](out/small-prng_source_out.png)   | [Ref1](https://burtleburtle.net/bob/rand/smallprng.html),<br/>[Ref2](https://www.pcg-random.org/posts/bob-jenkins-small-prng-passes-practrand.html) | 
+| Xoshiro256++ |                       2.838 / 3.102 / 3.360                       | 39:35 | 112  |  2   |  0   | 114   | [img](out/xoshiro256pp_source_out.png) | [Ref](https://prng.di.unimi.it/)                                                                                                                    |                                  
+| Xoshiro256** |                       2.678 / 2.935 / 3.186                       | 37:01 | 108  |  6   |  0   | 114   | [img](out/xoshiro256ss_source_out.png) | [Ref](https://prng.di.unimi.it/)                                                                                                                    |
+| SplitMix64   |                       2.282 / 2.32 / 2.411                        | 38:06 | 113  |  1   |  0   | 114   | [img](out/splitmix64_source_out.png)   | [Ref](https://prng.di.unimi.it/)                                                                                                                    |
 
-Detailed results please check in the [`dieharder-result`](experiments/dieharder-result) directory.
+Detailed results please check in the [`dieharder-source`](dieharder-source) folder.
 
 Few more RNG and test results can be found in [rngset repo](https://github.com/TyeolRik/rngset).
 
 ## Benchmark
 
-    goos: windows
-    goarch: amd64
-    pkg: github.com/Pencroff/fluky/rng
-    cpu: Intel(R) Core(TM) i9-8950HK CPU @ 2.90GHz
-    BenchmarkRndGen 
-
-| Name             |    Ops    | Execution time |
-|------------------|:---------:|:--------------:|
-| BuiltIn          | 243794713 |  4.721 ns/op   |
-| PcgCRng with CGO | 18878521  |  63.00 ns/op   |
-| PcgRng pure GO   | 205031472 |  5.755 ns/op   |
-| Small Prng       | 518096238 |  2.327 ns/op   |
-| Squares          | 146871903 |  8.507 ns/op   |
-
+    go test -bench=. -timeout 30m .\fluky_testing
 
 ## Execute dieharder tests
 
