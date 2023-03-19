@@ -26,19 +26,25 @@ go get github.com/Pencroff/fluky -u
 
 ```
 
-## Usage
+## Usage example
 
 ```go
 package main
 
 import (
+	"fmt"
 	"github.com/Pencroff/fluky"
 	src "github.com/Pencroff/fluky/source"
 	"math/rand"
 )
 
 func main() {
-	flk := fluky.NewFluky(rand.NewRand(src.NewSplitMix64Source(0)))
+	s := src.NewPcgSource(0)
+	r := rand.New(s)
+	flk := fluky.NewFluky(r)
+
+	fmt.Println(flk.Uint64())
 }
 
 ```
+
