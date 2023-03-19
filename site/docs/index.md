@@ -1,17 +1,44 @@
 # Welcome to Fluky documentation
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+<img
+class="logo"
+src="images/fluky-v.svg"
+alt="Fluky">
+</img>
 
-## Commands
+Happening by or depending on chance in Golang.
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+## Overview
 
-## Project layout
+Fluky Library offers a wide range of methods to generate various types of random values.
+It relies on the standard `rand.Rand` located in `math/rand` and includes several random number generators such as
+[pcg](https://www.pcg-random.org/), [small prng](https://burtleburtle.net/bob/rand/smallprng.html),
+[splitmix64](https://prng.di.unimi.it/), [xoshiro256++](https://prng.di.unimi.it/), and [xoshiro256**](https://prng.di.unimi.it/). 
+These generators have been evaluated for their quality using the [`dieharder`](https://webhome.phy.duke.edu/~rgb/General/dieharder.php) test suite.
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+Please check dieharder results in [repo](https://github.com/Pencroff/fluky/tree/main/dieharder-source).
+
+## Install
+
+```bash
+
+go get github.com/Pencroff/fluky -u
+
+```
+
+## Usage
+
+```go
+package main
+
+import (
+	"github.com/Pencroff/fluky"
+	src "github.com/Pencroff/fluky/source"
+	"math/rand"
+)
+
+func main() {
+	flk := fluky.NewFluky(rand.NewRand(src.NewSplitMix64Source(0)))
+}
+
+```

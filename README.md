@@ -1,7 +1,6 @@
 # fluky
 
-![fluky](./assets/fluky-logo.min.png)
-
+![fluky](./assets/fluky-v.png)
 
 Happening by or depending on chance in Golang
 

@@ -1,7 +1,7 @@
 
 # Serve mkdocs
 serve:
-	mkdocs serve
+	mkdocs serve --watch ./site --config-file ./site/mkdocs.yml
 
 # Publish mkdocs
 publish:

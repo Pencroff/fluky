@@ -1,6 +1,8 @@
 site_name: Fluky Docs
 theme:
   name: material
+  logo: images/fluky-v.svg
+  favicon: images/fluky-v.svg
   palette:
     # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
@@ -24,3 +26,7 @@ theme:
     code: Roboto Mono
 extra_css:
   - stylesheets/extra.css
+repo_url: https://github.com/Pencroff/fluky
+repo_name: Pencroff/fluky
+icon:
+  repo: fontawesome/brands/git-alt
