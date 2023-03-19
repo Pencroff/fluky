@@ -28,7 +28,7 @@ Few more RNG and test results can be found in [rngset repo](https://github.com/T
 
 ## Benchmark
 
-    go test -bench=. -timeout 30m .\fluky_testing
+    go test -bench=. -timeout 30m ./fluky_testing
 
 ## Execute dieharder tests
 
