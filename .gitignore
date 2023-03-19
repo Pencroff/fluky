@@ -20,5 +20,5 @@
 zzz/
 container/rnd_data/
 
-site/
-build/
+site/site/
+site/build/

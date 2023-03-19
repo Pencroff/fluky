@@ -1,0 +1,26 @@
+site_name: Fluky Docs
+theme:
+  name: material
+  palette:
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: light green
+      accent: orange
+      toggle:
+        icon: material/lightbulb
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: light green
+      accent: orange
+      toggle:
+        icon: material/lightbulb-outline
+        name: Switch to system preference
+  font:
+    text: Lucida Sans
+    code: Roboto Mono
+extra_css:
+  - stylesheets/extra.css
