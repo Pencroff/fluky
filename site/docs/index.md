@@ -1,10 +1,9 @@
-# Welcome to Fluky documentation
+# Introduction
 
-<img
-class="logo"
-src="images/fluky-v.svg"
-alt="Fluky">
-</img>
+<figure markdown>
+![Fluky](images/fluky-color.min.png){ width=256px }
+</figure>
+
 
 Happening by or depending on chance in Golang.
 
