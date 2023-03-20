@@ -5,4 +5,4 @@ serve:
 
 # Publish mkdocs
 publish:
-	mkdocs gh-deploy --force
+	mkdocs gh-deploy --force --config-file ./site/mkdocs.yml  --clean

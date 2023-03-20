@@ -22,7 +22,7 @@ Please check dieharder results in [repo](https://github.com/Pencroff/fluky/tree/
 
 ```bash
 
-go get github.com/Pencroff/fluky -u
+go get -u github.com/Pencroff/fluky
 
 ```
 
