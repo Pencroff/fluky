@@ -15,7 +15,7 @@ func BenchmarkSource(b *testing.B) {
 		src  rand.Source
 	}{
 		{"BuiltIn Source", rand.NewSource(seed)},
-		{"Pcg Source", source.NewPcgSource(seed)},
+		{"Pcg Source", source.NewPcgXslRrSource(seed)},
 		{"SmallPrng Source", source.NewSmallPrngSource(seed)},
 		{"xoshiro256++ Source", source.NewXoshiro256ppSource(seed)},
 		{"xoshiro256** Source", source.NewXoshiro256ssSource(seed)},

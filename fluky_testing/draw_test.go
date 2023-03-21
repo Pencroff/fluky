@@ -29,9 +29,9 @@ func Test_randomness_draw_16bit_32bit_64bit(t *testing.T) {
 			src:     source.NewSmallPrngSource(seed),
 			extract: "64bit",
 		}, {
-			name:    "pcg_source",
+			name:    "pcg-xsl-rr_source",
 			size:    768,
-			src:     source.NewPcgSource(seed),
+			src:     source.NewPcgXslRrSource(seed),
 			extract: "64bit",
 		}, {
 			name:    "xoshiro256pp_source",
