@@ -19,10 +19,8 @@ Please check dieharder results in [repo](https://github.com/Pencroff/fluky/tree/
 
 ## Install
 
-```bash
-
+```shell
 go get -u github.com/Pencroff/fluky
-
 ```
 
 ## Usage example
@@ -44,6 +42,4 @@ func main() {
 
 	fmt.Println(flk.Uint64())
 }
-
 ```
-
