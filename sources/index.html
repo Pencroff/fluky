@@ -283,9 +283,64 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#splitmix64-ref" class="md-nav__link">
-    SplitMix64 (ref)
+  <a href="#splitmix64" class="md-nav__link">
+    SplitMix64
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xoroshiro256-xoroshiro256" class="md-nav__link">
+    Xoroshiro256++ / Xoroshiro256**
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pcg-xsl-rr" class="md-nav__link">
+    PCG-XSL-RR
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#small-prng" class="md-nav__link">
+    Small PRNG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    Summary
+  </a>
+  
+    <nav class="md-nav" aria-label="Summary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#statistical-quality-dieharder" class="md-nav__link">
+    Statistical quality (dieharder)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statistical-quality-draw-test" class="md-nav__link">
+    Statistical quality (draw test)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance" class="md-nav__link">
+    Performance
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -324,9 +379,64 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#splitmix64-ref" class="md-nav__link">
-    SplitMix64 (ref)
+  <a href="#splitmix64" class="md-nav__link">
+    SplitMix64
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xoroshiro256-xoroshiro256" class="md-nav__link">
+    Xoroshiro256++ / Xoroshiro256**
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pcg-xsl-rr" class="md-nav__link">
+    PCG-XSL-RR
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#small-prng" class="md-nav__link">
+    Small PRNG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    Summary
+  </a>
+  
+    <nav class="md-nav" aria-label="Summary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#statistical-quality-dieharder" class="md-nav__link">
+    Statistical quality (dieharder)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statistical-quality-draw-test" class="md-nav__link">
+    Statistical quality (draw test)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance" class="md-nav__link">
+    Performance
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -349,28 +459,314 @@
 
 
 <h1 id="external-sources">External Sources</h1>
-<p>All sources implement the <a href="https://pkg.go.dev/math/rand#Source"><code>Source</code></a> and
-<a href="https://pkg.go.dev/math/rand#Source64"><code>Source64</code></a> interface from <code>math/rand</code> package.</p>
-<h2 id="splitmix64-ref">SplitMix64 (<a href="https://prng.di.unimi.it/splitmix64.c">ref</a>)</h2>
-<p>The SplitMix64 generator is a simple, fast generator for 64-bit numbers. It is a very fast generator passing
-BigCrush without systematic failures, but due to the relatively short period it is acceptable only for
-applications with a mild amount of parallelism; otherwise, use a xorshift or pcg generator.</p>
+<p>Fluky library provides a set of external sources for random number generation.
+They have a good statistical quality and are fast for general purpose cases.
+All sources are implement the <a href="https://pkg.go.dev/math/rand#Source"><code>Source</code></a> and 
+<a href="https://pkg.go.dev/math/rand#Source64"><code>Source64</code></a> interfaces from <code>math/rand</code> package.</p>
+<p><strong>Import all sources</strong></p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/Pencroff/fluky/sources&quot;</span>
+</span></code></pre></div>
+<h2 id="splitmix64">SplitMix64</h2>
+<div class="admonition info inline end">
+<p class="admonition-title">Reference</p>
+<p><a href="https://prng.di.unimi.it/splitmix64.c">splitmix64.c</a></p>
+</div>
+<p>SplitMix64 is a pseudorandom number generator (PRNG) algorithm that generates a 64-bit output using a 64-bit seed.
+It works by repeatedly applying a basic function to the seed value, but it may not provide enough randomness
+for some applications, and its output is not suitable for cryptographic purposes. However, SplitMix64 is known for 
+its speed and simplicity, and it can be used as a basic building block for more complex PRNGs.</p>
 <p>Current implementations of <code>xoshiro256++</code> and <code>xoshiro256**</code> use <code>SplitMix64</code> as a seed generator.</p>
-<p>The type of <code>state</code> is <code>uint64</code>.</p>
+<p><strong>Usage</strong></p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nx">src</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sources</span><span class="p">.</span><span class="nx">NewSplitMix64Source</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="c1">// where 0 is a seed, int64</span>
+</span></code></pre></div>
 <details class="example">
 <summary>SplitMix64 implementation</summary>
-<div class="language-go highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="o">*</span><span class="nx">SplitMix64Source</span><span class="p">)</span><span class="w"> </span><span class="nx">Uint64</span><span class="p">()</span><span class="w"> </span><span class="kt">uint64</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="nx">s</span><span class="p">.</span><span class="nx">state</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mh">0x9e3779b97f4a7c15</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nx">z</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">state</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="nx">z</span><span class="w"> </span><span class="p">^=</span><span class="w"> </span><span class="nx">z</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">30</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="nx">z</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="mh">0xbf58476d1ce4e5b9</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="nx">z</span><span class="w"> </span><span class="p">^=</span><span class="w"> </span><span class="nx">z</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">27</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="nx">z</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="mh">0x94d049bb133111eb</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="nx">z</span><span class="w"> </span><span class="p">^=</span><span class="w"> </span><span class="nx">z</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">31</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">z</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="p">}</span>
+<p><code>state</code> has <code>uint64</code> type.</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="o">*</span><span class="nx">SplitMix64Source</span><span class="p">)</span><span class="w"> </span><span class="nx">Uint64</span><span class="p">()</span><span class="w"> </span><span class="kt">uint64</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="nx">s</span><span class="p">.</span><span class="nx">state</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mh">0x9e3779b97f4a7c15</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nx">z</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">state</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nx">z</span><span class="w"> </span><span class="p">^=</span><span class="w"> </span><span class="nx">z</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">30</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="nx">z</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="mh">0xbf58476d1ce4e5b9</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="nx">z</span><span class="w"> </span><span class="p">^=</span><span class="w"> </span><span class="nx">z</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">27</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="nx">z</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="mh">0x94d049bb133111eb</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="nx">z</span><span class="w"> </span><span class="p">^=</span><span class="w"> </span><span class="nx">z</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">31</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">z</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="p">}</span>
 </span></code></pre></div>
 </details>
+<h2 id="xoroshiro256-xoroshiro256">Xoroshiro256++ / Xoroshiro256**</h2>
+<div class="admonition info inline end">
+<p class="admonition-title">Reference</p>
+<ul>
+<li><a href="https://prng.di.unimi.it/">xoshiro generators</a></li>
+<li><a href="https://prng.di.unimi.it/xoshiro256plusplus.c">xoroshiro256++</a></li>
+<li><a href="https://prng.di.unimi.it/xoshiro256starstar.c">xoroshiro256**</a></li>
+</ul>
+</div>
+<p>Xoshiro is a family of fast and efficient pseudorandom number generators (PRNGs) designed by David Blackman
+and Sebastiano Vigna. They are known for producing high-quality output with a relatively small state size,
+using a combination of bitwise operations and nonlinear transformations.
+Fluky provides Xoroshiro256++ and Xoroshiro256** implementations (64 bit output and 2<sup>256</sup>-1 period),
+but they are not suitable for cryptographic purposes due to vulnerabilities in their design.
+Overall, Xoshiro generators are ideal for simulations, games, and other applications where high-quality
+randomness is required.</p>
+<p>Fluky implementation of <code>xoshiro256++</code> and <code>xoshiro256**</code> use <code>SplitMix64</code> as a seed generator.</p>
+<p><strong>Usage</strong></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">xoshiro256++</label><label for="__tabbed_1_2">xoshiro256**</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-go highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nx">src</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sources</span><span class="p">.</span><span class="nx">NewXoshiro256ppSource</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="c1">// where 0 is a seed, int64</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-go highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nx">src</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sources</span><span class="p">.</span><span class="nx">NewXoshiro256ssSource</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="c1">// where 0 is a seed, int64</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<p>Xoroshiro256 implementations provide <code>Jump</code> and <code>LongJump</code> methods which is return new source with current state,
+and move state of existing source to 2<sup>128</sup> and 2<sup>192</sup> iterations accordingly.</p>
+<div class="language-go no-copy highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nx">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">src</span><span class="p">.(</span><span class="o">*</span><span class="nx">src</span><span class="p">.</span><span class="nx">Xoshiro256ppSource</span><span class="p">)</span><span class="w"> </span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1">// Same cast to Xoshiro256ssSource:</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="c1">// s := src.(*src.Xoshiro256ssSource)</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1">// Note: state A</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="nx">s1</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">Jump</span><span class="p">()</span><span class="w"> </span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="c1">// Note: s1 is state A</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="c1">// s is now state B (equivalent to 2^128 iterations of s.Uint64())</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="nx">s2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">LongJump</span><span class="p">()</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="c1">// Note: s2 is state B</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="c1">// s is now state C (equivalent to 2^192 iterations of s.Uint64())</span>
+</span></code></pre></div>
+<details class="example">
+<summary>Xoroshiro256 implementation</summary>
+<p><code>s0..s4</code> have <code>uint64</code> type.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">xoshiro256++</label><label for="__tabbed_2_2">xoshiro256**</label><label for="__tabbed_2_3">Seed (same for both)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-go highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">x</span><span class="w"> </span><span class="o">*</span><span class="nx">Xoshiro256ppSource</span><span class="p">)</span><span class="w"> </span><span class="nx">Uint64</span><span class="p">()</span><span class="w"> </span><span class="kt">uint64</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="nx">res</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">bits</span><span class="p">.</span><span class="nx">RotateLeft64</span><span class="p">(</span><span class="nx">x</span><span class="p">.</span><span class="nx">s0</span><span class="o">+</span><span class="nx">x</span><span class="p">.</span><span class="nx">s3</span><span class="p">,</span><span class="w"> </span><span class="mi">23</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">x</span><span class="p">.</span><span class="nx">s0</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="nx">t</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">x</span><span class="p">.</span><span class="nx">s1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">17</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="nx">x</span><span class="p">.</span><span class="nx">s2</span><span class="w"> </span><span class="p">^=</span><span class="w"> </span><span class="nx">x</span><span class="p">.</span><span class="nx">s0</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="nx">x</span><span class="p">.</span><span class="nx">s3</span><span class="w"> </span><span class="p">^=</span><span class="w"> </span><span class="nx">x</span><span class="p">.</span><span class="nx">s1</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="nx">x</span><span class="p">.</span><span class="nx">s1</span><span class="w"> </span><span class="p">^=</span><span class="w"> </span><span class="nx">x</span><span class="p">.</span><span class="nx">s2</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="nx">x</span><span class="p">.</span><span class="nx">s0</span><span class="w"> </span><span class="p">^=</span><span class="w"> </span><span class="nx">x</span><span class="p">.</span><span class="nx">s3</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">    </span><span class="nx">x</span><span class="p">.</span><span class="nx">s2</span><span class="w"> </span><span class="p">^=</span><span class="w"> </span><span class="nx">t</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">    </span><span class="nx">x</span><span class="p">.</span><span class="nx">s3</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">bits</span><span class="p">.</span><span class="nx">RotateLeft64</span><span class="p">(</span><span class="nx">x</span><span class="p">.</span><span class="nx">s3</span><span class="p">,</span><span class="w"> </span><span class="mi">45</span><span class="p">)</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">res</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-go highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">x</span><span class="w"> </span><span class="o">*</span><span class="nx">Xoshiro256ssSource</span><span class="p">)</span><span class="w"> </span><span class="nx">Uint64</span><span class="p">()</span><span class="w"> </span><span class="kt">uint64</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="nx">res</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">bits</span><span class="p">.</span><span class="nx">RotateLeft64</span><span class="p">(</span><span class="nx">x</span><span class="p">.</span><span class="nx">s1</span><span class="o">*</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">9</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="nx">t</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">x</span><span class="p">.</span><span class="nx">s1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">17</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="nx">x</span><span class="p">.</span><span class="nx">s2</span><span class="w"> </span><span class="p">^=</span><span class="w"> </span><span class="nx">x</span><span class="p">.</span><span class="nx">s0</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="nx">x</span><span class="p">.</span><span class="nx">s3</span><span class="w"> </span><span class="p">^=</span><span class="w"> </span><span class="nx">x</span><span class="p">.</span><span class="nx">s1</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="nx">x</span><span class="p">.</span><span class="nx">s1</span><span class="w"> </span><span class="p">^=</span><span class="w"> </span><span class="nx">x</span><span class="p">.</span><span class="nx">s2</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="nx">x</span><span class="p">.</span><span class="nx">s0</span><span class="w"> </span><span class="p">^=</span><span class="w"> </span><span class="nx">x</span><span class="p">.</span><span class="nx">s3</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">    </span><span class="nx">x</span><span class="p">.</span><span class="nx">s2</span><span class="w"> </span><span class="p">^=</span><span class="w"> </span><span class="nx">t</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">    </span><span class="nx">x</span><span class="p">.</span><span class="nx">s3</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">bits</span><span class="p">.</span><span class="nx">RotateLeft64</span><span class="p">(</span><span class="nx">x</span><span class="p">.</span><span class="nx">s3</span><span class="p">,</span><span class="w"> </span><span class="mi">45</span><span class="p">)</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">res</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-go highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nx">sm</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">NewSplitMix64Source</span><span class="p">(</span><span class="nx">seed</span><span class="p">)</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nx">x</span><span class="p">.</span><span class="nx">s0</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">sm</span><span class="p">.</span><span class="nx">Uint64</span><span class="p">()</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nx">x</span><span class="p">.</span><span class="nx">s1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">sm</span><span class="p">.</span><span class="nx">Uint64</span><span class="p">()</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="nx">x</span><span class="p">.</span><span class="nx">s2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">sm</span><span class="p">.</span><span class="nx">Uint64</span><span class="p">()</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="nx">x</span><span class="p">.</span><span class="nx">s3</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">sm</span><span class="p">.</span><span class="nx">Uint64</span><span class="p">()</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+</details>
+<h2 id="pcg-xsl-rr">PCG-XSL-RR</h2>
+<div class="admonition info inline end">
+<p class="admonition-title">Reference</p>
+<ul>
+<li><a href="https://www.pcg-random.org/">PCG</a></li>
+<li><a href="https://www.pcg-random.org/pdf/hmc-cs-2014-0905.pdf">PCG-XSL-RR - 6.3.3, page 44</a></li>
+<li><a href="https://tosc.iacr.org/index.php/ToSC/article/view/8700">Practical seed-recovery for the PCG...</a></li>
+</ul>
+</div>
+<p>PCG (Permuted Congruential Generator) is a family of pseudorandom number generators (PRNGs) designed by Melissa O'Neill.
+They are known for their speed, statistical quality, and flexibility, and can produce high-quality random numbers
+with relatively small state sizes. PCG generators work by combining a linear congruential generator (LCG) with a
+permutation function that shuffles the output, resulting in improved statistical properties.
+Fluky provides PCG-XSL-RR implementation (128 bit state, 64 bit output), and they are suitable for variety of 
+applications, such as games, simulations (used in the NumPy scientific computing package).
+PCG-XSL-RR is not suitable for cryptographic purposes.</p>
+<p><strong>Usage</strong></p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nx">src</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sources</span><span class="p">.</span><span class="nx">NewPcgXslRrSource</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="c1">// where 0 is a seed, int64</span>
+</span></code></pre></div>
+<details class="example">
+<summary>PCG-XSL-RR implementation</summary>
+<p><code>state</code>, <code>mul</code> and <code>inc</code> have <code>uint128</code> type.</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="o">*</span><span class="nx">PcgXslRrSource</span><span class="p">)</span><span class="w"> </span><span class="nx">Uint64</span><span class="p">()</span><span class="w"> </span><span class="kt">uint64</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="nx">s</span><span class="p">.</span><span class="nx">step</span><span class="p">()</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">stateToValue</span><span class="p">()</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="p">}</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="o">*</span><span class="nx">PcgXslRrSource</span><span class="p">)</span><span class="w"> </span><span class="nx">step</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">    </span><span class="nx">s</span><span class="p">.</span><span class="nx">state</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">Mul</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">mul</span><span class="p">).</span><span class="nx">Add</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">inc</span><span class="p">)</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="p">}</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="o">*</span><span class="nx">PcgXslRrSource</span><span class="p">)</span><span class="w"> </span><span class="nx">stateToValue</span><span class="p">()</span><span class="w"> </span><span class="p">(</span><span class="nx">v</span><span class="w"> </span><span class="kt">uint64</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">    </span><span class="nx">v</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">Lo</span><span class="w"> </span><span class="p">^</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">Hi</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">    </span><span class="nx">rot</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">Rsh</span><span class="p">(</span><span class="mi">122</span><span class="p">).</span><span class="nx">Lo</span><span class="o">&amp;</span><span class="mh">0x3F</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">    </span><span class="nx">v</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">bits</span><span class="p">.</span><span class="nx">RotateLeft64</span><span class="p">(</span><span class="nx">v</span><span class="p">,</span><span class="w"> </span><span class="nx">rot</span><span class="p">)</span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="w">    </span><span class="k">return</span>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="p">}</span>
+</span></code></pre></div>
+</details>
+<h2 id="small-prng">Small PRNG</h2>
+<div class="admonition info inline end">
+<p class="admonition-title">Reference</p>
+<ul>
+<li><a href="https://burtleburtle.net/bob/rand/smallprng.html">A small noncryptographic PRNG</a></li>
+<li><a href="https://www.pcg-random.org/posts/bob-jenkins-small-prng-passes-practrand.html">Bob Jenkins's Small PRNG...</a></li>
+</ul>
+</div>
+<p>This fast and compact pseudorandom number generator is appropriate for large statistical computations,
+but not intended for cryptographic purposes due to its lack of sufficient strength. The cycle length is not
+guaranteed to meet a minimum requirement, but on average, it is estimated to produce approximately 2<sup>126</sup> results.
+Fluky provides Small PRNG implementation with 256 bit state and 64 bit output. Upon conducting multiple iterations
+of the dieharder test suite, the Small PRNG exhibited just 0-2 weak results (of 114 tests).</p>
+<p><strong>Usage</strong></p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nx">src</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sources</span><span class="p">.</span><span class="nx">NewSmallPrngSource</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="c1">// where 0 is a seed, int64</span>
+</span></code></pre></div>
+<details class="example">
+<summary>Small PRNG implementation</summary>
+<p><code>a</code>, <code>b</code>, <code>c</code> and <code>d</code> have <code>uint64</code> type.</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="w">    </span><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="o">*</span><span class="nx">SmallPrngSource</span><span class="p">)</span><span class="w"> </span><span class="nx">Uint64</span><span class="p">()</span><span class="w"> </span><span class="kt">uint64</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span><span class="nx">e</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">a</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">bits</span><span class="p">.</span><span class="nx">RotateLeft64</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">b</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">)</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="nx">s</span><span class="p">.</span><span class="nx">a</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">b</span><span class="w"> </span><span class="p">^</span><span class="w"> </span><span class="nx">bits</span><span class="p">.</span><span class="nx">RotateLeft64</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">c</span><span class="p">,</span><span class="w"> </span><span class="mi">13</span><span class="p">)</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="nx">s</span><span class="p">.</span><span class="nx">b</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">c</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">bits</span><span class="p">.</span><span class="nx">RotateLeft64</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">d</span><span class="p">,</span><span class="w"> </span><span class="mi">37</span><span class="p">)</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">    </span><span class="nx">s</span><span class="p">.</span><span class="nx">c</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">d</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">e</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">    </span><span class="nx">s</span><span class="p">.</span><span class="nx">d</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">e</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">a</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">d</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="p">}</span>
+</span></code></pre></div>
+</details>
+<h2 id="summary">Summary</h2>
+<h3 id="statistical-quality-dieharder">Statistical quality (dieharder)</h3>
+<blockquote>
+<p>SEED: 1234567</p>
+<p>Test data: 229GiB</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th align="center">Time</th>
+<th align="center">PASS</th>
+<th align="center">WEAK</th>
+<th align="center">FAIL</th>
+<th align="left">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Built In</td>
+<td align="center">35:33</td>
+<td align="center">112</td>
+<td align="center">2</td>
+<td align="center">0</td>
+<td align="left">114</td>
+</tr>
+<tr>
+<td>PCG-XSL-RR</td>
+<td align="center">36:12</td>
+<td align="center">112</td>
+<td align="center">2</td>
+<td align="center">0</td>
+<td align="left">114</td>
+</tr>
+<tr>
+<td>Small Prng</td>
+<td align="center">37:49</td>
+<td align="center">114</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="left">114</td>
+</tr>
+<tr>
+<td>Xoshiro256++</td>
+<td align="center">39:35</td>
+<td align="center">112</td>
+<td align="center">2</td>
+<td align="center">0</td>
+<td align="left">114</td>
+</tr>
+<tr>
+<td>Xoshiro256**</td>
+<td align="center">37:01</td>
+<td align="center">108</td>
+<td align="center">6</td>
+<td align="center">0</td>
+<td align="left">114</td>
+</tr>
+<tr>
+<td>SplitMix64</td>
+<td align="center">38:06</td>
+<td align="center">113</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="left">114</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">Reference</p>
+<ul>
+<li>Detailed results available in the repo's <a href="https://github.com/Pencroff/fluky/tree/main/dieharder-source"><code>dieharder-source</code></a> folder.</li>
+<li>Built In source is a default Go source - <a href="https://pkg.go.dev/math/rand">ref</a></li>
+</ul>
+</div>
+<h3 id="statistical-quality-draw-test">Statistical quality (draw test)</h3>
+<details class="abstract">
+<summary>Expand to check results (each picture is 2 Mb)</summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:6"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><input id="__tabbed_3_4" name="__tabbed_3" type="radio" /><input id="__tabbed_3_5" name="__tabbed_3" type="radio" /><input id="__tabbed_3_6" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Built In</label><label for="__tabbed_3_2">SplitMix64</label><label for="__tabbed_3_3">Xoshiro256++</label><label for="__tabbed_3_4">Xoshiro256**</label><label for="__tabbed_3_5">PCG-XSL-RR</label><label for="__tabbed_3_6">Small Prng</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><figure markdown>
+    <img alt="Built In" loading="lazy" src="//raw.githubusercontent.com/Pencroff/fluky/main/out/built-in_source_out.png" width="768" />
+</figure></p>
+</div>
+<div class="tabbed-block">
+<p><figure markdown>
+    <img alt="SplitMix64" loading="lazy" src="//raw.githubusercontent.com/Pencroff/fluky/main/out/splitmix64_source_out.png" width="768" />
+</figure></p>
+</div>
+<div class="tabbed-block">
+<p><figure markdown>
+    <img alt="Xoshiro256++" loading="lazy" src="//raw.githubusercontent.com/Pencroff/fluky/main/out/xoshiro256pp_source_out.png" width="768" />
+</figure></p>
+</div>
+<div class="tabbed-block">
+<p><figure markdown>
+    <img alt="Xoshiro256**" loading="lazy" src="//raw.githubusercontent.com/Pencroff/fluky/main/out/xoshiro256ss_source_out.png" width="768" />
+</figure></p>
+</div>
+<div class="tabbed-block">
+<p><figure markdown>
+    <img alt="PCG-XSL-RR" loading="lazy" src="//raw.githubusercontent.com/Pencroff/fluky/main/out/pcg_source_out.png" width="768" />
+</figure></p>
+</div>
+<div class="tabbed-block">
+<p><figure markdown>
+    <img alt="Small Prng" loading="lazy" src="//raw.githubusercontent.com/Pencroff/fluky/main/out/small-prng_source_out.png" width="768" />
+</figure></p>
+</div>
+</div>
+</div>
+</details>
+<h3 id="performance">Performance</h3>
+<p><strong>Manual run</strong></p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>go<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-bench<span class="o">=</span>.<span class="w"> </span>-timeout<span class="w"> </span>30m<span class="w"> </span>./fluky_testing
+</span></code></pre></div>
+<p><mark class="critic">
+TBW - requires tests on Intel, M2, with latest Go version
+</mark></p>
 
 
 
