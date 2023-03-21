@@ -1,8 +1,8 @@
 package source
 
 import (
-	"github.com/Pencroff/go-toolkit/bits"
 	et "github.com/Pencroff/go-toolkit/extended_type"
+	"math/bits"
 	"math/rand"
 )
 
@@ -36,8 +36,8 @@ func (s *PcgSource) step() {
 
 func (s *PcgSource) stateToValue() (v uint64) {
 	v = s.state.Lo ^ s.state.Hi
-	rot := int8(s.state.Rsh(122).Lo & 0x3F)
-	v = bits.RotateR64(v, rot)
+	rot := int(s.state.Rsh(122).Lo&0x3F) * -1
+	v = bits.RotateLeft64(v, rot)
 	return
 }
 

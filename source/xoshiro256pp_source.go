@@ -1,7 +1,7 @@
 package source
 
 import (
-	"github.com/Pencroff/go-toolkit/bits"
+	"math/bits"
 	"math/rand"
 )
 
@@ -28,14 +28,14 @@ func (x *Xoshiro256ppSource) Seed(seed int64) {
 }
 
 func (x *Xoshiro256ppSource) Uint64() uint64 {
-	res := bits.RotateL64(x.s0+x.s3, 23) + x.s0
+	res := bits.RotateLeft64(x.s0+x.s3, 23) + x.s0
 	t := x.s1 << 17
 	x.s2 ^= x.s0
 	x.s3 ^= x.s1
 	x.s1 ^= x.s2
 	x.s0 ^= x.s3
 	x.s2 ^= t
-	x.s3 = bits.RotateL64(x.s3, 45)
+	x.s3 = bits.RotateLeft64(x.s3, 45)
 	return res
 }
 
