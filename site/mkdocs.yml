@@ -40,6 +40,10 @@ theme:
     - content.code.select
     - content.tabs.link
     - navigation.footer
+    - navigation.sections
+    - navigation.indexes
+    - toc.follow
+    - toc.integrate
   palette:
     # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
@@ -67,3 +71,10 @@ repo_url: https://github.com/Pencroff/fluky
 repo_name: Pencroff/fluky
 icon:
   repo: fontawesome/brands/git-alt
+nav:
+  - Home: index.md
+  - Api:
+    - api/README.md
+    - Basic: api/basic.md
+    - Helpers: api/helpers.md
+  - External Sources: sources.md
