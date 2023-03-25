@@ -34,7 +34,7 @@ extra:
 theme:
   name: material
   logo: images/fluky-logo.min.svg
-  favicon: images/fluky-logo.min.svg
+  favicon: images/fluky-logo.min.png
   features:
     - content.code.copy
     - content.code.select

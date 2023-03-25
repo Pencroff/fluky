@@ -21,9 +21,9 @@ func WithFloatRange(min, max float64) FloatOptionsFn {
 }
 
 // WithPrecision configure max precision for float random
-func WithPrecision(precision uint8) FloatOptionsFn {
+func WithPrecision(precision int8) FloatOptionsFn {
 	return func(f *FloatOptions) {
-		f.precision = int8(precision<<1>>1) % maxPrecision
+		f.precision = precision % maxPrecision
 	}
 }
 

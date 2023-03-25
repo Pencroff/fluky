@@ -1,4 +1,6 @@
 
 # Fluki helpers
 
-## 
+## Weighted
+
+## PickOne
