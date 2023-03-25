@@ -117,19 +117,19 @@ func TestFloat64IncludeZeroLogic(t *testing.T) {
 
 func ExtractPcgCRng(r *PcgCRng, debug bool) *PcgRngData {
 	if debug {
-		fmt.Println("PcgCRng")
+		fmt.Printf("PcgCRng: %+v\n", *r)
 	}
 	vRng := reflect.ValueOf(r).Elem().FieldByName("rng")
 	vState := vRng.FieldByName("state")
 	dataState := CUint128ToBytes(vState)
 	if debug {
-		fmt.Printf("state: %x\n", dataState)
+		fmt.Printf("state: %x (%+v)\n", dataState, vState)
 	}
 	//fmt.Printf("state: %v\n", dataState)
 	vInc := vRng.FieldByName("inc")
 	dataInc := CUint128ToBytes(vInc)
 	if debug {
-		fmt.Printf("inc:   %x\n", dataInc)
+		fmt.Printf("inc:   %x (%+v)\n", dataInc, vInc)
 	}
 
 	return &PcgRngData{
@@ -140,18 +140,18 @@ func ExtractPcgCRng(r *PcgCRng, debug bool) *PcgRngData {
 
 func ExtractPcgRng(r *PcgRng, debug bool) *PcgRngData {
 	if debug {
-		fmt.Println("PcgRng")
+		fmt.Printf("PcgRng: %+v\n", *r)
 	}
 	vRng := reflect.ValueOf(r).Elem()
 	vState := vRng.FieldByName("state")
 	vInc := vRng.FieldByName("inc")
 	dataState := Uint128ToBytes(vState)
 	if debug {
-		fmt.Printf("state: %x\n", dataState)
+		fmt.Printf("state: %x (%+v)\n", dataState, vState)
 	}
 	dataInc := Uint128ToBytes(vInc)
 	if debug {
-		fmt.Printf("inc:   %x\n", dataInc)
+		fmt.Printf("inc:   %x (%+v)\n", dataInc, vInc)
 	}
 	return &PcgRngData{
 		state: dataState,
@@ -173,7 +173,7 @@ func Uint128ToBytes(v reflect.Value) []byte {
 
 func CUint128ToBytes(v reflect.Value) []byte {
 	res := make([]byte, 16)
-	if v.Type().Name() == "_Ctype___int128unsigned" {
+	if v.Type().Name() == "_Ctype___int128unsigned" || v.Type().Name() == "_Ctype_unsigned__int128" {
 		bytePtr := (*[16]byte)(unsafe.Pointer(v.UnsafeAddr()))
 		for i := 0; i < 16; i++ {
 			res[i] = bytePtr[i]
