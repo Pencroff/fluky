@@ -81,3 +81,14 @@ flk.Float(f.WithPrecision(2)) // 0.53
 flk.Float(f.WithPrecision(-1)) // 0.5322073040624193
 ```
 
+## String
+
+`String` returns a random string value.
+By default, the length is between 5 and 20 and
+the charset have: lower, upper, numbers, and symbols (`!@#$%^&*+=_-`).
+
+```go
+flk.String() // "bdl5kOxmw_KilZ"
+// above is same as
+flk.String(f.WithLengthRange(5, 20), f.WithLowerAlphabet(), f.AndUpperAlphabet(), f.AndNumericAlphabet(), AndSymbolsAlphabet())
+```

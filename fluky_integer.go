@@ -1,6 +1,8 @@
 package fluky
 
-import "math"
+import (
+	"math"
+)
 
 type IntegerOptionsFn func(i *IntegerOptions)
 
@@ -28,7 +30,7 @@ func (f *Fluky) Integer(opts ...IntegerOptionsFn) int {
 		return o.min
 	}
 	if o.min != math.MinInt64 && o.max != math.MaxInt64 {
-		return int(f.rng.Uint64())%(o.max-o.min) + o.min
+		return int(f.rng.Int63())%(o.max-o.min) + o.min
 	}
 	return int(f.rng.Uint64())
 }

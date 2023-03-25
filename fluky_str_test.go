@@ -2,8 +2,11 @@ package fluky
 
 import (
 	"fmt"
+	src "github.com/Pencroff/fluky/source"
 	"github.com/stretchr/testify/assert"
+	"math/rand"
 	"testing"
+	"time"
 )
 
 func TestFluky_Str_StringOptionsFn(t *testing.T) {
@@ -110,4 +113,24 @@ func TestFluky_Str_UnicodeAlphabet(t *testing.T) {
 	actual := f.String(WithAlphabet("❤🎈🍕😉"), WithLength(5))
 	expected := "🎈🎈🍕❤❤"
 	assert.Equal(t, expected, actual, "%s != %s", expected, actual)
+}
+
+func TestFluky_Str_WithRnd(t *testing.T) {
+	// default options
+	// min 5
+	// max 20
+	// alphabet "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*+=_-"
+	s := src.NewSplitMix64Source(time.Now().UnixNano())
+	r := rand.New(s)
+	f := NewFluky(r)
+	n := 1000
+	alphabet := "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*+=_-"
+	for i := 0; i < n; i++ {
+		str := f.String()
+		assert.GreaterOrEqual(t, len(str), 5)
+		assert.Less(t, len(str), 20)
+		for _, c := range str {
+			assert.Contains(t, alphabet, string(c))
+		}
+	}
 }

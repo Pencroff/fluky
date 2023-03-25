@@ -1,8 +1,11 @@
 package fluky
 
 import (
+	src "github.com/Pencroff/fluky/source"
 	"github.com/stretchr/testify/assert"
+	"math/rand"
 	"testing"
+	"time"
 )
 
 func TestFluky_Bool_NoOptions(t *testing.T) {
@@ -49,4 +52,20 @@ func TestFluky_Bool_IncorrectInput(t *testing.T) {
 	assert.Equal(t, true, f.Bool(WithLikelihood(10)))
 
 	mRng.AssertExpectations(t)
+}
+
+func TestFluky_Bool_WithRnd(t *testing.T) {
+	s := src.NewSplitMix64Source(time.Now().UnixNano())
+	r := rand.New(s)
+	f := NewFluky(r)
+	n := 100000
+	likelihood := 0.33
+	threshold := likelihood * float64(n)
+	count := 0
+	for i := 0; i < n; i++ {
+		if f.Bool(WithLikelihood(likelihood)) {
+			count++
+		}
+	}
+	assert.InDelta(t, float64(count), threshold, 0.01*threshold)
 }
