@@ -5,11 +5,15 @@ import (
 )
 
 const (
-	lower       = "abcdefghijklmnopqrstuvwxyz"
-	upper       = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-	numbers     = "0123456789"
-	symbols     = "!@#$%^&*+="
-	linkSymbols = "_-"
+	latinLower     = "abcdefghijklmnopqrstuvwxyz"
+	latinUpper     = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	numbers        = "0123456789"
+	symbols        = "!@#$%^&*+="
+	linkSymbols    = "_-"
+	ukrainianLower = "абвгґдеєжзиіїйклмнопрстуфхцчшщьюя"
+	ukrainianUpper = "АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ"
+	greekLower     = "αβγδεζηθικλμνξοπρστυφχψω"
+	greekUpper     = "ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ"
 )
 
 type StringOptionsFn func(s *StringOptions)
@@ -50,20 +54,6 @@ func AndAlphabet(alphabet string) StringOptionsFn {
 	}
 }
 
-// WithUrlSafeAlphabet configure safe for url usage alphabet
-func WithUrlSafeAlphabet() StringOptionsFn {
-	return func(s *StringOptions) {
-		s.alphabet = lower + upper + numbers + linkSymbols
-	}
-}
-
-// WithHexAlphabet configure hex alphabet
-func WithHexAlphabet() StringOptionsFn {
-	return func(s *StringOptions) {
-		s.alphabet = numbers + "abcdef"
-	}
-}
-
 // WithNumericAlphabet configure numeric alphabet
 func WithNumericAlphabet() StringOptionsFn {
 	return func(s *StringOptions) {
@@ -78,31 +68,31 @@ func AndNumericAlphabet() StringOptionsFn {
 	}
 }
 
-// WithLowerAlphabet configure lower alphabet
-func WithLowerAlphabet() StringOptionsFn {
+// WithLatinLowerAlphabet configure latin lower alphabet
+func WithLatinLowerAlphabet() StringOptionsFn {
 	return func(s *StringOptions) {
-		s.alphabet = lower
+		s.alphabet = latinLower
 	}
 }
 
-// AndLowerAlphabet extend configured alphabet with lower
-func AndLowerAlphabet() StringOptionsFn {
+// AndLatinLowerAlphabet extend configured alphabet with latin lower characters
+func AndLatinLowerAlphabet() StringOptionsFn {
 	return func(s *StringOptions) {
-		s.alphabet += lower
+		s.alphabet += latinLower
 	}
 }
 
-// WithUpperAlphabet configure upper alphabet
-func WithUpperAlphabet() StringOptionsFn {
+// WithLatinUpperAlphabet configure latin upper alphabet
+func WithLatinUpperAlphabet() StringOptionsFn {
 	return func(s *StringOptions) {
-		s.alphabet = upper
+		s.alphabet = latinUpper
 	}
 }
 
-// AndUpperAlphabet extend configured alphabet with upper
-func AndUpperAlphabet() StringOptionsFn {
+// AndLatinUpperAlphabet extend configured alphabet with latin upper characters
+func AndLatinUpperAlphabet() StringOptionsFn {
 	return func(s *StringOptions) {
-		s.alphabet += upper
+		s.alphabet += latinUpper
 	}
 }
 
@@ -134,9 +124,79 @@ func AndSymbolsUrlSafeAlphabet() StringOptionsFn {
 	}
 }
 
+// WithUrlSafeAlphabet configure safe for url usage alphabet
+func WithUrlSafeAlphabet() StringOptionsFn {
+	return func(s *StringOptions) {
+		s.alphabet = latinLower + latinUpper + numbers + linkSymbols
+	}
+}
+
+// WithHexAlphabet configure hex alphabet
+func WithHexAlphabet() StringOptionsFn {
+	return func(s *StringOptions) {
+		s.alphabet = numbers + "abcdef"
+	}
+}
+
+// WithUkrainianLowerAlphabet configure ukrainian lower alphabet
+func WithUkrainianLowerAlphabet() StringOptionsFn {
+	return func(s *StringOptions) {
+		s.alphabet = ukrainianLower
+	}
+}
+
+// AndUkrainianLowerAlphabet extend configured alphabet with ukrainian lower characters
+func AndUkrainianLowerAlphabet() StringOptionsFn {
+	return func(s *StringOptions) {
+		s.alphabet += ukrainianLower
+	}
+}
+
+// WithUkrainianUpperAlphabet configure ukrainian upper alphabet
+func WithUkrainianUpperAlphabet() StringOptionsFn {
+	return func(s *StringOptions) {
+		s.alphabet = ukrainianUpper
+	}
+}
+
+// AndUkrainianUpperAlphabet extend configured alphabet with ukrainian upper characters
+func AndUkrainianUpperAlphabet() StringOptionsFn {
+	return func(s *StringOptions) {
+		s.alphabet += ukrainianUpper
+	}
+}
+
+// WithGreekLowerAlphabet configure greek lower alphabet
+func WithGreekLowerAlphabet() StringOptionsFn {
+	return func(s *StringOptions) {
+		s.alphabet = greekLower
+	}
+}
+
+// AndGreekLowerAlphabet extend configured alphabet with greek lower characters
+func AndGreekLowerAlphabet() StringOptionsFn {
+	return func(s *StringOptions) {
+		s.alphabet += greekLower
+	}
+}
+
+// WithGreekUpperAlphabet configure greek upper alphabet
+func WithGreekUpperAlphabet() StringOptionsFn {
+	return func(s *StringOptions) {
+		s.alphabet = greekUpper
+	}
+}
+
+// AndGreekUpperAlphabet extend configured alphabet with greek upper characters
+func AndGreekUpperAlphabet() StringOptionsFn {
+	return func(s *StringOptions) {
+		s.alphabet += greekUpper
+	}
+}
+
 // String returns random string configured by default options
 func (f *Fluky) String(opts ...StringOptionsFn) string {
-	b := &StringOptions{minLen: 5, maxLen: 20, alphabet: lower + upper + numbers + symbols + linkSymbols}
+	b := &StringOptions{minLen: 5, maxLen: 20, alphabet: latinLower + latinUpper + numbers + symbols + linkSymbols}
 	for _, opt := range opts {
 		opt(b)
 	}
@@ -147,7 +207,8 @@ func (f *Fluky) String(opts ...StringOptionsFn) string {
 	for i := 0; i < l; i++ {
 		idx := maxIdx
 		if maxIdx != 0 {
-			idx = f.Int63() % maxIdx
+			r := f.Int63()
+			idx = r % maxIdx
 		}
 		builder.WriteRune(alphabetRunes[idx])
 	}

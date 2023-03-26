@@ -1,8 +1,8 @@
 package fluky
 
 const (
-	maxInt64 = 1<<63 - 1
-	minInt64 = -1 << 63
+	maxInt63 = 1<<62 - 1
+	minInt63 = -1 << 62
 )
 
 // NewFluky create new Fluky instance and return pointer to it

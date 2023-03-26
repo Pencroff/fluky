@@ -1,7 +1,6 @@
 # fluky
 
-![fluky](./assets/fluky-logo.min.png)
-
+![fluky](./assets/fluky-color.min.svg)
 
 Happening by or depending on chance in Golang
 
@@ -16,7 +15,7 @@ All passed dieharder tests located in source folder
 | Name         | Performance<br/>MIN / AVG / MAX<br/>ns/op<br/>_smaller is better_ | Time  | PASS | WEAK | FAIL | Total | Draw test                              | References                                                                                                                                          |
 |--------------|:-----------------------------------------------------------------:|:-----:|:----:|:----:|:----:|:------|----------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
 | Built In     |                       3.183 / 3.245 / 3.307                       | 35:33 | 112  |  2   |  0   | 114   | [img](out/built-in_source_out.png)     | [Ref](https://pkg.go.dev/math/rand)                                                                                                                 |
-| Pcg          |                       5.337 / 5.861 / 6.279                       | 36:12 | 112  |  2   |  0   | 114   | [img](out/pcg_source_out.png)          | [Ref](https://www.pcg-random.org/)                                                                                                                  |
+| PCG-XSL-RR   |                       5.337 / 5.861 / 6.279                       | 36:12 | 112  |  2   |  0   | 114   | [img](out/pcg-xsl-rr_source_out.png)   | [Ref](https://www.pcg-random.org/)                                                                                                                  |
 | Small Prng   |                     2.494 / **2.607** / 2.934                     | 37:49 | 114  |  0   |  0   | 114   | [img](out/small-prng_source_out.png)   | [Ref1](https://burtleburtle.net/bob/rand/smallprng.html),<br/>[Ref2](https://www.pcg-random.org/posts/bob-jenkins-small-prng-passes-practrand.html) | 
 | Xoshiro256++ |                       2.838 / 3.102 / 3.360                       | 39:35 | 112  |  2   |  0   | 114   | [img](out/xoshiro256pp_source_out.png) | [Ref](https://prng.di.unimi.it/)                                                                                                                    |                                  
 | Xoshiro256** |                       2.678 / 2.935 / 3.186                       | 37:01 | 108  |  6   |  0   | 114   | [img](out/xoshiro256ss_source_out.png) | [Ref](https://prng.di.unimi.it/)                                                                                                                    |
@@ -28,7 +27,7 @@ Few more RNG and test results can be found in [rngset repo](https://github.com/T
 
 ## Benchmark
 
-    go test -bench=. -timeout 30m .\fluky_testing
+    go test -bench=. -timeout 30m ./fluky_testing
 
 ## Execute dieharder tests
 

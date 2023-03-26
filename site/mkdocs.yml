@@ -1,0 +1,83 @@
+site_name: Fluky Docs
+plugins:
+  - search:
+      separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - attr_list
+  - md_in_html
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+extra:
+  social:
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/sergiidanilov/
+    - icon: fontawesome/brands/github
+      link: https://github.com/Pencroff
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/Pencroff
+  analytics:
+    provider: g4
+    property: G-PTRX52E10G
+
+theme:
+  name: material
+  custom_dir: overrides
+  logo: images/fluky-logo.min.svg
+  favicon: images/fluky-logo.min.png
+  features:
+    - content.code.copy
+    - content.code.select
+    - content.tabs.link
+    - navigation.sections
+    - navigation.indexes
+    - toc.follow
+    - toc.integrate
+  palette:
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: light green
+      accent: orange
+      toggle:
+        icon: material/lightbulb
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: light green
+      accent: orange
+      toggle:
+        icon: material/lightbulb-outline
+        name: Switch to system preference
+  font:
+    text: Lucida Sans
+    code: Roboto Mono
+extra_css:
+  - stylesheets/extra.css
+repo_url: https://github.com/Pencroff/fluky
+repo_name: Pencroff/fluky
+icon:
+  repo: fontawesome/brands/git-alt
+nav:
+  - Home: index.md
+  - Api:
+    - api/README.md
+    - Basic: api/basic.md
+    - Helpers: api/helpers.md
+  - External Sources: sources.md

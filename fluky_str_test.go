@@ -2,8 +2,11 @@ package fluky
 
 import (
 	"fmt"
+	src "github.com/Pencroff/fluky/source"
 	"github.com/stretchr/testify/assert"
+	"math/rand"
 	"testing"
+	"time"
 )
 
 func TestFluky_Str_StringOptionsFn(t *testing.T) {
@@ -36,16 +39,16 @@ func TestFluky_Str_StringOptionsFn(t *testing.T) {
 		{fn: AndNumericAlphabet(),
 			actual:   StringOptions{alphabet: "abcdef"},
 			expected: StringOptions{alphabet: "abcdef0123456789"}},
-		{fn: WithLowerAlphabet(),
+		{fn: WithLatinLowerAlphabet(),
 			actual:   StringOptions{alphabet: "1234567890"},
 			expected: StringOptions{alphabet: "abcdefghijklmnopqrstuvwxyz"}},
-		{fn: AndLowerAlphabet(),
+		{fn: AndLatinLowerAlphabet(),
 			actual:   StringOptions{alphabet: "1234567890"},
 			expected: StringOptions{alphabet: "1234567890abcdefghijklmnopqrstuvwxyz"}},
-		{fn: WithUpperAlphabet(),
+		{fn: WithLatinUpperAlphabet(),
 			actual:   StringOptions{alphabet: "1234567890"},
 			expected: StringOptions{alphabet: "ABCDEFGHIJKLMNOPQRSTUVWXYZ"}},
-		{fn: AndUpperAlphabet(),
+		{fn: AndLatinUpperAlphabet(),
 			actual:   StringOptions{alphabet: "1234567890"},
 			expected: StringOptions{alphabet: "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ"}},
 		{fn: WithSymbolsAlphabet(),
@@ -60,6 +63,30 @@ func TestFluky_Str_StringOptionsFn(t *testing.T) {
 		{fn: AndSymbolsUrlSafeAlphabet(),
 			actual:   StringOptions{alphabet: "1234567890"},
 			expected: StringOptions{alphabet: "1234567890_-"}},
+		{fn: WithUkrainianLowerAlphabet(),
+			actual:   StringOptions{alphabet: "1234567890"},
+			expected: StringOptions{alphabet: "абвгґдеєжзиіїйклмнопрстуфхцчшщьюя"}},
+		{fn: AndUkrainianLowerAlphabet(),
+			actual:   StringOptions{alphabet: "1234567890"},
+			expected: StringOptions{alphabet: "1234567890абвгґдеєжзиіїйклмнопрстуфхцчшщьюя"}},
+		{fn: WithUkrainianUpperAlphabet(),
+			actual:   StringOptions{alphabet: "1234567890"},
+			expected: StringOptions{alphabet: "АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ"}},
+		{fn: AndUkrainianUpperAlphabet(),
+			actual:   StringOptions{alphabet: "1234567890"},
+			expected: StringOptions{alphabet: "1234567890АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ"}},
+		{fn: WithGreekLowerAlphabet(),
+			actual:   StringOptions{alphabet: "1234567890"},
+			expected: StringOptions{alphabet: "αβγδεζηθικλμνξοπρστυφχψω"}},
+		{fn: AndGreekLowerAlphabet(),
+			actual:   StringOptions{alphabet: "1234567890"},
+			expected: StringOptions{alphabet: "1234567890αβγδεζηθικλμνξοπρστυφχψω"}},
+		{fn: WithGreekUpperAlphabet(),
+			actual:   StringOptions{alphabet: "1234567890"},
+			expected: StringOptions{alphabet: "ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ"}},
+		{fn: AndGreekUpperAlphabet(),
+			actual:   StringOptions{alphabet: "1234567890"},
+			expected: StringOptions{alphabet: "1234567890ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ"}},
 	}
 	for _, el := range lst {
 		el.fn(&el.actual)
@@ -69,7 +96,7 @@ func TestFluky_Str_StringOptionsFn(t *testing.T) {
 
 func TestFluky_Str_NoOptions(t *testing.T) {
 	mRng := new(RngMock)
-	mRng.On("Uint64").Return(uint64(10))
+	mRng.On("Int63").Return(int64(10)).Times(1)
 	mRng.On("Int63").Return(int64(27)).Times(5)
 	mRng.On("Int63").Return(int64(57)).Times(5)
 	mRng.On("Int63").Return(int64(64)).Times(5)
@@ -80,7 +107,7 @@ func TestFluky_Str_NoOptions(t *testing.T) {
 	f := NewFluky(mRng)
 	str := f.String()
 	assert.Equal(t, 15, len(str)) // 10%(20 - 5) + 5
-	assert.Equal(t, str, "BBBBB55555#####")
+	assert.Equal(t, "BBBBB55555#####", str)
 }
 
 func TestFluky_Str_UnicodeAlphabet_One(t *testing.T) {
@@ -110,4 +137,24 @@ func TestFluky_Str_UnicodeAlphabet(t *testing.T) {
 	actual := f.String(WithAlphabet("❤🎈🍕😉"), WithLength(5))
 	expected := "🎈🎈🍕❤❤"
 	assert.Equal(t, expected, actual, "%s != %s", expected, actual)
+}
+
+func TestFluky_Str_WithRnd(t *testing.T) {
+	// default options
+	// min 5
+	// max 20
+	// alphabet "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*+=_-"
+	s := src.NewSplitMix64Source(time.Now().UnixNano())
+	r := rand.New(s)
+	f := NewFluky(r)
+	n := 1000
+	alphabet := "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*+=_-"
+	for i := 0; i < n; i++ {
+		str := f.String()
+		assert.GreaterOrEqual(t, len(str), 5)
+		assert.LessOrEqual(t, len(str), 20)
+		for _, c := range str {
+			assert.Contains(t, alphabet, string(c))
+		}
+	}
 }

@@ -1,7 +1,7 @@
 package source
 
 import (
-	"github.com/Pencroff/go-toolkit/bits"
+	"math/bits"
 	"math/rand"
 )
 
@@ -22,9 +22,9 @@ func (s *SmallPrngSource) Seed(seed int64) {
 	}
 }
 func (s *SmallPrngSource) Uint64() uint64 {
-	e := s.a - bits.RotateL64(s.b, 7)
-	s.a = s.b ^ bits.RotateL64(s.c, 13)
-	s.b = s.c + bits.RotateL64(s.d, 37)
+	e := s.a - bits.RotateLeft64(s.b, 7)
+	s.a = s.b ^ bits.RotateLeft64(s.c, 13)
+	s.b = s.c + bits.RotateLeft64(s.d, 37)
 	s.c = s.d + e
 	s.d = e + s.a
 	return s.d

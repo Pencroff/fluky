@@ -51,7 +51,7 @@ func TestFluky_Float64(t *testing.T) {
 }
 
 func TestFluky_PcgSource(t *testing.T) {
-	src := source.NewPcgSource(0x2a)
+	src := source.NewPcgXslRrSource(0x2a)
 	rng := rand.New(src)
 	f := NewFluky(rng)
 	lst := []uint64{
