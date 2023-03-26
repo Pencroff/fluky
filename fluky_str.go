@@ -147,7 +147,8 @@ func (f *Fluky) String(opts ...StringOptionsFn) string {
 	for i := 0; i < l; i++ {
 		idx := maxIdx
 		if maxIdx != 0 {
-			idx = f.Int63() % maxIdx
+			r := f.Int63()
+			idx = r % maxIdx
 		}
 		builder.WriteRune(alphabetRunes[idx])
 	}

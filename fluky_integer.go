@@ -1,9 +1,5 @@
 package fluky
 
-import (
-	"math"
-)
-
 type IntegerOptionsFn func(i *IntegerOptions)
 
 type IntegerOptions struct {
@@ -20,17 +16,17 @@ func WithIntRange(min, max int) IntegerOptionsFn {
 }
 
 // Integer random integer value from range [min, max]
-// from −(2^63) to 2^63 − 1 by default
+// from −(2^62) to 2^62 − 1 by default (int64)
+// to avoid overflow for int64 positive range
+// using values out of this range doesn't warranty
+// that result will be in range [min, max]
 func (f *Fluky) Integer(opts ...IntegerOptionsFn) int {
-	o := &IntegerOptions{min: math.MinInt64, max: math.MaxInt64}
+	o := &IntegerOptions{min: minInt63, max: maxInt63}
 	for _, optFn := range opts {
 		optFn(o)
 	}
 	if o.max == o.min {
 		return o.min
 	}
-	if o.min != math.MinInt64 && o.max != math.MaxInt64 {
-		return int(f.rng.Int63())%(o.max-o.min) + o.min
-	}
-	return int(f.rng.Uint64())
+	return int(f.rng.Int63())%(o.max-o.min+1) + o.min
 }

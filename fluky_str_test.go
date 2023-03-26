@@ -72,7 +72,7 @@ func TestFluky_Str_StringOptionsFn(t *testing.T) {
 
 func TestFluky_Str_NoOptions(t *testing.T) {
 	mRng := new(RngMock)
-	mRng.On("Uint64").Return(uint64(10))
+	mRng.On("Int63").Return(int64(10)).Times(1)
 	mRng.On("Int63").Return(int64(27)).Times(5)
 	mRng.On("Int63").Return(int64(57)).Times(5)
 	mRng.On("Int63").Return(int64(64)).Times(5)
@@ -83,7 +83,7 @@ func TestFluky_Str_NoOptions(t *testing.T) {
 	f := NewFluky(mRng)
 	str := f.String()
 	assert.Equal(t, 15, len(str)) // 10%(20 - 5) + 5
-	assert.Equal(t, str, "BBBBB55555#####")
+	assert.Equal(t, "BBBBB55555#####", str)
 }
 
 func TestFluky_Str_UnicodeAlphabet_One(t *testing.T) {
@@ -128,7 +128,7 @@ func TestFluky_Str_WithRnd(t *testing.T) {
 	for i := 0; i < n; i++ {
 		str := f.String()
 		assert.GreaterOrEqual(t, len(str), 5)
-		assert.Less(t, len(str), 20)
+		assert.LessOrEqual(t, len(str), 20)
 		for _, c := range str {
 			assert.Contains(t, alphabet, string(c))
 		}
