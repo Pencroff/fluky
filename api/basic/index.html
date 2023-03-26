@@ -441,6 +441,200 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#string" class="md-nav__link">
+    String
+  </a>
+  
+    <nav class="md-nav" aria-label="String">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_3" class="md-nav__link">
+    Parameters
+  </a>
+  
+    <nav class="md-nav" aria-label="Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#withlength" class="md-nav__link">
+    WithLength
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#withlengthrange" class="md-nav__link">
+    WithLengthRange
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#withalphabet" class="md-nav__link">
+    WithAlphabet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#andalphabet" class="md-nav__link">
+    AndAlphabet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#withnumericalphabet" class="md-nav__link">
+    WithNumericAlphabet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#andnumericalphabet" class="md-nav__link">
+    AndNumericAlphabet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#withlatinloweralphabet" class="md-nav__link">
+    WithLatinLowerAlphabet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#andloweralphabet" class="md-nav__link">
+    AndLowerAlphabet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#withlatinupperalphabet" class="md-nav__link">
+    WithLatinUpperAlphabet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#andlatinupperalphabet" class="md-nav__link">
+    AndLatinUpperAlphabet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#withsymbolsalphabet" class="md-nav__link">
+    WithSymbolsAlphabet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#andsymbolsalphabet" class="md-nav__link">
+    AndSymbolsAlphabet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#withsymbolsurlsafealphabet" class="md-nav__link">
+    WithSymbolsUrlSafeAlphabet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#andsymbolsurlsafealphabet" class="md-nav__link">
+    AndSymbolsUrlSafeAlphabet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#withurlsafealphabet" class="md-nav__link">
+    WithUrlSafeAlphabet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#withhexalphabet" class="md-nav__link">
+    WithHexAlphabet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#withukrainianloweralphabet" class="md-nav__link">
+    WithUkrainianLowerAlphabet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#andukrainianloweralphabet" class="md-nav__link">
+    AndUkrainianLowerAlphabet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#withukrainianupperalphabet" class="md-nav__link">
+    WithUkrainianUpperAlphabet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#andukrainianupperalphabet" class="md-nav__link">
+    AndUkrainianUpperAlphabet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#withgreekloweralphabet" class="md-nav__link">
+    WithGreekLowerAlphabet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#andgreekloweralphabet" class="md-nav__link">
+    AndGreekLowerAlphabet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#withgreekupperalphabet" class="md-nav__link">
+    WithGreekUpperAlphabet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#andgreekupperalphabet" class="md-nav__link">
+    AndGreekUpperAlphabet
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -516,8 +710,7 @@ It accepts <code>v</code>, float64 value in the range [0, 1].</p>
 </span></code></pre></div>
 <h2 id="integer">Integer</h2>
 <p><code>Integer</code> returns a random integer value.
-By default, the range is from -2<sup>63</sup> to 2<sup>63</sup>-1.
-The max value not included in the range.</p>
+By default, the range is from -2<sup>62</sup> to 2<sup>62</sup>-1.</p>
 <div class="language-go highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nx">flk</span><span class="p">.</span><span class="nx">Integer</span><span class="p">()</span><span class="w"> </span><span class="c1">// 3203168211198807973</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="c1">// above is same as</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nx">flk</span><span class="p">.</span><span class="nx">Integer</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">WithIntRange</span><span class="p">(</span><span class="nx">math</span><span class="p">.</span><span class="nx">MinInt64</span><span class="p">,</span><span class="w"> </span><span class="nx">math</span><span class="p">.</span><span class="nx">MaxInt64</span><span class="p">))</span>
@@ -526,7 +719,7 @@ The max value not included in the range.</p>
 <h4 id="withintrange">WithIntRange</h4>
 <p><code>WithIntRange</code> parameter allows to set the range of the result.
 It accepts <code>min</code> and <code>max</code> values, <code>int</code>.
-The <code>max</code> value not included in the range.</p>
+The <code>min</code> and <code>max</code> values included in the range.</p>
 <div class="language-go highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nx">flk</span><span class="p">.</span><span class="nx">Integer</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">WithIntRange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">))</span><span class="w"> </span><span class="c1">// 8, 0 &lt;= result &lt; 10</span>
 </span></code></pre></div>
 <h2 id="float">Float</h2>
@@ -542,7 +735,7 @@ The max value not included in the range.</p>
 <p><code>WithFloatRange</code> parameter allows to set the range of the result.
 It accepts <code>min</code> and <code>max</code> values, <code>float64</code>.
 The <code>max</code> value not included in the range.</p>
-<div class="language-go highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nx">flk</span><span class="p">.</span><span class="nx">Float</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">WithFloatRange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">))</span><span class="w"> </span><span class="c1">// 8.5322073040624193, 0 &lt;= result &lt; 10</span>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nx">flk</span><span class="p">.</span><span class="nx">Float</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">WithFloatRange</span><span class="p">(</span><span class="mf">7.5</span><span class="p">,</span><span class="w"> </span><span class="mf">12.7</span><span class="p">))</span><span class="w"> </span><span class="c1">// 8.5322073, 7.5 &lt;= result &lt; 12.7</span>
 </span></code></pre></div>
 <h4 id="withprecision">WithPrecision</h4>
 <p><code>WithPrecision</code> parameter allows to set the precision of the result.
@@ -553,6 +746,126 @@ Max value is 20.</p>
 <div class="language-go highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nx">flk</span><span class="p">.</span><span class="nx">Float</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">WithPrecision</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span><span class="w"> </span><span class="c1">// 1</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nx">flk</span><span class="p">.</span><span class="nx">Float</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">WithPrecision</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span><span class="w"> </span><span class="c1">// 0.53</span>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nx">flk</span><span class="p">.</span><span class="nx">Float</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">WithPrecision</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="w"> </span><span class="c1">// 0.5322073040624193</span>
+</span></code></pre></div>
+<h2 id="string">String</h2>
+<p><code>String</code> returns a random string value.
+By default, the length is between 5 and 20 and
+the charset is:</p>
+<ul>
+<li>latin lower (<code>abcdefghijklmnopqrstuvwxyz</code>)</li>
+<li>latin upper (<code>ABCDEFGHIJKLMNOPQRSTUVWXYZ</code>)</li>
+<li>numbers (<code>0123456789</code>)</li>
+<li>symbols (<code>!@#$%^&amp;*+=_-</code>).</li>
+</ul>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nx">flk</span><span class="p">.</span><span class="nx">String</span><span class="p">()</span><span class="w"> </span><span class="c1">// peSnT7UeH0fq4sm</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="c1">// above is same as</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="nx">flk</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">WithLengthRange</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">),</span><span class="w"> </span><span class="nx">f</span><span class="p">.</span><span class="nx">WithLatinLowerAlphabet</span><span class="p">(),</span><span class="w"> </span><span class="nx">f</span><span class="p">.</span><span class="nx">AndLatinUpperAlphabet</span><span class="p">(),</span><span class="w"> </span><span class="nx">f</span><span class="p">.</span><span class="nx">AndNumericAlphabet</span><span class="p">(),</span><span class="w"> </span><span class="nx">AndSymbolsAlphabet</span><span class="p">())</span>
+</span></code></pre></div>
+<h3 id="parameters_3">Parameters</h3>
+<h4 id="withlength">WithLength</h4>
+<p><code>WithLength</code> parameter allows to set the length of the result.
+It accepts <code>l</code>, <code>uint8</code> value.</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nx">flk</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">WithLength</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span><span class="w"> </span><span class="c1">// 10 characters long</span>
+</span></code></pre></div>
+<h4 id="withlengthrange">WithLengthRange</h4>
+<p><code>WithLengthRange</code> parameter allows to set the length range of the result.
+It accepts <code>min</code> and <code>max</code> values, <code>uint8</code>. The <code>min</code> and <code>max</code> values included in the range.</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nx">flk</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">WithLengthRange</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">))</span><span class="w"> </span><span class="c1">// 5 &lt;= length &lt;= 10</span>
+</span></code></pre></div>
+<h4 id="withalphabet">WithAlphabet</h4>
+<p><code>WithAlphabet</code> parameter allows to set the charset of the result.
+It accepts <code>alphabet</code>, <code>string</code> value.</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nx">flk</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">WithAlphabet</span><span class="p">(</span><span class="s">&quot;abc&quot;</span><span class="p">))</span>
+</span></code></pre></div>
+<h4 id="andalphabet">AndAlphabet</h4>
+<p><code>AndAlphabet</code> parameter allows to extend the charset of the result by the given alphabet.</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nx">flk</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">WithAlphabet</span><span class="p">(</span><span class="s">&quot;12345&quot;</span><span class="p">),</span><span class="w"> </span><span class="nx">f</span><span class="p">.</span><span class="nx">AndAlphabet</span><span class="p">(</span><span class="s">&quot;abcde&quot;</span><span class="p">))</span>
+</span></code></pre></div>
+<h4 id="withnumericalphabet">WithNumericAlphabet</h4>
+<p><code>WithNumericAlphabet</code> parameter allows to set the charset of the result to numbers.</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nx">flk</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">WithNumericAlphabet</span><span class="p">())</span>
+</span></code></pre></div>
+<h4 id="andnumericalphabet">AndNumericAlphabet</h4>
+<p><code>AndNumericAlphabet</code> parameter allows to extend the charset of the result by numbers.</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nx">flk</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">WithAlphabet</span><span class="p">(</span><span class="s">&quot;abcde&quot;</span><span class="p">),</span><span class="w"> </span><span class="nx">f</span><span class="p">.</span><span class="nx">AndNumericAlphabet</span><span class="p">())</span>
+</span></code></pre></div>
+<h4 id="withlatinloweralphabet">WithLatinLowerAlphabet</h4>
+<p><code>WithLatinLowerAlphabet</code> parameter allows to set the charset of the result to lower case letters.</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nx">flk</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">WithLatinLowerAlphabet</span><span class="p">())</span>
+</span></code></pre></div>
+<h4 id="andloweralphabet">AndLowerAlphabet</h4>
+<p><code>AndLatinLowerAlphabet</code> parameter allows to extend the charset of the result by lower case letters.</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nx">flk</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">WithAlphabet</span><span class="p">(</span><span class="s">&quot;ABC&quot;</span><span class="p">),</span><span class="w"> </span><span class="nx">f</span><span class="p">.</span><span class="nx">AndLatinLowerAlphabet</span><span class="p">())</span>
+</span></code></pre></div>
+<h4 id="withlatinupperalphabet">WithLatinUpperAlphabet</h4>
+<p><code>WithLatinUpperAlphabet</code> parameter allows to set the charset of the result to upper case letters.</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="nx">flk</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">WithLatinUpperAlphabet</span><span class="p">())</span>
+</span></code></pre></div>
+<h4 id="andlatinupperalphabet">AndLatinUpperAlphabet</h4>
+<p><code>AndLatinUpperAlphabet</code> parameter allows to extend the charset of the result by upper case letters.</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nx">flk</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">WithAlphabet</span><span class="p">(</span><span class="s">&quot;12345&quot;</span><span class="p">),</span><span class="w"> </span><span class="nx">f</span><span class="p">.</span><span class="nx">AndLatinUpperAlphabet</span><span class="p">())</span>
+</span></code></pre></div>
+<h4 id="withsymbolsalphabet">WithSymbolsAlphabet</h4>
+<p><code>WithSymbolsAlphabet</code> parameter allows to set the charset of the result to symbols.
+The symbols are: <code>!@#$%^&amp;*+=_-</code>.</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="nx">flk</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">WithSymbolsAlphabet</span><span class="p">())</span>
+</span></code></pre></div>
+<h4 id="andsymbolsalphabet">AndSymbolsAlphabet</h4>
+<p><code>AndSymbolsAlphabet</code> parameter allows to extend the charset of the result by symbols.
+The symbols are: <code>!@#$%^&amp;*+=_-</code>.</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="nx">flk</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">WithAlphabet</span><span class="p">(</span><span class="s">&quot;abcde&quot;</span><span class="p">),</span><span class="w"> </span><span class="nx">f</span><span class="p">.</span><span class="nx">AndSymbolsAlphabet</span><span class="p">())</span>
+</span></code></pre></div>
+<h4 id="withsymbolsurlsafealphabet">WithSymbolsUrlSafeAlphabet</h4>
+<p><code>WithSymbolsUrlSafeAlphabet</code> parameter allows to set the charset of the result to url safe symbols.
+The symbols are: <code>_-</code>.</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="nx">flk</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">WithSymbolsUrlSafeAlphabet</span><span class="p">())</span>
+</span></code></pre></div>
+<h4 id="andsymbolsurlsafealphabet">AndSymbolsUrlSafeAlphabet</h4>
+<p><code>AndSymbolsUrlSafeAlphabet</code> parameter allows to extend the charset of the result by url safe symbols.
+The symbols are: <code>_-</code>.</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="nx">flk</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">WithAlphabet</span><span class="p">(</span><span class="s">&quot;abcde&quot;</span><span class="p">),</span><span class="w"> </span><span class="nx">f</span><span class="p">.</span><span class="nx">AndSymbolsUrlSafeAlphabet</span><span class="p">())</span>
+</span></code></pre></div>
+<h4 id="withurlsafealphabet">WithUrlSafeAlphabet</h4>
+<p><code>WithUrlSafeAlphabet</code> parameter allows to set the charset of the result to url safe symbols and letters.
+The symbols are: <code>abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-</code>.</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nx">flk</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">WithUrlSafeAlphabet</span><span class="p">())</span>
+</span></code></pre></div>
+<h4 id="withhexalphabet">WithHexAlphabet</h4>
+<p><code>WithHexAlphabet</code> parameter allows to set the charset of the result to hex symbols.
+The symbols are: <code>0123456789abcdef</code>.</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="nx">flk</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">WithHexAlphabet</span><span class="p">())</span>
+</span></code></pre></div>
+<h4 id="withukrainianloweralphabet">WithUkrainianLowerAlphabet</h4>
+<p><code>WithUkrainianLowerAlphabet</code> parameter allows to set the charset of the result to ukrainian lower case letters.</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="nx">flk</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">WithUkrainianLowerAlphabet</span><span class="p">())</span>
+</span></code></pre></div>
+<h4 id="andukrainianloweralphabet">AndUkrainianLowerAlphabet</h4>
+<p><code>AndUkrainianLowerAlphabet</code> parameter allows to extend the charset of the result by ukrainian lower case letters.</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="nx">flk</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">WithAlphabet</span><span class="p">(</span><span class="s">&quot;0123456789&quot;</span><span class="p">),</span><span class="w"> </span><span class="nx">f</span><span class="p">.</span><span class="nx">AndUkrainianLowerAlphabet</span><span class="p">())</span>
+</span></code></pre></div>
+<h4 id="withukrainianupperalphabet">WithUkrainianUpperAlphabet</h4>
+<p><code>WithUkrainianUpperAlphabet</code> parameter allows to set the charset of the result to ukrainian upper case letters.</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="nx">flk</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">WithUkrainianUpperAlphabet</span><span class="p">())</span>
+</span></code></pre></div>
+<h4 id="andukrainianupperalphabet">AndUkrainianUpperAlphabet</h4>
+<p><code>AndUkrainianUpperAlphabet</code> parameter allows to extend the charset of the result by ukrainian upper case letters.</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="nx">flk</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">WithAlphabet</span><span class="p">(</span><span class="s">&quot;0123456789&quot;</span><span class="p">),</span><span class="w"> </span><span class="nx">f</span><span class="p">.</span><span class="nx">AndUkrainianUpperAlphabet</span><span class="p">())</span>
+</span></code></pre></div>
+<h4 id="withgreekloweralphabet">WithGreekLowerAlphabet</h4>
+<p><code>WithGreekLowerAlphabet</code> parameter allows to set the charset of the result to greek lower case letters.</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="nx">flk</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">WithGreekLowerAlphabet</span><span class="p">())</span>
+</span></code></pre></div>
+<h4 id="andgreekloweralphabet">AndGreekLowerAlphabet</h4>
+<p><code>AndGreekLowerAlphabet</code> parameter allows to extend the charset of the result by greek lower case letters.</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="nx">flk</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">WithAlphabet</span><span class="p">(</span><span class="s">&quot;0123456789&quot;</span><span class="p">),</span><span class="w"> </span><span class="nx">f</span><span class="p">.</span><span class="nx">AndGreekLowerAlphabet</span><span class="p">())</span>
+</span></code></pre></div>
+<h4 id="withgreekupperalphabet">WithGreekUpperAlphabet</h4>
+<p><code>WithGreekUpperAlphabet</code> parameter allows to set the charset of the result to greek upper case letters.</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="nx">flk</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">WithGreekUpperAlphabet</span><span class="p">())</span>
+</span></code></pre></div>
+<h4 id="andgreekupperalphabet">AndGreekUpperAlphabet</h4>
+<p><code>AndGreekUpperAlphabet</code> parameter allows to extend the charset of the result by greek upper case letters.</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="nx">flk</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">WithAlphabet</span><span class="p">(</span><span class="s">&quot;0123456789&quot;</span><span class="p">),</span><span class="w"> </span><span class="nx">f</span><span class="p">.</span><span class="nx">AndGreekUpperAlphabet</span><span class="p">())</span>
 </span></code></pre></div>
 
 
@@ -571,44 +884,6 @@ Max value is 20.</p>
       </main>
       
         <footer class="md-footer">
-  
-    
-      
-      <nav class="md-footer__inner md-grid" aria-label="Footer" >
-        
-          
-          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Fluky API" rel="prev">
-            <div class="md-footer__button md-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-            </div>
-            <div class="md-footer__title">
-              <div class="md-ellipsis">
-                <span class="md-footer__direction">
-                  Previous
-                </span>
-                Fluky API
-              </div>
-            </div>
-          </a>
-        
-        
-          
-          <a href="../helpers/" class="md-footer__link md-footer__link--next" aria-label="Next: Helpers" rel="next">
-            <div class="md-footer__title">
-              <div class="md-ellipsis">
-                <span class="md-footer__direction">
-                  Next
-                </span>
-                Helpers
-              </div>
-            </div>
-            <div class="md-footer__button md-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-            </div>
-          </a>
-        
-      </nav>
-    
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -668,7 +943,7 @@ Max value is 20.</p>
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.code.select", "content.tabs.link", "navigation.footer", "navigation.sections", "navigation.indexes", "toc.follow", "toc.integrate"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.code.select", "content.tabs.link", "navigation.sections", "navigation.indexes", "toc.follow", "toc.integrate"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
       <script src="../../assets/javascripts/bundle.efa0ade1.min.js"></script>
