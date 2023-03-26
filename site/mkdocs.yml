@@ -31,7 +31,7 @@ extra:
     - icon: fontawesome/brands/twitter
       link: https://twitter.com/Pencroff
   analytics:
-    provider: custom
+    provider: g4
     property: G-PTRX52E10G
 
 theme:
