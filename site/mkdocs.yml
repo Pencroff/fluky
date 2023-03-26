@@ -39,7 +39,6 @@ theme:
     - content.code.copy
     - content.code.select
     - content.tabs.link
-    - navigation.footer
     - navigation.sections
     - navigation.indexes
     - toc.follow
