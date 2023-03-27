@@ -7,6 +7,10 @@
 
 Happening by or depending on chance in Golang.
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/Pencroff/fluky.svg)](https://pkg.go.dev/github.com/Pencroff/fluky)
+[![Go Report Card](https://goreportcard.com/badge/github.com/Pencroff/fluky)](https://goreportcard.com/report/github.com/Pencroff/fluky)
+[![License](https://img.shields.io/github/license/Pencroff/fluky)](https://github.com/Pencroff/fluky/blob/main/LICENSE)
+
 ## Overview
 
 Fluky Library offers a wide range of methods to generate various types of random values.

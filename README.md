@@ -4,8 +4,12 @@
 
 Happening by or depending on chance in Golang
 
-All rng implements rand.Source64 interface
-All passed dieharder tests located in source folder
+[![Go Reference](https://pkg.go.dev/badge/github.com/Pencroff/fluky.svg)](https://pkg.go.dev/github.com/Pencroff/fluky)
+[![Docs Reference](https://img.shields.io/badge/-reference-007D9C?style=flat-square&logo=readthedocs&logoWidth=18&labelColor=5C5C5C&logoColor=FAFAFA)](https://pencroff.github.io/fluky/)
+[![Go Report Card](https://goreportcard.com/badge/github.com/Pencroff/fluky)](https://goreportcard.com/report/github.com/Pencroff/fluky)
+[![License](https://img.shields.io/github/license/Pencroff/fluky)](https://github.com/Pencroff/fluky/blob/main/LICENSE)
+
+
 
 ## Dieharder source summary
 
