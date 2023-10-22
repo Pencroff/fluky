@@ -28,18 +28,27 @@ func (s *Squirrel3Source) Uint64() uint64 {
 	return r
 }
 
-type Squirrel3x2Source64 struct {
+type Squirrel3x2Source struct {
 	Squirrel3Source
 }
 
-const mask32 = 1<<32 - 1
-
-func (s *Squirrel3x2Source64) Uint64() uint64 {
-	x := squirrel3(s.position, s.seed) & mask32
+func (s *Squirrel3x2Source) Uint64() uint64 {
+	const mask32 = 1<<32 - 1
+	x := (squirrel3(s.position, s.seed) >> 16) & mask32 // used high 32 bits
 	s.position += 1
-	y := squirrel3(s.position, s.seed) & mask32
+	y := (squirrel3(s.position, s.seed) >> 16) & mask32 // used high 32 bits
 	s.position += 1
 	return x<<32 | y
+}
+
+type Squirrel3BigPrimeSource struct {
+	Squirrel3Source
+}
+
+func (s *Squirrel3BigPrimeSource) Uint64() uint64 {
+	r := squirrel3uint64Noise(s.position, s.seed)
+	s.position += 1
+	return r
 }
 
 func squirrel3(pos, seed uint64) uint64 {
@@ -71,11 +80,22 @@ func squirrel3(pos, seed uint64) uint64 {
 	return mangledBits
 }
 
-func NewSquirrel3SourceWithPos(pos, seed int64) rand.Source64 {
-	r := &Squirrel3Source{}
-	r.Seed(seed)
-	r.Position(pos)
-	return r
+func squirrel3uint64Noise(pos, seed uint64) uint64 {
+	const BIT_NOISE1 = 0x761a4cd0f83414b7
+	// 0b 0111 0110 0001 1010 0100 1100 1101 0000 1111 1000 0011 0100 0001 0100 1011 0111
+	const BIT_NOISE2 = 0xc731c95ae3d8e029 // 14353474879613362217
+	// 0b 1100 0111 0011 0001 1100 1001 0101 1010 1110 0011 1101 1000 1110 0000 0010 1001
+	const BIT_NOISE3 = 0x1e6d6e51f71a3bff
+	// 0b 0001 1110 0110 1101 0110 1110 0101 0001 1111 0111 0001 1010 0011 1011 1111 1111
+	mangledBits := pos
+	mangledBits *= BIT_NOISE1
+	mangledBits += seed
+	mangledBits ^= mangledBits >> 8
+	mangledBits += BIT_NOISE2
+	mangledBits ^= mangledBits << 8
+	mangledBits *= BIT_NOISE3
+	mangledBits ^= mangledBits >> 8
+	return mangledBits
 }
 
 func NewSquirrel3Source(seed int64) rand.Source64 {
@@ -85,7 +105,13 @@ func NewSquirrel3Source(seed int64) rand.Source64 {
 }
 
 func NewSquirrel3x2Source(seed int64) rand.Source64 {
-	r := &Squirrel3x2Source64{}
+	r := &Squirrel3x2Source{}
+	r.Seed(seed)
+	return r
+}
+
+func NewSquirrel3BigPrimeSource(seed int64) rand.Source64 {
+	r := &Squirrel3BigPrimeSource{}
 	r.Seed(seed)
 	return r
 }

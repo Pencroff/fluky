@@ -53,6 +53,16 @@ func Test_randomness_draw_16bit_32bit_64bit(t *testing.T) {
 			size:    768,
 			src:     source.NewSquirrel3Source(seed),
 			extract: "64bit",
+		}, {
+			name:    "squirrel3x2_source",
+			size:    768,
+			src:     source.NewSquirrel3x2Source(seed),
+			extract: "64bit",
+		}, {
+			name:    "squirrel3_big_prime_source",
+			size:    768,
+			src:     source.NewSquirrel3BigPrimeSource(seed),
+			extract: "64bit",
 		},
 	}
 	for _, el := range tbl {
