@@ -48,6 +48,11 @@ func Test_randomness_draw_16bit_32bit_64bit(t *testing.T) {
 			size:    768,
 			src:     source.NewSplitMix64Source(seed),
 			extract: "64bit",
+		}, {
+			name:    "squirrel3_source",
+			size:    768,
+			src:     source.NewSquirrel3Source(seed),
+			extract: "64bit",
 		},
 	}
 	for _, el := range tbl {
@@ -87,7 +92,6 @@ func Test_randomness_draw_16bit_32bit_64bit(t *testing.T) {
 			fmt.Println(err)
 		}
 	}
-
 }
 
 func extractZx81(v uint64) (x1, y1, c uint64) {
