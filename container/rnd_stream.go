@@ -46,6 +46,6 @@ func main() {
 		fSize := float64(sizeCnt) / (1024 * 1024 * 1024)
 		since := n.Sub(start).Round(time.Second)
 		speed := float64(sizeCnt) / (1024 * 1024) / since.Seconds()
-		os.Stderr.WriteString(fmt.Sprintf("%s: %.2f Gb (%.2f Mb/s)\n", since, fSize, speed))
+		os.Stderr.WriteString(fmt.Sprintf("%7s:%7.2f Gb (%.2f Mb/s)\n", since, fSize, speed))
 	}
 }
