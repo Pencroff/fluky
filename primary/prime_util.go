@@ -1,6 +1,7 @@
 package primary
 
 import (
+	"math/big"
 	"math/rand"
 	"strings"
 )
@@ -44,4 +45,17 @@ func CalcOneProbability(s string) (float64, int) {
 		l -= 2
 	}
 	return float64(oneCnt) / float64(l), oneCnt
+}
+
+func NextPrimeLess(n uint64) uint64 {
+	var bi big.Int
+	bi.SetUint64(n)
+
+	for {
+		if bi.ProbablyPrime(64) {
+			break
+		}
+		bi.Sub(&bi, big.NewInt(1))
+	}
+	return bi.Uint64()
 }
