@@ -20,9 +20,10 @@ func BenchmarkSource(b *testing.B) {
 		{"xoshiro256++ Source", source.NewXoshiro256ppSource(seed)},
 		{"xoshiro256** Source", source.NewXoshiro256ssSource(seed)},
 		{"SplitMix64", source.NewSplitMix64Source(seed)},
-		{"Squirrel3", source.NewSquirrel3Source(seed)},
+		//{"Squirrel3", source.NewSquirrel3Source(seed)},
 		{"Squirrel3x2", source.NewSquirrel3x2Source(seed)},
-		{"Squirrel3BigPrime", source.NewSquirrel3BigPrimeSource(seed)},
+		//{"Squirrel3BigPrime", source.NewSquirrel3BigPrimeSource(seed)},
+		{"NoiseSource", source.NewNoiseSource(seed)},
 	}
 	for _, t := range tbl {
 		r := t.src.(rand.Source64)

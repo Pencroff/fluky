@@ -94,6 +94,33 @@ func TestPrimary_nextPrimeLess(t *testing.T) {
 	}
 }
 
+func TestGetPrimeListWithParams(t *testing.T) {
+	seed := time.Now().UnixNano()
+	source := rng.NewSmallPrngSource(seed)
+	rnd := rand.New(source)
+	// 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97
+	oneProb := 0.53
+	delta := 0.01 // oneProb / 32
+	minProb := oneProb - delta
+	maxProb := oneProb + delta
+	n := 128
+	res := GetPrimeListWithParams(rnd, n, oneProb, delta)
+	assert.Equal(t, n, len(res))
+
+	for _, v := range res {
+		s64 := fmt.Sprintf("%#064b", v)
+		fmt.Println("---")
+		fmt.Printf("Dec: %d\t\t\tHex: %#016x\n", v, v)
+		fmt.Printf("%s\n", s64)
+		p, c := CalcOneProbability(s64)
+		fmt.Printf("oneCnt: %d, %.4f < %.4f < %.4f\n", c, maxProb, p, minProb)
+	}
+	for _, v := range res {
+		prob, _ := CalcOneProbability(fmt.Sprintf("%#064b", v))
+		assert.InDelta(t, oneProb, prob, delta)
+	}
+}
+
 func TestPrimary_findPrime(t *testing.T) {
 	prob := 0.15
 	delta := prob / 4
@@ -144,4 +171,44 @@ func TestPrimary_findPrime(t *testing.T) {
 	pl := n1 + n1
 	fmt.Printf("Pl: %#064b\n", pl)
 	fmt.Printf("Dec: %d\t\t\tHex: %#016x\n", pl, pl)
+}
+
+func TestPrimary_MeasureOneProb(t *testing.T) {
+	//var lst = []uint64{0x6831DA4, 0xB5297A4D, 0x1856C4E9} // 37.5% 53.1% 43.7%
+	//
+	// https://github.com/Cyan4973/xxHash/blob/dev/doc/xxhash_spec.md
+	lst := []uint64{
+		0b1001111000110111011110011011000110000101111010111100101010000111,
+		0b1100001010110010101011100011110100100111110101001110101101001111,
+		0b0001011001010110011001111011000110011110001101110111100111111001,
+		0b1000010111101011110010100111011111000010101100101010111001100011,
+		0b0010011111010100111010110010111100010110010101100110011111000101,
+	}
+	for _, v := range lst {
+		fmt.Printf("0x%08x\n", v)
+		s := fmt.Sprintf("%#032b", v)
+		realProb, oneCnt := CalcOneProbability(s)
+		fmt.Println(s)
+		fmt.Printf("oneCnt: %d, oneProb: %f\n", oneCnt, realProb)
+		fmt.Printf("Dec: %d\t\t\tHex: %#016x\n", v, v)
+	}
+}
+
+func TestPrimary_BIT_NOISE_A(t *testing.T) {
+	var BIT_NOISE_A uint64 = 0x5210100a71212cc5
+	cnt := 0
+	for i := 1; i < 1024; i++ {
+		r := BIT_NOISE_A * uint64(i)
+		b := r / uint64(i)
+		if b != BIT_NOISE_A {
+			cnt++
+			fmt.Println("==========")
+
+			fmt.Printf("i: %d\n", i)
+			fmt.Printf("n: %#064b\n", BIT_NOISE_A)
+			fmt.Printf("b: %#064b\n", b)
+			fmt.Printf("r: %#064b\n", r)
+		}
+	}
+	fmt.Printf("cnt: %d\n", cnt)
 }

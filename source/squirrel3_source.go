@@ -3,6 +3,8 @@ package source
 import "math/rand"
 
 // Based on https://www.youtube.com/watch?v=LWFzPP8ZbdU
+// https://github.com/Descrout/squirrel3-rs
+// https://github.com/archer884/squirrel-rng
 
 type Squirrel3Source struct {
 	position uint64

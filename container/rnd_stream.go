@@ -19,7 +19,7 @@ func main() {
 	butchSize := 8 * 1024
 	bff := make([]byte, butchSize)
 
-	src := rng.NewSquirrel3Source(*numbPtr)
+	src := rng.NewNoiseSource(*numbPtr)
 
 	os.Stderr.WriteString(fmt.Sprintf("Seed: %d\n", *numbPtr))
 	os.Stderr.WriteString(fmt.Sprintf("Source: %s\n", reflect.TypeOf(src).String()))
