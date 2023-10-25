@@ -90,7 +90,7 @@ func GetPrimeListWithParams(r *rand.Rand, n int, oneProb float64, delta float64)
 			break
 		}
 		if p >= minProb && p <= maxProb {
-			if strings.Index(sPrime, "1111") > -1 {
+			if strings.Index(sPrime, "11111") > -1 {
 				continue
 			}
 			res = append(res, prime)

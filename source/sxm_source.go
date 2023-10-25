@@ -11,34 +11,43 @@ const (
 	BIT_NOISE_C uint64 = 0xf6e7845905e176cb // 0b1111011011100111100001000101100100000101111000010111011011001011
 )
 
+// SxmSource is a random number generator based on Squirrel3 with more bits permutation (inspired by xxhash)
+// Sxm build from Sums and XORs and Multiplications steps (SXM)
+// It's a 64-bit generator with position and seed support
 type SxmSource struct {
 	position uint64
 	seed     uint64
 }
 
+// Position returns current position
 func (s *SxmSource) Position() int64 {
 	return int64(s.position)
 }
 
+// SetPosition sets current position
 func (s *SxmSource) SetPosition(pos int64) {
 	s.position = uint64(pos)
 }
 
+// Seed sets seed value and resets position
 func (s *SxmSource) Seed(seed int64) {
 	s.position = 0
 	s.seed = uint64(seed)
 }
 
+// Int63 returns a non-negative pseudo-random 63-bit integer as an int64.
 func (s *SxmSource) Int63() int64 {
 	return int64(s.Uint64() >> 1)
 }
 
+// Uint64 returns a pseudo-random 64-bit value as a uint64.
 func (s *SxmSource) Uint64() uint64 {
 	r := sxmFunc(s.position, s.seed)
 	s.position += 1
 	return r
 }
 
+// SxmMixSource is a random number generator based on SxmSource with mix64 (like in xxhash) bits permutation in the end
 type SxmMixSource struct {
 	SxmSource
 }

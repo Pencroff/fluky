@@ -59,14 +59,19 @@ func Test_randomness_draw_16bit_32bit_64bit(t *testing.T) {
 			src:     source.NewSquirrel3x2Source(seed),
 			extract: "64bit",
 		}, {
-			name:    "squirrel3_big_prime_source",
+			name:    "squirrel3_prime64_source",
 			size:    768,
-			src:     source.NewSquirrel3BigPrimeSource(seed),
+			src:     source.NewSquirrel3Prime64Source(seed),
 			extract: "64bit",
 		}, {
-			name:    "noise_source",
+			name:    "Sxm_Source",
 			size:    768,
-			src:     source.NewNoiseSource(seed),
+			src:     source.NewSxmSource(seed),
+			extract: "64bit",
+		}, {
+			name:    "SxmMix_Source",
+			size:    768,
+			src:     source.NewSxmMixSource(seed),
 			extract: "64bit",
 		},
 	}
