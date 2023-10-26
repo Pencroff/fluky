@@ -53,3 +53,178 @@ BenchmarkSource/xoshiro256**_Source-12          443611275                2.678 n
 BenchmarkSource/SplitMix64-12                   496955937                2.286 ns/op
 PASS
 ok      github.com/Pencroff/fluky/fluky_testing 9.324s
+------------------------------------------------------------------------------------
+Ξ go test -bench=. -timeout 30m ./fluky_testing
+goos: darwin
+goarch: arm64
+pkg: github.com/Pencroff/fluky/fluky_testing
+BenchmarkSource/BuiltIn_Source-8                498197578                2.097 ns/op
+BenchmarkSource/Pcg_Source-8                    309703726                3.877 ns/op
+BenchmarkSource/SmallPrng_Source-8              455162323                2.670 ns/op
+BenchmarkSource/xoshiro256++_Source-8           430495396                2.786 ns/op
+BenchmarkSource/xoshiro256**_Source-8           438361833                2.737 ns/op
+BenchmarkSource/SplitMix64-8                    608379927                1.973 ns/op
+BenchmarkSource/Squirrel3-8                     595376158                2.013 ns/op
+BenchmarkSource/Squirrel3x2-8                   501846201                2.389 ns/op
+BenchmarkSource/Squirrel3BigPrime-8             587335338                2.037 ns/op
+PASS
+ok      github.com/Pencroff/fluky/fluky_testing 13.242s
+------------------------------------------------------------------------------------
+Ξ go test -bench=. -timeout 30m ./fluky_testing
+goos: darwin
+goarch: arm64
+pkg: github.com/Pencroff/fluky/fluky_testing
+BenchmarkSource/BuiltIn_Source-8                547847330                2.100 ns/op
+BenchmarkSource/Pcg_Source-8                    309552698                3.939 ns/op
+BenchmarkSource/SmallPrng_Source-8              457793577                2.630 ns/op
+BenchmarkSource/xoshiro256++_Source-8           430822862                2.785 ns/op
+BenchmarkSource/xoshiro256**_Source-8           438503466                2.734 ns/op
+BenchmarkSource/SplitMix64-8                    607923781                1.971 ns/op
+BenchmarkSource/Squirrel3-8                     595305642                2.010 ns/op
+BenchmarkSource/Squirrel3x2-8                   500966708                2.387 ns/op
+BenchmarkSource/Squirrel3BigPrime-8             586915812                2.037 ns/op
+PASS
+ok      github.com/Pencroff/fluky/fluky_testing 13.168s
+------------------------------------------------------------------------------------
+Ξ go test -bench=. -timeout 30m ./fluky_testing
+goos: darwin
+goarch: arm64
+pkg: github.com/Pencroff/fluky/fluky_testing
+BenchmarkSource/BuiltIn_Source-8                539224260                2.099 ns/op
+BenchmarkSource/Pcg_Source-8                    308466241                3.897 ns/op
+BenchmarkSource/SmallPrng_Source-8              454063941                2.638 ns/op
+BenchmarkSource/xoshiro256++_Source-8           429764152                2.794 ns/op
+BenchmarkSource/xoshiro256**_Source-8           437332260                2.739 ns/op
+BenchmarkSource/SplitMix64-8                    606897259                1.998 ns/op
+BenchmarkSource/Squirrel3-8                     595015752                2.012 ns/op
+BenchmarkSource/Squirrel3x2-8                   501208904                2.391 ns/op
+BenchmarkSource/Squirrel3BigPrime-8             589174891                2.037 ns/op
+PASS
+ok      github.com/Pencroff/fluky/fluky_testing 13.187s
+------------------------------------------------------------------------------------
+Ξ go test -bench=. -timeout 30m ./fluky_testing
+goos: darwin
+goarch: arm64
+pkg: github.com/Pencroff/fluky/fluky_testing
+BenchmarkSource/BuiltIn_Source-8                501218761                2.101 ns/op
+BenchmarkSource/Pcg_Source-8                    301380384                3.885 ns/op
+BenchmarkSource/SmallPrng_Source-8              456152858                2.631 ns/op
+BenchmarkSource/xoshiro256++_Source-8           430556085                2.782 ns/op
+BenchmarkSource/xoshiro256**_Source-8           439051762                2.731 ns/op
+BenchmarkSource/SplitMix64-8                    609033745                1.968 ns/op
+BenchmarkSource/Squirrel3-8                     594911156                2.011 ns/op
+BenchmarkSource/Squirrel3x2-8                   501670492                2.388 ns/op
+BenchmarkSource/Squirrel3BigPrime-8             587012830                2.042 ns/op
+BenchmarkSource/SxmSource-8                     541919138                2.215 ns/op
+BenchmarkSource/SxmMixSource-8                  355896380                3.369 ns/op
+PASS
+ok      github.com/Pencroff/fluky/fluky_testing 16.176s
+------------------------------------------------------------------------------------
+Ξ go test -bench=. -timeout 30m ./fluky_testing
+goos: darwin
+goarch: arm64
+pkg: github.com/Pencroff/fluky/fluky_testing
+BenchmarkSource/BuiltIn_Source-8                498464709                2.105 ns/op
+BenchmarkSource/Pcg_Source-8                    306744087                3.879 ns/op
+BenchmarkSource/SmallPrng_Source-8              455341080                2.633 ns/op
+BenchmarkSource/xoshiro256++_Source-8           429124564                2.794 ns/op
+BenchmarkSource/xoshiro256**_Source-8           437506722                2.737 ns/op
+BenchmarkSource/SplitMix64-8                    603959330                1.976 ns/op
+BenchmarkSource/Squirrel3-8                     592740411                2.029 ns/op
+BenchmarkSource/Squirrel3x2-8                   501701604                2.390 ns/op
+BenchmarkSource/Squirrel3BigPrime-8             587321683                2.042 ns/op
+BenchmarkSource/SxmSource-8                     538071952                2.218 ns/op
+BenchmarkSource/SxmMixSource-8                  356024408                3.363 ns/op
+PASS
+ok      github.com/Pencroff/fluky/fluky_testing 16.180s
+------------------------------------------------------------------------------------
+Ξ go test -bench=. -timeout 30m ./fluky_testing
+goos: darwin
+goarch: arm64
+pkg: github.com/Pencroff/fluky/fluky_testing
+BenchmarkSource/BuiltIn_Source-8                535494548                2.107 ns/op
+BenchmarkSource/Pcg_Source-8                    300678091                3.904 ns/op
+BenchmarkSource/SmallPrng_Source-8              455652078                2.632 ns/op
+BenchmarkSource/xoshiro256++_Source-8           430709914                2.792 ns/op
+BenchmarkSource/xoshiro256**_Source-8           438174691                2.904 ns/op
+BenchmarkSource/SplitMix64-8                    606262182                1.973 ns/op
+BenchmarkSource/Squirrel3-8                     596176274                2.014 ns/op
+BenchmarkSource/Squirrel3x2-8                   502372400                2.394 ns/op
+BenchmarkSource/Squirrel3BigPrime-8             586149291                2.046 ns/op
+BenchmarkSource/SxmSource-8                     539681486                2.353 ns/op
+BenchmarkSource/SxmMixSource-8                  354669888                3.359 ns/op
+PASS
+ok      github.com/Pencroff/fluky/fluky_testing 16.318s
+------------------------------------------------------------------------------------
+Ξ go test -bench=. -timeout 30m ./fluky_testing
+goos: darwin
+goarch: arm64
+pkg: github.com/Pencroff/fluky/fluky_testing
+BenchmarkSource/BuiltIn_Source-8                498064034                2.107 ns/op
+BenchmarkSource/Pcg_Source-8                    304417606                3.927 ns/op
+BenchmarkSource/SmallPrng_Source-8              455724468                2.786 ns/op
+BenchmarkSource/xoshiro256++_Source-8           431280988                2.787 ns/op
+BenchmarkSource/xoshiro256**_Source-8           437257030                2.734 ns/op
+BenchmarkSource/SplitMix64-8                    608638737                1.974 ns/op
+BenchmarkSource/Squirrel3-8                     596146656                2.020 ns/op
+BenchmarkSource/Squirrel3x2-8                   500002342                2.543 ns/op
+BenchmarkSource/Squirrel3BigPrime-8             566763232                2.060 ns/op
+BenchmarkSource/SxmSource-8                     536511567                2.227 ns/op
+BenchmarkSource/SxmMixSource-8                  356804060                3.393 ns/op
+PASS
+ok      github.com/Pencroff/fluky/fluky_testing 16.318s
+------------------------------------------------------------------------------------
+Ξ go test -bench=. -timeout 30m ./fluky_testing
+goos: darwin
+goarch: arm64
+pkg: github.com/Pencroff/fluky/fluky_testing
+BenchmarkSource/BuiltIn_Source-8                496234390                2.119 ns/op
+BenchmarkSource/Pcg_Source-8                    304868396                3.889 ns/op
+BenchmarkSource/SmallPrng_Source-8              455256217                2.636 ns/op
+BenchmarkSource/xoshiro256++_Source-8           430092882                2.786 ns/op
+BenchmarkSource/xoshiro256**_Source-8           438044464                2.741 ns/op
+BenchmarkSource/SplitMix64-8                    607493046                2.103 ns/op
+BenchmarkSource/Squirrel3-8                     597273324                2.018 ns/op
+BenchmarkSource/Squirrel3x2-8                   494781685                2.397 ns/op
+BenchmarkSource/Squirrel3Prime64-8              584563980                2.049 ns/op
+BenchmarkSource/SxmSource-8                     541339544                2.232 ns/op
+BenchmarkSource/SxmMixSource-8                  356859148                3.582 ns/op
+PASS
+ok      github.com/Pencroff/fluky/fluky_testing 17.420s
+------------------------------------------------------------------------------------
+Ξ go test -bench=. -timeout 30m ./fluky_testing
+goos: darwin
+goarch: arm64
+pkg: github.com/Pencroff/fluky/fluky_testing
+BenchmarkSource/BuiltIn_Source-8                498004609                2.108 ns/op
+BenchmarkSource/Pcg_Source-8                    305195830                3.878 ns/op
+BenchmarkSource/SmallPrng_Source-8              458280264                2.625 ns/op
+BenchmarkSource/xoshiro256++_Source-8           430243873                2.822 ns/op
+BenchmarkSource/xoshiro256**_Source-8           438414819                2.751 ns/op
+BenchmarkSource/SplitMix64-8                    610586162                1.969 ns/op
+BenchmarkSource/Squirrel3-8                     597124100                2.010 ns/op
+BenchmarkSource/Squirrel3x2-8                   503548178                2.390 ns/op
+BenchmarkSource/Squirrel3Prime64-8              587281680                2.035 ns/op
+BenchmarkSource/SxmSource-8                     540975615                2.209 ns/op
+BenchmarkSource/SxmMixSource-8                  356153408                3.359 ns/op
+PASS
+ok      github.com/Pencroff/fluky/fluky_testing 16.268s
+------------------------------------------------------------------------------------
+Ξ go test -bench=. -timeout 30m ./fluky_testing
+goos: darwin
+goarch: arm64
+pkg: github.com/Pencroff/fluky/fluky_testing
+BenchmarkSource/BuiltIn_Source-8                525376792                2.103 ns/op
+BenchmarkSource/Pcg_Source-8                    301086703                3.979 ns/op
+BenchmarkSource/SmallPrng_Source-8              451683296                2.633 ns/op
+BenchmarkSource/xoshiro256++_Source-8           429150462                2.808 ns/op
+BenchmarkSource/xoshiro256**_Source-8           400911850                2.745 ns/op
+BenchmarkSource/SplitMix64-8                    590845707                2.150 ns/op
+BenchmarkSource/Squirrel3-8                     565523341                2.016 ns/op
+BenchmarkSource/Squirrel3x2-8                   499528224                2.401 ns/op
+BenchmarkSource/Squirrel3Prime64-8              584301404                2.048 ns/op
+BenchmarkSource/SxmSource-8                     536366485                2.278 ns/op
+BenchmarkSource/SxmMixSource-8                  356539869                3.356 ns/op
+PASS
+ok      github.com/Pencroff/fluky/fluky_testing 16.262s
+
