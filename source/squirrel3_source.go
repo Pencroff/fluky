@@ -11,7 +11,11 @@ type Squirrel3Source struct {
 	seed     uint64
 }
 
-func (s *Squirrel3Source) Position(pos int64) {
+func (s *Squirrel3Source) Position() int64 {
+	return int64(s.position)
+}
+
+func (s *Squirrel3Source) SetPosition(pos int64) {
 	s.position = uint64(pos)
 }
 
@@ -34,6 +38,10 @@ type Squirrel3x2Source struct {
 	Squirrel3Source
 }
 
+func (s *Squirrel3x2Source) Int63() int64 {
+	return int64(s.Uint64() >> 1)
+}
+
 func (s *Squirrel3x2Source) Uint64() uint64 {
 	const mask32 = 1<<32 - 1
 	x := (squirrel3(s.position, s.seed) >> 16) & mask32 // used high 32 bits
@@ -45,6 +53,10 @@ func (s *Squirrel3x2Source) Uint64() uint64 {
 
 type Squirrel3Prime64Source struct {
 	Squirrel3Source
+}
+
+func (s *Squirrel3Prime64Source) Int63() int64 {
+	return int64(s.Uint64() >> 1)
 }
 
 func (s *Squirrel3Prime64Source) Uint64() uint64 {
