@@ -22,7 +22,7 @@ func BenchmarkSource(b *testing.B) {
 		{"SplitMix64", source.NewSplitMix64Source(seed)},
 		{"Squirrel3", source.NewSquirrel3Source(seed)},
 		{"Squirrel3x2", source.NewSquirrel3x2Source(seed)},
-		{"Squirrel3BigPrime", source.NewSquirrel3Prime64Source(seed)},
+		{"Squirrel3Prime64", source.NewSquirrel3Prime64Source(seed)},
 		{"SxmSource", source.NewSxmSource(seed)},
 		{"SxmMixSource", source.NewSxmMixSource(seed)},
 	}
