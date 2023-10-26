@@ -2,9 +2,8 @@
 
 Fluky library provides a set of external sources for random number generation.
 They have a good statistical quality and are fast for general purpose cases.
-All sources are implement the [`Source`](https://pkg.go.dev/math/rand#Source) and 
+All sources are implement the [`Source`](https://pkg.go.dev/math/rand#Source) and
 [`Source64`](https://pkg.go.dev/math/rand#Source64) interfaces from `math/rand` package.
-
 
 **Import all sources**
 
@@ -12,15 +11,15 @@ All sources are implement the [`Source`](https://pkg.go.dev/math/rand#Source) an
 import "github.com/Pencroff/fluky/sources"
 ```
 
-## SplitMix64 
+## SplitMix64
 
 !!! info inline end "Reference"
-    
+
     [splitmix64.c](https://prng.di.unimi.it/splitmix64.c)
 
 SplitMix64 is a pseudorandom number generator (PRNG) algorithm that generates a 64-bit output using a 64-bit seed.
 It works by repeatedly applying a basic function to the seed value, but it may not provide enough randomness
-for some applications, and its output is not suitable for cryptographic purposes. However, SplitMix64 is known for 
+for some applications, and its output is not suitable for cryptographic purposes. However, SplitMix64 is known for
 its speed and simplicity, and it can be used as a basic building block for more complex PRNGs.
 
 Current implementations of `xoshiro256++` and `xoshiro256**` use `SplitMix64` as a seed generator.
@@ -154,7 +153,7 @@ PCG (Permuted Congruential Generator) is a family of pseudorandom number generat
 They are known for their speed, statistical quality, and flexibility, and can produce high-quality random numbers
 with relatively small state sizes. PCG generators work by combining a linear congruential generator (LCG) with a
 permutation function that shuffles the output, resulting in improved statistical properties.
-Fluky provides PCG-XSL-RR implementation (128 bit state, 64 bit output), and they are suitable for variety of 
+Fluky provides PCG-XSL-RR implementation (128 bit state, 64 bit output), and they are suitable for variety of
 applications, such as games, simulations (used in the NumPy scientific computing package).
 PCG-XSL-RR is not suitable for cryptographic purposes.
 
@@ -218,23 +217,97 @@ src := sources.NewSmallPrngSource(0) // where 0 is a seed, int64
     }
     ```
 
+## Positional
+
+### Squirrel3
+
+!!! info inline end "Reference"
+
+    * [Squirrel3](https://youtu.be/LWFzPP8ZbdU)
+    * [Squirrel3 implementation 1](https://github.com/Descrout/squirrel3-rs)
+    * [Squirrel3 implementation 2](https://github.com/archer884/squirrel-rng)
+
+Squirrel3 is a pseudorandom number generator (PRNG) algorithm that generates a 64-bit output using a 64-bit seed and
+position (64 bits).
+Main idea is to use position and seed as input bits, and them mix them with a simple function.
+This approach allow to make a set of different random number generators with the same statistical quality, but different
+sequences.
+
+There are 3 implementations of Squirrel3 in Fluky:
+
+* `Squirrel3Source` - original implementation, with 64 bit seed and 64 bit position
+* `Squirrel3x2Source` - implementation which use high bits of two random numbers combined to single 64 bits random
+  number, iterate 2 positions at once
+* `Squirrel3Prime64Source` - implementation with 64 bits prime number for noise bits, prime numbers generated randomly
+  with ~ 59% probability of one bits
+
+**Usage**
+
+```go
+src := sources.NewSquirrel3Source(0) // init with seed=0, position=0
+src.SetPosition(10) // set position to 10
+src.Uint64() // get 10th random number
+src.Uint64() // get 11th random number
+```
+
+or
+
+```go
+src := sources.NewSquirrel3x2Source(0) // init with seed=0, position=0
+```
+
+or
+
+```go
+src := sources.Squirrel3Prime64Source(0) // init with seed=0, position=0
+```
+
+### Sxm
+
+`SxmSource` and `SxmMixSource` are implementations of Positional source with inspiration from xxhash and Squirrel3.
+`SxmMixSource` on final round used mix64 step from xxhash ([avalanche](https://github.com/Cyan4973/xxHash/blob/dev/doc/xxhash_spec.md#step-6-final-mix-avalanche-1)).
+
+> The final mix ensures that all input bits have a chance to impact any bit in the output digest,
+> resulting in an unbiased distribution. This is also called avalanche effect.
+
+**Usage**
+
+```go
+src := sources.NewSxmSource(0) // init with seed=0, position=0
+src.SetPosition(10) // set position to 10
+src.Uint64() // get 10th random number
+src.Uint64() // get 11th random number
+```
+
+or
+
+```go
+src := sources.NewSxmMixSource(0) // init with seed=0, position=0
+```
+
+Please check `dieharder` test results below.
+
 ## Summary
 
 ### Statistical quality (dieharder)
 
 > SEED: 1234567
-> 
+>
 > Test data: 229GiB
 
-| Name         | Time  | PASS | WEAK | FAIL | Total |
-|--------------|:-----:|:----:|:----:|:----:|:------|
-| Built In     | 35:33 | 112  |  2   |  0   | 114   |
-| PCG-XSL-RR   | 36:12 | 112  |  2   |  0   | 114   |
-| Small Prng   | 37:49 | 114  |  0   |  0   | 114   | 
-| Xoshiro256++ | 39:35 | 112  |  2   |  0   | 114   |                                  
-| Xoshiro256** | 37:01 | 108  |  6   |  0   | 114   |
-| SplitMix64   | 38:06 | 113  |  1   |  0   | 114   |
-
+| Name             |    Time    | PASS | WEAK | FAIL | Total |
+|------------------|:----------:|:----:|:----:|:----:|:------|
+| Built In         |   35:33    | 112  |  2   |  0   | 114   |
+| PCG-XSL-RR       |   36:12    | 112  |  2   |  0   | 114   |
+| Small Prng       |   37:49    | 114  |  0   |  0   | 114   | 
+| Xoshiro256++     |   39:35    | 112  |  2   |  0   | 114   |                                  
+| Xoshiro256**     |   37:01    | 108  |  6   |  0   | 114   |
+| SplitMix64       |   38:06    | 113  |  1   |  0   | 114   |
+| Squirrel3        | 19:50 (M2) | 108  |  6   |  0   | 114   |
+| Squirrel3x2      | 19:50 (M2) | 111  |  3   |  0   | 114   |
+| Squirrel3Prime64 | 19:10 (M2) | 113  |  1   |  0   | 114   |
+| Sxm              | 19:10 (M2) | 113  |  1   |  0   | 114   |
+| SxmMix           | 19:10 (M2) | 113  |  1   |  0   | 114   |
 
 !!! info "Reference"
 
@@ -280,6 +353,36 @@ src := sources.NewSmallPrngSource(0) // where 0 is a seed, int64
         <figure markdown>
             ![Small Prng](//raw.githubusercontent.com/Pencroff/fluky/main/out/small-prng_source_out.png){ loading=lazy width="768" }
         </figure>
+
+    === "Squirrel3"
+        
+        <figure markdown>
+            ![Squirrel3](//raw.githubusercontent.com/Pencroff/fluky/main/out/squirrel3_source_out.png){ loading=lazy width="768" }
+        </figure>
+
+    === "Squirrel3x2"
+
+          <figure markdown>
+              ![Squirrel3x2](//raw.githubusercontent.com/Pencroff/fluky/main/out/squirrel3x2_source_out.png){ loading=lazy width="768" }
+          </figure>
+
+    === "Squirrel3Prime64"
+
+          <figure markdown>
+              ![Squirrel3Prime64](//raw.githubusercontent.com/Pencroff/fluky/main/out/squirrel3_prime64_source_out.png){ loading=lazy width="768" }
+          </figure>
+
+    === "Sxm"
+
+          <figure markdown>
+              ![Sxm](//raw.githubusercontent.com/Pencroff/fluky/main/out/sxm_source_out.png){ loading=lazy width="768" }
+          </figure>
+
+    === "SxmMix"  
+    
+          <figure markdown>
+              ![SxmMix](//raw.githubusercontent.com/Pencroff/fluky/main/out/sxmmix_source_out.png){ loading=lazy width="768" }
+          </figure>
 
 ### Performance
 
