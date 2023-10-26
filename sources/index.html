@@ -13,7 +13,7 @@
       
       
       <link rel="icon" href="../images/fluky-logo.min.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.3">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.1.3">
     
     
       
@@ -411,6 +411,33 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#positional" class="md-nav__link">
+    Positional
+  </a>
+  
+    <nav class="md-nav" aria-label="Positional">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#squirrel3" class="md-nav__link">
+    Squirrel3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sxm" class="md-nav__link">
+    Sxm
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     Summary
   </a>
@@ -473,7 +500,7 @@
 <h1 id="external-sources">External Sources</h1>
 <p>Fluky library provides a set of external sources for random number generation.
 They have a good statistical quality and are fast for general purpose cases.
-All sources are implement the <a href="https://pkg.go.dev/math/rand#Source"><code>Source</code></a> and 
+All sources are implement the <a href="https://pkg.go.dev/math/rand#Source"><code>Source</code></a> and
 <a href="https://pkg.go.dev/math/rand#Source64"><code>Source64</code></a> interfaces from <code>math/rand</code> package.</p>
 <p><strong>Import all sources</strong></p>
 <div class="language-go highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/Pencroff/fluky/sources&quot;</span>
@@ -485,7 +512,7 @@ All sources are implement the <a href="https://pkg.go.dev/math/rand#Source"><cod
 </div>
 <p>SplitMix64 is a pseudorandom number generator (PRNG) algorithm that generates a 64-bit output using a 64-bit seed.
 It works by repeatedly applying a basic function to the seed value, but it may not provide enough randomness
-for some applications, and its output is not suitable for cryptographic purposes. However, SplitMix64 is known for 
+for some applications, and its output is not suitable for cryptographic purposes. However, SplitMix64 is known for
 its speed and simplicity, and it can be used as a basic building block for more complex PRNGs.</p>
 <p>Current implementations of <code>xoshiro256++</code> and <code>xoshiro256**</code> use <code>SplitMix64</code> as a seed generator.</p>
 <p><strong>Usage</strong></p>
@@ -606,7 +633,7 @@ and move state of existing source to 2<sup>128</sup> and 2<sup>192</sup> iterati
 They are known for their speed, statistical quality, and flexibility, and can produce high-quality random numbers
 with relatively small state sizes. PCG generators work by combining a linear congruential generator (LCG) with a
 permutation function that shuffles the output, resulting in improved statistical properties.
-Fluky provides PCG-XSL-RR implementation (128 bit state, 64 bit output), and they are suitable for variety of 
+Fluky provides PCG-XSL-RR implementation (128 bit state, 64 bit output), and they are suitable for variety of
 applications, such as games, simulations (used in the NumPy scientific computing package).
 PCG-XSL-RR is not suitable for cryptographic purposes.</p>
 <p><strong>Usage</strong></p>
@@ -659,6 +686,58 @@ of the dieharder test suite, the Small PRNG exhibited just 0-2 weak results (of 
 </span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="p">}</span>
 </span></code></pre></div>
 </details>
+<h2 id="positional">Positional</h2>
+<h3 id="squirrel3">Squirrel3</h3>
+<div class="admonition info inline end">
+<p class="admonition-title">Reference</p>
+<ul>
+<li><a href="https://youtu.be/LWFzPP8ZbdU">Squirrel3</a></li>
+<li><a href="https://github.com/Descrout/squirrel3-rs">Squirrel3 implementation 1</a></li>
+<li><a href="https://github.com/archer884/squirrel-rng">Squirrel3 implementation 2</a></li>
+</ul>
+</div>
+<p>Squirrel3 is a pseudorandom number generator (PRNG) algorithm that generates a 64-bit output using a 64-bit seed and
+position (64 bits).
+Main idea is to use position and seed as input bits, and them mix them with a simple function.
+This approach allow to make a set of different random number generators with the same statistical quality, but different
+sequences.</p>
+<p>There are 3 implementations of Squirrel3 in Fluky:</p>
+<ul>
+<li><code>Squirrel3Source</code> - original implementation, with 64 bit seed and 64 bit position</li>
+<li><code>Squirrel3x2Source</code> - implementation which use high bits of two random numbers combined to single 64 bits random
+  number, iterate 2 positions at once</li>
+<li><code>Squirrel3Prime64Source</code> - implementation with 64 bits prime number for noise bits, prime numbers generated randomly
+  with ~ 59% probability of one bits</li>
+</ul>
+<p><strong>Usage</strong></p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nx">src</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sources</span><span class="p">.</span><span class="nx">NewSquirrel3Source</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="c1">// init with seed=0, position=0</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="nx">src</span><span class="p">.</span><span class="nx">SetPosition</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="c1">// set position to 10</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="nx">src</span><span class="p">.</span><span class="nx">Uint64</span><span class="p">()</span><span class="w"> </span><span class="c1">// get 10th random number</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="nx">src</span><span class="p">.</span><span class="nx">Uint64</span><span class="p">()</span><span class="w"> </span><span class="c1">// get 11th random number</span>
+</span></code></pre></div>
+<p>or</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nx">src</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sources</span><span class="p">.</span><span class="nx">NewSquirrel3x2Source</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="c1">// init with seed=0, position=0</span>
+</span></code></pre></div>
+<p>or</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nx">src</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sources</span><span class="p">.</span><span class="nx">Squirrel3Prime64Source</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="c1">// init with seed=0, position=0</span>
+</span></code></pre></div>
+<h3 id="sxm">Sxm</h3>
+<p><code>SxmSource</code> and <code>SxmMixSource</code> are implementations of Positional source with inspiration from xxhash and Squirrel3.
+<code>SxmMixSource</code> on final round used mix64 step from xxhash (<a href="https://github.com/Cyan4973/xxHash/blob/dev/doc/xxhash_spec.md#step-6-final-mix-avalanche-1">avalanche</a>).</p>
+<blockquote>
+<p>The final mix ensures that all input bits have a chance to impact any bit in the output digest,
+resulting in an unbiased distribution. This is also called avalanche effect.</p>
+</blockquote>
+<p><strong>Usage</strong></p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="nx">src</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sources</span><span class="p">.</span><span class="nx">NewSxmSource</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="c1">// init with seed=0, position=0</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="nx">src</span><span class="p">.</span><span class="nx">SetPosition</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="c1">// set position to 10</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="nx">src</span><span class="p">.</span><span class="nx">Uint64</span><span class="p">()</span><span class="w"> </span><span class="c1">// get 10th random number</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="nx">src</span><span class="p">.</span><span class="nx">Uint64</span><span class="p">()</span><span class="w"> </span><span class="c1">// get 11th random number</span>
+</span></code></pre></div>
+<p>or</p>
+<div class="language-go highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nx">src</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sources</span><span class="p">.</span><span class="nx">NewSxmMixSource</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="c1">// init with seed=0, position=0</span>
+</span></code></pre></div>
+<p>Please check <code>dieharder</code> test results below.</p>
 <h2 id="summary">Summary</h2>
 <h3 id="statistical-quality-dieharder">Statistical quality (dieharder)</h3>
 <blockquote>
@@ -725,6 +804,46 @@ of the dieharder test suite, the Small PRNG exhibited just 0-2 weak results (of 
 <td align="center">0</td>
 <td align="left">114</td>
 </tr>
+<tr>
+<td>Squirrel3</td>
+<td align="center">19:50 (M2)</td>
+<td align="center">108</td>
+<td align="center">6</td>
+<td align="center">0</td>
+<td align="left">114</td>
+</tr>
+<tr>
+<td>Squirrel3x2</td>
+<td align="center">19:50 (M2)</td>
+<td align="center">111</td>
+<td align="center">3</td>
+<td align="center">0</td>
+<td align="left">114</td>
+</tr>
+<tr>
+<td>Squirrel3Prime64</td>
+<td align="center">19:10 (M2)</td>
+<td align="center">113</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="left">114</td>
+</tr>
+<tr>
+<td>Sxm</td>
+<td align="center">19:10 (M2)</td>
+<td align="center">113</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="left">114</td>
+</tr>
+<tr>
+<td>SxmMix</td>
+<td align="center">19:10 (M2)</td>
+<td align="center">113</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="left">114</td>
+</tr>
 </tbody>
 </table>
 <div class="admonition info">
@@ -737,7 +856,7 @@ of the dieharder test suite, the Small PRNG exhibited just 0-2 weak results (of 
 <h3 id="statistical-quality-draw-test">Statistical quality (draw test)</h3>
 <details class="abstract">
 <summary>Expand to check results (each picture is 2 Mb)</summary>
-<div class="tabbed-set tabbed-alternate" data-tabs="3:6"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><input id="__tabbed_3_4" name="__tabbed_3" type="radio" /><input id="__tabbed_3_5" name="__tabbed_3" type="radio" /><input id="__tabbed_3_6" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Built In</label><label for="__tabbed_3_2">SplitMix64</label><label for="__tabbed_3_3">Xoshiro256++</label><label for="__tabbed_3_4">Xoshiro256**</label><label for="__tabbed_3_5">PCG-XSL-RR</label><label for="__tabbed_3_6">Small Prng</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:11"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><input id="__tabbed_3_4" name="__tabbed_3" type="radio" /><input id="__tabbed_3_5" name="__tabbed_3" type="radio" /><input id="__tabbed_3_6" name="__tabbed_3" type="radio" /><input id="__tabbed_3_7" name="__tabbed_3" type="radio" /><input id="__tabbed_3_8" name="__tabbed_3" type="radio" /><input id="__tabbed_3_9" name="__tabbed_3" type="radio" /><input id="__tabbed_3_10" name="__tabbed_3" type="radio" /><input id="__tabbed_3_11" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Built In</label><label for="__tabbed_3_2">SplitMix64</label><label for="__tabbed_3_3">Xoshiro256++</label><label for="__tabbed_3_4">Xoshiro256**</label><label for="__tabbed_3_5">PCG-XSL-RR</label><label for="__tabbed_3_6">Small Prng</label><label for="__tabbed_3_7">Squirrel3</label><label for="__tabbed_3_8">Squirrel3x2</label><label for="__tabbed_3_9">Squirrel3Prime64</label><label for="__tabbed_3_10">Sxm</label><label for="__tabbed_3_11">SxmMix</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p><figure markdown>
@@ -769,12 +888,37 @@ of the dieharder test suite, the Small PRNG exhibited just 0-2 weak results (of 
     <img alt="Small Prng" loading="lazy" src="//raw.githubusercontent.com/Pencroff/fluky/main/out/small-prng_source_out.png" width="768" />
 </figure></p>
 </div>
+<div class="tabbed-block">
+<p><figure markdown>
+    <img alt="Squirrel3" loading="lazy" src="//raw.githubusercontent.com/Pencroff/fluky/main/out/squirrel3_source_out.png" width="768" />
+</figure></p>
+</div>
+<div class="tabbed-block">
+<p><figure markdown>
+      <img alt="Squirrel3x2" loading="lazy" src="//raw.githubusercontent.com/Pencroff/fluky/main/out/squirrel3x2_source_out.png" width="768" />
+  </figure></p>
+</div>
+<div class="tabbed-block">
+<p><figure markdown>
+      <img alt="Squirrel3Prime64" loading="lazy" src="//raw.githubusercontent.com/Pencroff/fluky/main/out/squirrel3_prime64_source_out.png" width="768" />
+  </figure></p>
+</div>
+<div class="tabbed-block">
+<p><figure markdown>
+      <img alt="Sxm" loading="lazy" src="//raw.githubusercontent.com/Pencroff/fluky/main/out/sxm_source_out.png" width="768" />
+  </figure></p>
+</div>
+<div class="tabbed-block">
+<p><figure markdown>
+      <img alt="SxmMix" loading="lazy" src="//raw.githubusercontent.com/Pencroff/fluky/main/out/sxmmix_source_out.png" width="768" />
+  </figure></p>
+</div>
 </div>
 </div>
 </details>
 <h3 id="performance">Performance</h3>
 <p><strong>Manual run</strong></p>
-<div class="language-shell highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>go<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-bench<span class="o">=</span>.<span class="w"> </span>-timeout<span class="w"> </span>30m<span class="w"> </span>./fluky_testing
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>go<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-bench<span class="o">=</span>.<span class="w"> </span>-timeout<span class="w"> </span>30m<span class="w"> </span>./fluky_testing
 </span></code></pre></div>
 <p><mark class="critic">
 TBW - requires tests on Intel, M2, with latest Go version
