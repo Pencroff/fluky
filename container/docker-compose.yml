@@ -9,4 +9,4 @@ services:
 #    command: bash -c "dieharder -S 1 -B -o -t 100000000 | pv | dieharder -a -s 1 | | dieharder -a -s 1 -g 200"
 #    command: bash -c "go run /app/container/rnd_stream.go"
 #    command: bash -c "go run ./container/rnd_stream.go | pv --bytes --numeric --timer --interval=5 | dieharder -a -g 200 -s 1 >> ./dieharder-source/Squirrel3x2Source_pipe.txt"
-    command: bash -c "go run ./container/rnd_stream.go -seed=1234567 | dieharder -a -g 200 -s 1 >> ./dieharder-source/Squirrel3x2Source_pipe.txt"
+    command: bash -c "go run ./container/rnd_stream.go -seed=1234567 | dieharder -a -g 200 -s 1 >> ./dieharder-source/SxmMixSource_tst_pipe.txt"

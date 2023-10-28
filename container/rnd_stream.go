@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-const notePeriodSec = 10
+const notePeriodSec = 15
 
 func main() {
 	numbPtr := flag.Int64("seed", 0, "seed value")
@@ -19,7 +19,7 @@ func main() {
 	butchSize := 8 * 1024
 	bff := make([]byte, butchSize)
 
-	src := rng.NewSquirrel3x2Source(*numbPtr)
+	src := rng.NewSxmMixSource(*numbPtr)
 
 	os.Stderr.WriteString(fmt.Sprintf("Seed: %d\n", *numbPtr))
 	os.Stderr.WriteString(fmt.Sprintf("Source: %s\n", reflect.TypeOf(src).String()))
