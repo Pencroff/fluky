@@ -25,6 +25,8 @@ func BenchmarkSource(b *testing.B) {
 		{"Squirrel3Prime64", source.NewSquirrel3Prime64Source(seed)},
 		{"SxmSource", source.NewSxmSource(seed)},
 		{"SxmMixSource", source.NewSxmMixSource(seed)},
+		{"WySource", source.NewWySource(seed)},
+		{"WyMixSource", source.NewWyMixSource(seed)},
 	}
 	for _, t := range tbl {
 		r := t.src.(rand.Source64)

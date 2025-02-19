@@ -227,4 +227,25 @@ BenchmarkSource/SxmSource-8                     536366485                2.278 n
 BenchmarkSource/SxmMixSource-8                  356539869                3.356 ns/op
 PASS
 ok      github.com/Pencroff/fluky/fluky_testing 16.262s
+------------------------------------------------------------------------------------
+Ξ go test -bench=. -timeout 30m ./fluky_testing
+goos: darwin
+goarch: arm64
+pkg: github.com/Pencroff/fluky/fluky_testing
+cpu: Apple M2
+BenchmarkSource/BuiltIn_Source-8                512898049                2.182 ns/op
+BenchmarkSource/Pcg_Source-8                    294336325                4.054 ns/op
+BenchmarkSource/SmallPrng_Source-8              440967740                2.743 ns/op
+BenchmarkSource/xoshiro256++_Source-8           417001135                2.866 ns/op
+BenchmarkSource/xoshiro256**_Source-8           413702812                2.784 ns/op
+BenchmarkSource/SplitMix64-8                    590126202                2.019 ns/op
+BenchmarkSource/Squirrel3-8                     582244454                2.075 ns/op
+BenchmarkSource/Squirrel3x2-8                   510214744                2.356 ns/op
+BenchmarkSource/Squirrel3Prime64-8              592099540                2.012 ns/op
+BenchmarkSource/SxmSource-8                     535098463                2.277 ns/op
+BenchmarkSource/SxmMixSource-8                  354509968                3.411 ns/op
+BenchmarkSource/WySource-8                      597069507                2.004 ns/op
+BenchmarkSource/WyMixSource-8                   595322499                1.999 ns/op
+PASS
+ok      github.com/Pencroff/fluky/fluky_testing 19.137s
 
