@@ -25,7 +25,7 @@ static inline uint64_t wyrand(uint64_t *seed){ *seed+=0x2d358dccaa6c78a5ull; ret
 func WyMixRand(a, b uint64) uint64 {
 	a ^= wyp0
 	b ^= wyp1
-	wymum(&a, &b)
+	a, b = wymum(a, b)
 	return wymix(a^wyp0, b^wyp1)
 }
 
@@ -57,13 +57,13 @@ func sum64(key []byte, seed uint64) uint64 {
 	if n == 0 {
 		a = wyp1
 		b = seed
-		wymum(&a, &b)
+		a, b = wymum(a, b)
 		return wymix(a^wyp0^u, b^wyp1)
 	} else if n < 4 {
 		// For inputs [1,3] bytes, use three 16-bit words combined into 64-bit values.
 		a = wyr3(key, n) ^ wyp1
 		b = seed
-		wymum(&a, &b)
+		a, b = wymum(a, b)
 		return wymix(a^wyp0^u, b^wyp1)
 	} else if n <= 16 {
 		// For inputs [4,16] bytes, use two 32-bit words combined into 64-bit values.
@@ -99,8 +99,9 @@ func sum64(key []byte, seed uint64) uint64 {
 			a = (v0 << 32) | wyr4(key[4:8]) ^ wyp1
 			b = (wyr4(key[7:11]) << 32) | wyr4(key[3:7]) ^ seed
 		case 12:
-			a = (v0 << 32) | wyr4(key[4:8]) ^ wyp1
-			b = (wyr4(key[8:12]) << 32) | wyr4(key[4:8]) ^ seed
+			part := wyr4(key[4:8])
+			a = (v0 << 32) | part ^ wyp1
+			b = (wyr4(key[8:12]) << 32) | part ^ seed
 		case 13:
 			a = (v0 << 32) | wyr4(key[4:8]) ^ wyp1
 			b = (wyr4(key[9:13]) << 32) | wyr4(key[5:9]) ^ seed
@@ -115,7 +116,7 @@ func sum64(key []byte, seed uint64) uint64 {
 			b = (wyr4(key[12:16]) << 32) | wyr4(key[4:8]) ^ seed
 		}
 
-		wymum(&a, &b)
+		a, b = wymum(a, b)
 		return wymix(a^wyp0^u, b^wyp1)
 	}
 	// For inputs longer than 16 bytes.
@@ -143,7 +144,7 @@ func sum64(key []byte, seed uint64) uint64 {
 	a = wyr8(key[n-16:n-8]) ^ wyp1
 	b = wyr8(key[n-8:n]) ^ seed
 
-	wymum(&a, &b)
+	a, b = wymum(a, b)
 	return wymix(a^wyp0^u, b^wyp1)
 }
 
@@ -162,10 +163,10 @@ func wyr8(p []byte) uint64 {
 	return binary.LittleEndian.Uint64(p)
 }
 
-// wymum multiplies a and b and stores the high and low 64-bit parts into a and b respectively.
-func wymum(a, b *uint64) {
-	hi, lo := bits.Mul64(*a, *b)
-	*a, *b = lo, hi
+// wymum multiplies a and b and returns the low and high 64-bit parts respectively.
+func wymum(a, b uint64) (uint64, uint64) {
+	hi, lo := bits.Mul64(a, b)
+	return lo, hi
 }
 
 // wymix performs mixing by multiplying a and b and then XORing the high and low 64-bit parts.
