@@ -83,6 +83,7 @@ func TestPrimary_nextPrimeLess(t *testing.T) {
 		{"5", 5, 5},
 		{"11", 11, 11},
 		{"20", 20, 19},
+		{"0x263839fe116b8681", 0x263839fe116b8681, 0x263839fe116b866d},
 		{"1<<64-1-59", 1<<64 - 1, 1<<64 - 59},
 		{"1<<64-1-59", 1<<64 - 59, 1<<64 - 59},
 	}
@@ -92,6 +93,41 @@ func TestPrimary_nextPrimeLess(t *testing.T) {
 			assert.Equal(t, tc.want, got)
 		})
 	}
+}
+
+func TestPrimary_nextPrimeGreat(t *testing.T) {
+	testCases := []struct {
+		name string
+		n    uint64
+		want uint64
+	}{
+		{"2", 2, 2},
+		{"3", 3, 3},
+		{"4", 4, 5},
+		{"5", 5, 5},
+		{"11", 11, 11},
+		{"20", 20, 23},
+		{"0x263839fe116b8681", 0x263839fe116b8681, 0x263839fe116b869b},
+		{"1<<64-1-64", 1<<64 - 64, 1<<64 - 59},
+		{"1<<64-1-59", 1<<64 - 59, 1<<64 - 59},
+	}
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			got := NextPrimeGreat(tc.n)
+			fmt.Printf("%#064b\n", got)
+			assert.Equal(t, tc.want, got)
+		})
+	}
+}
+
+func TestPrimary_bin(t *testing.T) {
+	var v uint64 = 0x263839fe116b8681
+	g := NextPrimeGreat(v)
+	l := NextPrimeLess(v)
+
+	fmt.Printf("Great:\t%#016x\t%#064b\n", g, g)
+	fmt.Printf("Value:\t%#016x\t%#064b\n", v, v)
+	fmt.Printf("Less:\t%#016x\t%#064b\n", l, l)
 }
 
 func TestGetPrimeListWithParams(t *testing.T) {

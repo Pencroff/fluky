@@ -62,6 +62,19 @@ func NextPrimeLess(n uint64) uint64 {
 	return bi.Uint64()
 }
 
+func NextPrimeGreat(n uint64) uint64 {
+	var bi big.Int
+	bi.SetUint64(n)
+
+	for {
+		if bi.ProbablyPrime(64) {
+			break
+		}
+		bi.Add(&bi, big.NewInt(1))
+	}
+	return bi.Uint64()
+}
+
 func GetPrimeListWithParams(r *rand.Rand, n int, oneProb float64, delta float64) []uint64 {
 	var res []uint64
 	minProb := oneProb - delta
