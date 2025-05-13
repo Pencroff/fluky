@@ -67,57 +67,24 @@ func sum64(key []byte, seed uint64) uint64 {
 		return wymix(a^wyp0^u, b^wyp1)
 	} else if n <= 16 {
 		// For inputs [4,16] bytes, use two 32-bit words combined into 64-bit values.
-		// Compute a shift offset: ((n >> 3) << 2) == (n/8)*4.
-		v0 := wyr4(key[0:4])
-		switch n {
-		case 4:
-			a = (v0 << 32) | v0 ^ wyp1
-			b = (v0 << 32) | v0 ^ seed
-		case 5:
-			v1 := wyr4(key[1:5])
-			a = (v0 << 32) | v0 ^ wyp1
-			b = (v1 << 32) | v1 ^ seed
-		case 6:
-			v2 := wyr4(key[2:6])
-			a = (v0 << 32) | v0 ^ wyp1
-			b = (v2 << 32) | v2 ^ seed
-		case 7:
-			v3 := wyr4(key[3:7])
-			a = (v0 << 32) | v0 ^ wyp1
-			b = (v3 << 32) | v3 ^ seed
-		case 8:
-			v4 := wyr4(key[4:8])
-			a = (v0 << 32) | v4 ^ wyp1
-			b = (v4 << 32) | v0 ^ seed
-		case 9:
-			a = (v0 << 32) | wyr4(key[4:8]) ^ wyp1
-			b = (wyr4(key[5:9]) << 32) | wyr4(key[1:5]) ^ seed
-		case 10:
-			a = (v0 << 32) | wyr4(key[4:8]) ^ wyp1
-			b = (wyr4(key[6:10]) << 32) | wyr4(key[2:6]) ^ seed
-		case 11:
-			a = (v0 << 32) | wyr4(key[4:8]) ^ wyp1
-			b = (wyr4(key[7:11]) << 32) | wyr4(key[3:7]) ^ seed
-		case 12:
-			part := wyr4(key[4:8])
-			a = (v0 << 32) | part ^ wyp1
-			b = (wyr4(key[8:12]) << 32) | part ^ seed
-		case 13:
-			a = (v0 << 32) | wyr4(key[4:8]) ^ wyp1
-			b = (wyr4(key[9:13]) << 32) | wyr4(key[5:9]) ^ seed
-		case 14:
-			a = (v0 << 32) | wyr4(key[4:8]) ^ wyp1
-			b = (wyr4(key[10:14]) << 32) | wyr4(key[6:10]) ^ seed
-		case 15:
-			a = (v0 << 32) | wyr4(key[4:8]) ^ wyp1
-			b = (wyr4(key[11:15]) << 32) | wyr4(key[7:11]) ^ seed
-		case 16:
-			a = (v0 << 32) | wyr4(key[8:12]) ^ wyp1
-			b = (wyr4(key[12:16]) << 32) | wyr4(key[4:8]) ^ seed
-		}
+		p1AVal := wyr4(key[0:4])
+		idxP2A := (n >> 3) << 2 // if n=4..7, idx=0; if n=8..15, idx=4; if n=16, idx=8
+		p2AVal := wyr4(key[idxP2A : idxP2A+4])
+		valA := (p1AVal << 32) | p2AVal
 
+		p1BVal := wyr4(key[n-4 : n])
+		idxP2B := n - 4 - ((n >> 3) << 2) // if n=4..7, idx=n-4; if n=8..15, idx=n-8; if n=16, idx=4
+		p2BVal := wyr4(key[idxP2B : idxP2B+4])
+		valB := (p1BVal << 32) | p2BVal
+
+		// Apply the XORs as in the original Go code's pattern for this branch
+		a = valA ^ wyp1
+		b = valB ^ seed
+
+		// The rest of the original logic for this branch remains the same
 		a, b = wymum(a, b)
 		return wymix(a^wyp0^u, b^wyp1)
+
 	}
 	// For inputs longer than 16 bytes.
 	i := n
